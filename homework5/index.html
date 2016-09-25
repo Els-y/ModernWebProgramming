@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Calc</title>
+    <link rel="stylesheet" href="styles/layout.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calc-body">
+            <div class="calc-screen">
+                <p id="result">0</p>
+                <p id="expression">expression</p>
+            </div>
+            <div class="button-group">
+                <div class="first-line line">
+                    <button type="button" class="number" id="btn-value-7">7</button>
+                    <button type="button" class="number" id="btn-value-8">8</button>
+                    <button type="button" class="number" id="btn-value-9">9</button>
+                    <button type="button" class="operator" id="btn-divide">/</button>
+                </div>
+                <div class="second-line line">
+                    <button type="button" class="number" id="btn-value-4">4</button>
+                    <button type="button" class="number" id="btn-value-5">5</button>
+                    <button type="button" class="number" id="btn-value-6">6</button>
+                    <button type="button" class="operator" id="btn-multiply">*</button>
+                </div>
+                <div class="third-line line">
+                    <button type="button" class="number" id="btn-value-1">1</button>
+                    <button type="button" class="number" id="btn-value-2">2</button>
+                    <button type="button" class="number" id="btn-value-3">3</button>
+                    <button type="button" class="operator" id="btn-minus">-</button>
+                </div>
+                <div class="fourth-line line">
+                    <button type="button" class="number" id="btn-value-0">0</button>
+                    <button type="button" class="number" id="btn-dot">.</button>
+                    <button type="button" class="modify" id="btn-delete">←</button>
+                    <button type="button" class="operator" id="btn-add">+</button>
+                </div>
+                <div class="fifth-line line">
+                    <button type="button" class="operator" id="btn-leftpar">(</button>
+                    <button type="button" class="operator" id="btn-rightpar">)</button>
+                    <button type="button" class="modify" id="btn-clear">CE</button>
+                    <button type="button" id="btn-equal">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/calc.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+body, p {
+    margin: 0;
+    padding: 0;
+}
+body {
+    /*background: url('http://my.ss.sysu.edu.cn/wiki/download/attachments/7045968/background.png?version=1&modificationDate=1268896312000');*/
+    background: url('../images/background.png');
+    font-size: 8pt;
+    font-family: Verdana, Tahoma, sans-serif;
+}
+.banner {
+    /*background: url('http://my.ss.sysu.edu.cn/wiki/download/attachments/7045968/bannerbackground.png?version=1&modificationDate=1268896312000');*/
+    background: url('../images/bannerbackground.png');
+    background-repeat: repeat-x;
+    text-align: center;
+    height: 50px;
+}
+.header h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Tahoma, Verdana, sans-serif;
+    text-align: center;
+}
+.container {
+    width: 800px;
+    border: 4px solid gray;
+    margin: 0 auto;
+}
+.left-central {
+    width: 550px;
+}
+.right-central {
+    width: 250px;
+    float: right;
+}
+.c_header {
+    /*background: url('http://my.ss.sysu.edu.cn/wiki/download/attachments/7045968/rottenbackground.png?version=1&modificationDate=1268896385000');*/
+    background: url('../images/rottenbackground.png');
+    background-repeat: repeat-x;
+    height: 83px;
+}
+.c_header > img {
+    float: left;
+}
+.c_header > div {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    color: white;
+    font-size: 8pt;
+}
+.c_header > div > span {
+    color: red;
+    font-size: 48pt;
+    font-weight: bold;
+}
+.column {
+    width: 47%;
+    margin: 2% 0 2% 2%;
+    float: left;
+}
+.review-wrap {
+    margin-bottom: 3em;
+    overflow: hidden;
+}
+.review {
+    background-color: #E1D697;
+    border: 2px solid gray;
+    padding: 8px;
+    margin-bottom: 1em;
+    overflow: hidden;
+}
+.review > q {
+    font-size: 8pt;
+    font-weight: bold;
+    word-break: keep-all;
+}
+.review > img {
+    padding-right: 5px;
+    float: left;
+}
+.reviewer > img {
+    padding-right: 5px;
+    float: left;
+}
+.reviewer > span {
+    font-style: italic;
+}
+.c_image {
+    line-height: 0;
+}
+.c_info {
+    padding: 10px;
+    font-size: 8pt;
+    font-family: Arial, sans-serif;
+    background-color: #A2B964;
+}
+.c_info dl {
+    margin-top: 3px;
+}
+.c_info dt {
+    font-weight: bold;
+}
+.c_info dd {
+    margin-bottom: 1em;
+}
+.c_footer {
+    background-color: #A2B964;
+    text-align: center;
+    padding: 5px;
+}
+.w3c {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+.clear {
+    clear: both;
+}

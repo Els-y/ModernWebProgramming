@@ -1,0 +1,62 @@
+@font-face {
+    font-family: muli;
+    src: url('font/Muli.ttf');
+}
+body {
+    font-family: muli;
+    font-size: 20px;
+}
+.container {
+    margin-top: 40px;
+}
+.info, .game {
+    text-align: center;
+}
+.info input[type=text] {
+    height: 20px;
+    font-size: 18px;
+}
+.info-line > label {
+    padding-left: 100px;
+}
+.info-line > label > input {
+    width: 40px;
+}
+.console {
+    font-size: 14px;
+    width: 170px;
+    height: 28px;
+    background-color: white;
+    border-radius: 5px;
+    border-style: solid;
+}
+.console:active {
+    background-color: #ADD8E6;
+}
+#result {
+    width: 158px;
+}
+.game {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    width: 480px;
+    margin: 25px auto;
+    padding: 10px;
+    cursor: default;
+}
+.game-line {
+    margin: 3px 0;
+}
+.hole {
+    display: inline-block;
+    width: 46px;
+    height: 46px;
+    margin: 0 3px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+.instruction {
+    width: 840px;
+    margin: 0 auto;
+}

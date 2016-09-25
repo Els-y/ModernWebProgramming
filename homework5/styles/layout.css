@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: 25px;
+    font-family: Verdana, Tahoma, sans-serif;
+}
+.calc-body {
+    background-color: #222A35;
+    margin: 100px auto;
+    padding: 10px;
+    height: 620px;
+    width: 500px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px gray;
+}
+.calc-screen {
+    background-color: white;
+    margin: 12px;
+    height: 130px;
+    border-radius: 5px;
+    overflow: auto;
+}
+#result {
+    font-size: 2.5em;
+    text-align: right;
+}
+#expression {
+    font-size: 1.5em;
+    text-align: right;
+}
+
+.button-group {
+    margin: 40px auto;
+}
+.line {
+    padding-left: 5px;
+    margin: 5px auto 0 auto;
+}
+.button-group button {
+    font-size: 30px;
+    margin: 5px 2px;
+    width: 112px;
+    height: 70px;
+    border-radius: 7px;
+    background-color: #ffc;
+    border: none;
+    transition: all 0.3s;
+}
+.button-group .modify {
+    color: white;
+    background-color: #f66;
+}
+.button-group .operator {
+    background-color: #fdf;
+}
+#btn-equal {
+    color: white;
+    background-color: #61CB91;
+}
+.button-group button:hover {
+    box-shadow: 0 0 20px 3px white;
+}
+.number:active {
+    background-color: #ff9;
+}
+.modify:active {
+    background-color: #f36;
+}
+#btn-equal:active {
+    background-color: #61bb91;
+}
+.operator:active {
+    background-color: #faf;
+}
