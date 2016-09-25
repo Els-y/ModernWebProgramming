@@ -8,6 +8,7 @@ body {
 ul {
     list-style: none;
 }
+/* 整体位置 */
 #at-plus-container {
     position: fixed;
     bottom: 400px;
@@ -20,6 +21,11 @@ ul {
     margin: 0 auto;
     border-radius: 50px;
 }
+/*
+    @ 位置保持：
+        left + width / 2 = 0
+        top + height / 2 = 0
+*/
 .apb {
     position: absolute;
     width: 36px;
@@ -32,6 +38,10 @@ ul {
     background-size: 80% 60%;
     opacity: 0.6;
     transition: all 0.3s ease-in-out 0.37s;
+    -moz-transition: all 0.3s ease-in-out 0.37s;  /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out 0.37s;  /* Safari 和 Chrome */
+    -o-transition: all 0.3s ease-in-out 0.37s;  /* Opera */
+    -ms-transition: all 0.3s ease-in-out 0.37s;  /* IE */
 }
 #button:hover .apb {
     width: 70px;
@@ -42,6 +52,10 @@ ul {
     background-size: 80% 60%;
     background-color: rgba(48, 63, 159, 1);
     transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;  /* Firefox 4 */
+    -webkit-transition: all 0.35s ease-in-out;  /* Safari 和 Chrome */
+    -o-transition: all 0.35s ease-in-out;  /* Opera */
+    -ms-transition: all 0.35s ease-in-out;  /* IE */
     opacity: 1;
 }
 #info-bar {
@@ -53,6 +67,10 @@ ul {
     border-radius: 50%;
     background-color: #7E7E7E;
     transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
     overflow: hidden;
     opacity: 0;
 }
@@ -126,6 +144,10 @@ ul {
     width: 0;
     height: 0;
     transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
 }
 #button:hover #control-ring-container {
     margin-left: -140px;
@@ -140,6 +162,10 @@ ul {
     top: 55px;
     border-radius: 50%;
     transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
     background-color: #6E6E6E;
     opacity: 0;
 }
@@ -185,6 +211,10 @@ ul {
     text-align: center;
     opacity: 0;
     transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
 }
 #button:hover .unread {
     opacity: 1;
