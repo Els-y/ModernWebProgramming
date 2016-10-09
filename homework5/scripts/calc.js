@@ -15,12 +15,11 @@ function prepareButton() {
     var expression = document.getElementById('expression');
     var result = document.getElementById('result')
     var btn_equal = document.getElementById('btn-equal');
-    var oldtext, ans, error, btn;
+    var oldtext, ans, error;
 
     for (var i = 0; i < button_list.length; ++i) {
-        btn = button_list[i];
-        if (btn.getAttribute('id') == 'btn-delete') {
-            btn.onclick = function() {
+        if (button_list[i].getAttribute('id') == 'btn-delete') {
+            button_list[i].onclick = function() {
                 oldtext = expression.innerHTML;
                 if (oldtext == 'expression') return;
                 expression.innerHTML = oldtext.slice(0, oldtext.length - 1);
@@ -28,15 +27,16 @@ function prepareButton() {
                     expression.innerHTML = 'expression';
                 this.blur();
             }
-        } else if (btn.getAttribute('id') == 'btn-clear') {
-            btn.onclick = function() {
+        } else if (button_list[i].getAttribute('id') == 'btn-clear') {
+            button_list[i].onclick = function() {
                 expression.innerHTML = "expression";
-                result.innerHTML = '0';
                 btn_equal.hasclick = false;
+                result.innerHTML = '0';
+                result.style.fontSize = "2.5em";
                 this.blur();
             }
-        } else if (btn.getAttribute('id') == 'btn-equal') {
-            btn.onclick = function() {
+        } else if (button_list[i].getAttribute('id') == 'btn-equal') {
+            button_list[i].onclick = function() {
                 error = false;
                 if (expression.innerHTML == 'expression') return;
                 try {
@@ -47,16 +47,33 @@ function prepareButton() {
                     document.getElementById("btn-clear").onclick();
                 }
                 if (!error) {
-                    if (ans.toString().indexOf('.') != -1)
+                    if (ans.toString().indexOf('.') != -1) {
+                        if (ans.toFixed(4).toString().length >= 21)
+                            result.style.fontSize = "1.2em";
+                        if (ans.toFixed(4).toString().length > 17)
+                            result.style.fontSize = "1.6em";
+                        else if (ans.toFixed(4).toString().length >= 14)
+                            result.style.fontSize = "2em";
+                        else
+                            result.style.fontSize = "2.5em";
                         result.innerHTML = ans.toFixed(4);
-                    else
+                    } else{
+                        if (ans.toString().length >= 21)
+                            result.style.fontSize = "1.2em";
+                        if (ans.toString().length > 17)
+                            result.style.fontSize = "1.6em";
+                        else if (ans.toString().length >= 14)
+                            result.style.fontSize = "2em";
+                        else
+                            result.style.fontSize = "2.5em";
                         result.innerHTML = ans;
+                        }
                     this.hasclick = true;
                 }
                 this.blur();
             }
-        } else if (btn.getAttribute('class') == 'number') {
-            btn.onclick = function() {
+        } else if (button_list[i].getAttribute('id').indexOf('value') != -1) {
+            button_list[i].onclick = function() {
                 oldtext = expression.innerHTML;
                 if (oldtext == 'expression') {
                     expression.innerHTML = this.innerHTML;
@@ -69,7 +86,7 @@ function prepareButton() {
                 this.blur();
             }
         } else {
-            btn.onclick = function() {
+            button_list[i].onclick = function() {
                 oldtext = expression.innerHTML;
                 if (oldtext == 'expression') {
                     expression.innerHTML = this.innerHTML;
@@ -87,7 +104,9 @@ function prepareButton() {
 
 document.onkeydown = function(event) {
     var e = event || window.event;
-    if (e && e.keyCode >= 96 && e.keyCode <= 105)
+    if (e && e.keyCode == 56 && e.shiftKey)
+        document.getElementById('btn-multiply').click();
+    else if (e && e.keyCode >= 96 && e.keyCode <= 105)
         document.getElementById('btn-value-' + (e.keyCode - 96)).click();
     else if (e && e.keyCode >= 48 && e.keyCode <= 57)
         document.getElementById('btn-value-'+(e.keyCode - 48)).click();
@@ -105,6 +124,12 @@ document.onkeydown = function(event) {
         document.getElementById('btn-equal').click();
     else if (e && e.keyCode == 8)
         document.getElementById('btn-delete').click();
+    else if (e && e.keyCode == 187 && e.shiftKey)
+        document.getElementById('btn-add').click();
+    else if (e && e.keyCode == 187)
+        document.getElementById('btn-equal').click();
+    else if (e && e.keyCode == 189)
+        document.getElementById('btn-minus').click();
 }
 
 addLoadEvent(prepareButton);
