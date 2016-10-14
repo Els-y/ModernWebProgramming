@@ -43,9 +43,11 @@ body {
     margin: 25px auto;
     padding: 10px;
     cursor: default;
+    overflow: hidden;
 }
 .game-line {
-    margin: 3px 0;
+    float: left;
+    width: 60px;
 }
 .hole {
     display: inline-block;
@@ -54,9 +56,12 @@ body {
     margin: 0 3px;
     border: 1px solid gray;
     border-radius: 50%;
-    opacity: 0.5;
 }
 .instruction {
     width: 840px;
     margin: 0 auto;
+}
+.mole {
+    background: url('../images/mole.png') no-repeat center;
+    background-size: contain;
 }
