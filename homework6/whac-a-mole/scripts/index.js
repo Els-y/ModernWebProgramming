@@ -64,7 +64,8 @@ function startGame() {
             hole_list[i].onclick = function() {
                 mole_id = parseInt(Math.random() * hole_list.length);
                 if (!hasClass(this, "mole")) {
-                    scoreText.value = parseInt(scoreText.value) - 1;
+                    if (parseInt(scoreText.value) != 0)
+                        scoreText.value = parseInt(scoreText.value) - 1;
                 } else {
                     scoreText.value = parseInt(scoreText.value) + 1;
                     removeClass(this, "mole");
