@@ -29,15 +29,6 @@ function removeClass(elem, classname) {
     }
 }
 
-function prepareHole(callback) {
-    var hole_list = document.getElementsByClassName('hole');
-
-    for (var i = 0; i < hole_list.length; ++i)
-        hole_list[i].id = "hole_" + (i + 1);
-
-    if (typeof callback == 'function') callback();
-}
-
 function prepareButton() {
     var btn = document.getElementsByClassName("console")[0];
     btn.onclick = startGame();
@@ -71,13 +62,13 @@ function startGame() {
         for (var i = 0; i < hole_list.length; ++i) {
             removeClass(hole_list[i], "mole");
             hole_list[i].onclick = function() {
-                mole_id = parseInt(Math.random() * hole_list.length + 1);
+                mole_id = parseInt(Math.random() * hole_list.length);
                 if (!hasClass(this, "mole")) {
                     scoreText.value = parseInt(scoreText.value) - 1;
                 } else {
                     scoreText.value = parseInt(scoreText.value) + 1;
                     removeClass(this, "mole");
-                    addClass(document.getElementById("hole_" + mole_id), "mole");
+                    addClass(hole_list[mole_id], "mole");
                 }
             }
         }
@@ -98,9 +89,8 @@ function startGame() {
             result.value = "Playing";
             timeText.value = 31;
 
-            mole_id = parseInt(Math.random() * 60 + 1);
-            var hole = document.getElementById("hole_" + mole_id);
-            addClass(hole, "mole");
+            mole_id = parseInt(Math.random() * hole_list.length);
+            addClass(hole_list[mole_id], "mole");
 
             start = true;
             gameTiming();
@@ -112,4 +102,4 @@ function startGame() {
     };
 }
 
-addEventLoad(prepareHole(prepareButton));
+addEventLoad(prepareButton);
