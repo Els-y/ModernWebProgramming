@@ -35,9 +35,9 @@ function prepareButton() {
 }
 
 function startGame() {
-    var start = false;
-    var timing;
-    var mole_id;
+    var start = false;  // 标志游戏是否开始
+    var timing;  // 计时器
+    var mole_id;  // 地鼠出现的位置
 
     var timeText = document.getElementById('time');
     var scoreText = document.getElementById('score');
@@ -53,31 +53,27 @@ function startGame() {
         } else {
             start = false;
             result.value = "Game Over";
-            unbindHole();
             alert("Gameover!\nScore: " + scoreText.value);
         }
     }
 
-    var bindHole = function () {
-        for (var i = 0; i < hole_list.length; ++i) {
-            removeClass(hole_list[i], "mole");
-            hole_list[i].onclick = function() {
-                mole_id = parseInt(Math.random() * hole_list.length);
-                if (!hasClass(this, "mole")) {
-                    if (parseInt(scoreText.value) != 0)
-                        scoreText.value = parseInt(scoreText.value) - 1;
-                } else {
-                    scoreText.value = parseInt(scoreText.value) + 1;
-                    removeClass(this, "mole");
-                    addClass(hole_list[mole_id], "mole");
-                }
+    // 给每个hole绑定事件
+    // 当游戏开始时即start == true，
+    // 点击有地鼠的hole时，分数加1；
+    // 否则，分数减1，并且分数不能为负数。
+    for (var i = 0; i < hole_list.length; ++i) {
+        hole_list[i].onclick = function() {
+            if (!start) return;
+            mole_id = parseInt(Math.random() * hole_list.length);
+            if (!hasClass(this, "mole")) {
+                if (parseInt(scoreText.value) != 0)
+                    scoreText.value = parseInt(scoreText.value) - 1;
+            } else {
+                scoreText.value = parseInt(scoreText.value) + 1;
+                removeClass(this, "mole");
+                addClass(hole_list[mole_id], "mole");
             }
         }
-    }
-
-    var unbindHole = function () {
-        for (var i = 0; i < hole_list.length; ++i)
-            hole_list[i].onclick = function() {}
     }
 
     return function () {
@@ -85,7 +81,8 @@ function startGame() {
             clearTimeout(timing);
 
         if (start == false) {
-            bindHole();
+            for (var i = 0; i < hole_list.length; ++i)
+                removeClass(hole_list[i], "mole");
             scoreText.value = 0;
             result.value = "Playing";
             timeText.value = 31;
@@ -97,7 +94,6 @@ function startGame() {
             gameTiming();
         } else {
             result.value = "Stop";
-            unbindHole();
             start = false;
         }
     };
