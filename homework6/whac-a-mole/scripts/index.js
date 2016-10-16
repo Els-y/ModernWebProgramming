@@ -29,8 +29,23 @@ function removeClass(elem, classname) {
     }
 }
 
-function prepareButton() {
+// 生成holes，给控制按钮绑定事件
+function prepareGame() {
+    var game = document.getElementsByClassName("game")[0];
+    var game_line, hole;
     var btn = document.getElementsByClassName("console")[0];
+
+    for (var i = 0; i < 8; ++i) {
+        game_line = document.createElement("div");
+        game_line.className = "game-line";
+        for (var j = 0; j < 8; ++j) {
+            hole = document.createElement("div");
+            hole.className = "hole";
+            game_line.appendChild(hole);
+        }
+        game.appendChild(game_line);
+    }
+
     btn.onclick = startGame();
 }
 
@@ -81,17 +96,24 @@ function startGame() {
             clearTimeout(timing);
 
         if (start == false) {
-            for (var i = 0; i < hole_list.length; ++i)
-                removeClass(hole_list[i], "mole");
-            scoreText.value = 0;
-            result.value = "Playing";
-            timeText.value = 31;
+            if (parseInt(timeText.value) == 0) {  // 已经结束，重置
+                for (var i = 0; i < hole_list.length; ++i)
+                    removeClass(hole_list[i], "mole");
+                scoreText.value = 0;
+                result.value = "Playing";
+                timeText.value = 31;
 
-            mole_id = parseInt(Math.random() * hole_list.length);
-            addClass(hole_list[mole_id], "mole");
+                mole_id = parseInt(Math.random() * hole_list.length);
+                addClass(hole_list[mole_id], "mole");
 
-            start = true;
-            gameTiming();
+                start = true;
+                gameTiming();
+            } else {  // 暂停时，继续
+                timeText.value = parseInt(timeText.value) + 1;
+                result.value = "Playing";
+                start = true;
+                gameTiming();
+            }
         } else {
             result.value = "Stop";
             start = false;
@@ -99,4 +121,4 @@ function startGame() {
     };
 }
 
-addEventLoad(prepareButton);
+addEventLoad(prepareGame);
