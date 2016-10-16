@@ -24,7 +24,7 @@ body {
 }
 .console {
     font-size: 14px;
-    width: 170px;
+    width: 175px;
     height: 28px;
     background-color: white;
     border-radius: 5px;
@@ -34,7 +34,7 @@ body {
     background-color: #ADD8E6;
 }
 #result {
-    width: 158px;
+    width: 163px;
 }
 .game {
     border-top: 1px solid lightgray;
