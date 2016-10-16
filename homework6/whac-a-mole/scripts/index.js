@@ -10,155 +10,93 @@ function addEventLoad(func) {
     }
 }
 
+function hasClass(elem, classname) {
+    return elem.className.indexOf(classname) != -1;
+}
+
 function addClass(elem, classname) {
-    var oldclass = elem.getAttribute("class");
-    if (oldclass == null) {
-        elem.setAttribute("class", classname);
-    } else if (oldclass.indexOf(classname) == -1) {
-        elem.setAttribute("class", oldclass + " " + classname);
+    if (elem.className == "") {
+        elem.className = classname;
+    } else if (!hasClass(elem, classname)) {
+        elem.className = elem.className + " " + classname;
     }
 }
 
-function prepareHole(callback) {
-    var hole_list = document.getElementsByClassName('hole');
-    var line_list = document.getElementsByClassName("game-line");
-    var line_count = hole_list.length / line_list.length;
-    var layout_num = 1;
-    var layout_now = 1;
-    var count = 0;
-
-    for (var i = 0; i < hole_list.length; ++i) {
-        hole_list[i].id = "hole_" + (i + 1);
-        addClass(hole_list[i], "layout_" + layout_now);
-        hole_list[i].style.backgroundColor = "#cdcdcd";
-
-        count++;
-        layout_now++;
-        if (count == line_count) {
-            count = 0;
-            layout_num++;
-            layout_now = layout_num;
-        }
+function removeClass(elem, classname) {
+    if (hasClass(elem, classname)) {
+        var reg = new RegExp('(\\s*)' + classname + '(\\s*)');
+        elem.className = elem.className.replace(reg, ' ');
     }
-
-    if (typeof callback == 'function') callback();
 }
 
 function prepareButton() {
     var btn = document.getElementsByClassName("console")[0];
-    btn.onclick = consoleEvent;
-    btn.start = false;
-}
-
-function consoleEvent() {
-    var hole_list = document.getElementsByClassName("layout_1");
-    this.onclick = startGame;
-    this.disabled = true;
-    diagonalChange(hole_list, 1, 15, consoleCallback) ;
-}
-
-function consoleCallback() {
-    var btn = document.getElementsByClassName('console')[0];
-    btn.disabled = false;
-    btn.click();
+    btn.onclick = startGame();
 }
 
 function startGame() {
-    if (this.timing)
-        clearTimeout(this.timing);
+    var start = false;  // 标志游戏是否开始
+    var timing;  // 计时器
+    var mole_id;  // 地鼠出现的位置
 
-    if (this.start == false) {
-        clearGameLayout();
-        document.getElementById('score').value = 0;
-        document.getElementById('result').value = "Playing";
-        document.getElementById('time').value = 31;
-
-        var randId = parseInt(Math.random() * 60 + 1);
-        var hole = document.getElementById("hole_" + randId);
-        setMole(hole);
-
-        this.start = true;
-        gameTiming(this, 1000);
-    } else {
-        document.getElementById('result').value = "Stop";
-        unbindHole();
-        this.start = false;
-    }
-}
-
-function setMole(hole) {
-    hole.style.background = 'url(images/mole.png) no-repeat center';
-    hole.style.backgroundSize = "contain";
-}
-
-function clearGameLayout() {
-    var score = document.getElementById('score');
-    var hole_list = document.getElementsByClassName('hole');
-
-    for (var i = 0; i < hole_list.length; ++i) {
-        hole_list[i].style.background = null;
-
-        hole_list[i].onclick = function() {
-            var randId = parseInt(Math.random() * hole_list.length + 1);
-            if (this.style.background == "") {
-                score.value = parseInt(score.value) - 1;
-            } else {
-                score.value = parseInt(score.value) + 1;
-                this.style.background = "";
-                setMole(document.getElementById("hole_" + randId));
-            }
-        }
-    }
-}
-
-function unbindHole() {
-    var hole_list = document.getElementsByClassName('hole');
-
-    for (var i = 0; i < hole_list.length; ++i)
-        hole_list[i].onclick = function() {}
-}
-
-function gameTiming(console, interval) {
     var timeText = document.getElementById('time');
     var scoreText = document.getElementById('score');
     var result = document.getElementById('result');
+    var hole_list = document.getElementsByClassName('hole');
 
-    timeText.value = timeText.value - 1;
+    var gameTiming = function () {
+        var time = parseInt(timeText.value);
+        timeText.value = time - 1;
 
-    if (timeText.value != 0) {
-        console.timing = setTimeout(function() { gameTiming(console, interval); }, parseInt(interval));
-    } else {
-        unbindHole();
-        result.value = "Game Over";
-        console.start = false;
-        alert("Gameover!\nScore: " + scoreText.value);
-    }
-}
-
-function diagonalChange(firstlayout, layout_num, max_layout, callback) {
-    var hole, hole_list, color, red, green, blue;
-
-    hole = firstlayout[0];
-    color = hole.style.backgroundColor.split('(')[1].split(')')[0].split(',');
-    red = parseInt(color[0]);
-    green = parseInt(color[1]);
-    blue = parseInt(color[2])
-
-    if (red != 255) {
-        for (var i = 0; i < firstlayout.length; ++i) {
-            firstlayout[i].style.backgroundColor = 'rgb('+(red+5)+', '+(green+5)+', '+(blue+5)+')';
+        if (time - 1 != 0) {
+            timing = setTimeout(gameTiming, 1000);
+        } else {
+            start = false;
+            result.value = "Game Over";
+            alert("Gameover!\nScore: " + scoreText.value);
         }
-        this.movement = setTimeout(function() {diagonalChange(firstlayout, layout_num, max_layout, callback);}, 20)
-    } else {
-        for (var i = 0; i < firstlayout.length; ++i)
-            firstlayout[i].style.opacity = 1;
-        if (layout_num == max_layout && typeof callback == 'function')
-            callback();
     }
-    if (red == 230 && layout_num < max_layout) {
-        hole_list = document.getElementsByClassName("layout_" + (layout_num + 1));
-        diagonalChange(hole_list, layout_num + 1, max_layout, callback);
+
+    // 给每个hole绑定事件
+    // 当游戏开始时即start == true，
+    // 点击有地鼠的hole时，分数加1；
+    // 否则，分数减1，并且分数不能为负数。
+    for (var i = 0; i < hole_list.length; ++i) {
+        hole_list[i].onclick = function() {
+            if (!start) return;
+            mole_id = parseInt(Math.random() * hole_list.length);
+            if (!hasClass(this, "mole")) {
+                if (parseInt(scoreText.value) != 0)
+                    scoreText.value = parseInt(scoreText.value) - 1;
+            } else {
+                scoreText.value = parseInt(scoreText.value) + 1;
+                removeClass(this, "mole");
+                addClass(hole_list[mole_id], "mole");
+            }
+        }
     }
+
+    return function () {
+        if (timing)
+            clearTimeout(timing);
+
+        if (start == false) {
+            for (var i = 0; i < hole_list.length; ++i)
+                removeClass(hole_list[i], "mole");
+            scoreText.value = 0;
+            result.value = "Playing";
+            timeText.value = 31;
+
+            mole_id = parseInt(Math.random() * hole_list.length);
+            addClass(hole_list[mole_id], "mole");
+
+            start = true;
+            gameTiming();
+        } else {
+            result.value = "Stop";
+            start = false;
+        }
+    };
 }
 
-addEventLoad(prepareHole(prepareButton));
+addEventLoad(prepareButton);
