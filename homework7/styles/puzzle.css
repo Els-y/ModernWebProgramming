@@ -1,0 +1,222 @@
+@font-face {
+    font-family: centuryGothic;
+    src: url('font/century-gothic.ttf');
+}
+body, p {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-image: url('../images/gz.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: "Century Gothic", centuryGothic, sans-serif;
+}
+.container {
+    width: 500px;
+    padding: 10px 10px 40px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+}
+.hidden {
+    opacity: 0;
+}
+.name {
+    text-align: center;
+    transition: all 0.3s;
+}
+.info {
+    position: relative;
+    height: 60px;
+}
+.input-group {
+    position: absolute;
+    color: white;
+    font-size: 17px;
+    padding: 0;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.input-group-addon {
+    padding: 5px 8px;
+    background-color: rgb(64, 134, 246);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    line-height: 1em;
+}
+.time-screen, .step-screen {
+    position: relative;
+    font-size: 15px;
+    text-align: center;
+    line-height: 1em;
+    left: -5px;
+    top: -2px;
+    border: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    height: 30px;
+    width: 60px;
+}
+.time {
+    margin-left: 22%;
+}
+.step {
+    margin-left: 55%;
+}
+.footer {
+    position: relative;
+    height: 85px;
+    overflow: hidden;
+}
+.btn {
+    position: absolute;
+    display: block;
+    width: 110px;
+    height: 40px;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.2s;
+    margin-top: 40px;
+    cursor: pointer;
+}
+.btn:hover {
+    transform: scale(1.1, 1.1);
+}
+.btn-start:active {
+    background-color: rgb(80, 160, 255);
+}
+.btn-start {
+    margin-left: 10%;
+    background-color: rgb(64, 134, 246);
+}
+.btn-clear {
+   margin-left: 39%;
+    background-color: rgb(220, 50, 30);
+}
+.btn-clear:active {
+    background-color: rgb(235, 80, 50);
+}
+.btn-img {
+   margin-left: 68%;
+    background-color: rgb(50, 195, 30);
+}
+.btn-img:active {
+    background-color: rgb(70, 215, 50);
+}
+.btn-disabled {
+    background-color: rgb(180, 180, 180);
+}
+.btn-disabled:hover {
+    transform: none;
+}
+.btn-disabled:active {
+    background-color: rgb(180, 180, 180);
+}
+.puzzle {
+    clear: left;
+    position: relative;
+    width: 363px;
+    height: 363px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+.img-0 {
+    background-image: url('../images/qianxun.png');
+}
+.img-1 {
+    background-image: url('../images/tiankong.png');
+}
+.img-2 {
+    background-image: url('../images/monv.png');
+}
+.block {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.block:hover {
+    transform: scale(1.05, 1.05);
+}
+.col-0 {
+    left: 0;
+}
+.col-1 {
+    left: 91px;
+}
+.col-2 {
+    left: 182px;
+}
+.col-3 {
+    left: 273px;
+}
+.row-0 {
+    top: 0;
+}
+.row-1 {
+    top: 91px;
+}
+.row-2 {
+    top: 182px;
+}
+.row-3 {
+    top: 273px;
+}
+.block-0 {
+    background-position: 0 0;
+}
+.block-1 {
+    background-position: -90px 0;
+}
+.block-2 {
+    background-position: -180px 0;
+}
+.block-3 {
+    background-position: -270px 0;
+}
+.block-4 {
+    background-position: 0 -90px;
+}
+.block-5 {
+    background-position: -90px -90px;
+}
+.block-6 {
+    background-position: -180px -90px;
+}
+.block-7 {
+    background-position: -270px -90px;
+}
+.block-8 {
+    background-position: 0 -180px;
+}
+.block-9 {
+    background-position: -90px -180px;
+}
+.block-10 {
+    background-position: -180px -180px;
+}
+.block-11 {
+    background-position: -270px -180px;
+}
+.block-12 {
+    background-position: 0 -270px;
+}
+.block-13 {
+    background-position: -90px -270px;
+}
+.block-14 {
+    background-position: -180px -270px;
+}

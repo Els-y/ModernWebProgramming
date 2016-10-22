@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Puzzle</title>
+    <link rel="stylesheet" href="styles/puzzle.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="name">Puzzle Game</h1>
+            <div class="info">
+                <div class="input-group time">
+                    <span class="input-group-addon">Time: </span>
+                    <input type="text" class="time-screen" readonly="readonly" value="0">
+                </div>
+                <div class="input-group step">
+                    <span class="input-group-addon">Step: </span>
+                    <input type="text" class="step-screen" readonly="readonly" value="0">
+                </div>                
+            </div>
+        </div>
+        <div class="puzzle"></div>
+        <div class="footer">
+            <button class="btn btn-start">Start</button>
+            <button class="btn btn-clear">Clear</button>
+            <button class="btn btn-img">Image</button>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <script src="scripts/puzzle.js"></script>
+</body>
+</html>
