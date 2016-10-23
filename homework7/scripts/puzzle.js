@@ -46,6 +46,7 @@ function removeClass(elem, classname) {
     }
 }
 
+// 初始化全局变量
 function init_global() {
     globalVar.start = false;
     globalVar.level = 4;
@@ -59,6 +60,7 @@ function init_global() {
     globalVar.time_screen = document.getElementsByClassName("time-screen")[0];
 }
 
+// 生成拼图块儿
 function prepareBlock() {
     var block, size;
     var puzzle = document.getElementsByClassName("puzzle")[0];
@@ -80,19 +82,24 @@ function prepareBlock() {
     puzzle.appendChild(fragment);
 }
 
+// 每个拼图块儿的点击事件
 function blockEvent() {
     var name = document.getElementsByClassName("name")[0];
 
     if (globalVar.start) {
-        var pos = getPostion(this);
-        if (adjacentEmpty(pos)) {
+        var pos = getPostion(this);  // 获得当前拼图块儿的位置
+        if (adjacentEmpty(pos)) {  // 判断是否与空块儿相邻，相邻则移动；否则跳过
             moveTo(this, globalVar.empty_pos);
             
+            // 更新空块儿的位置
             globalVar.empty_pos.row = pos.row;
             globalVar.empty_pos.col = pos.col;
+
+            // 记录步数
             globalVar.step = globalVar.step + 1;
             globalVar.step_screen.value = globalVar.step;
 
+            // 判断是否完成，完成则停止
             if (ifcomplete()) {
                 globalVar.start = false;
                 globalVar.start_btn.innerHTML = "Start";
@@ -103,12 +110,14 @@ function blockEvent() {
                 removeClass(globalVar.start_btn, "btn-clear");
                 addClass(globalVar.start_btn, "btn-start");
 
+                // 显示完成拼图
                 fadeToggle(name, "Congratulations");
             }
         }
     }
 }
 
+// 获取拼图块儿的位置
 function getPostion(elem) {
     var pos = {};
     var e_classname = elem.className;
@@ -121,6 +130,7 @@ function getPostion(elem) {
     return pos;
 }
 
+// 判断是否与空块儿相邻，传进来的是一个对象，里面含有row，col
 function adjacentEmpty(position) {
     if (position.row + 1 == globalVar.empty_pos.row && position.col == globalVar.empty_pos.col)
         return true;
@@ -134,6 +144,7 @@ function adjacentEmpty(position) {
         return false;
 }
 
+// 移动拼图块儿 elem 到 position
 function moveTo(elem, position) {
     var pos = getPostion(elem);
 
@@ -144,6 +155,7 @@ function moveTo(elem, position) {
     addClass(elem, "level-" + globalVar.level + "-col-" + position.col);
 }
 
+// 判断是否完成拼图
 function ifcomplete() {
     var blocks_length = globalVar.blocks.length;
     var reg_block = /block-(\d+)/;
@@ -152,6 +164,7 @@ function ifcomplete() {
     if (globalVar.empty_pos.row !== globalVar.level - 1 || globalVar.empty_pos.col !== globalVar.level - 1)
         return false;
 
+    //判断所有拼图块儿的序号是否与位置相对应，有不对应的则表示未完成
     for (var i = 0; i < blocks_length; ++i) {
         pos = getPostion(globalVar.blocks[i]);
         block_num = parseInt(reg_block.exec(globalVar.blocks[i].className)[1]);
@@ -162,6 +175,8 @@ function ifcomplete() {
     return true;
 }
 
+// 用来切换最上面的文字提示，value对应更新的文字，
+// fadeIn用来在该函数内部调用自身的时候判断是隐藏还是显示
 function fadeToggle(elem, value, fadeIn) {
     fadeIn = fadeIn || false;
 
@@ -180,6 +195,7 @@ function prepareButton() {
     globalVar.img_btn.onclick = imgEvent;
 }
 
+// level按钮的点击事件
 function levelEvent() {
     if (globalVar.start) return;
 
@@ -194,6 +210,7 @@ function levelEvent() {
     prepareBlock();
 }
 
+// start按钮的点击事件，包括clear的事件
 function startEvent() {
     if (globalVar.start) {
         clearHandler();
@@ -208,6 +225,7 @@ function startEvent() {
     }
 }
 
+// start按钮用来开始游戏的事件处理
 function startHandler() {
     var empty_pos;
     var name = document.getElementsByClassName("name")[0];
@@ -229,6 +247,7 @@ function startHandler() {
     fadeToggle(name, "Playing");
 }
 
+// start按钮用来还原的事件处理
 function clearHandler() {
     var block_num, block_classname;
     var blocks_length = globalVar.blocks.length;
@@ -257,6 +276,7 @@ function clearHandler() {
     fadeToggle(name, "Puzzle Game");
 }
 
+// 随机生成拼图
 function randomBlocks() {
     var block_classname, size;
     var order = [];
@@ -265,9 +285,11 @@ function randomBlocks() {
     var reg_col = new RegExp("level-" + globalVar.level + "-col-(\\d+)");
     size = globalVar.level * globalVar.level;
 
+    // 将所有可能的位置存到数组中
     for (var i = 0; i < size; ++i)
         order[i] = {row: Math.floor(i / globalVar.level), col: i % globalVar.level};
     
+    // 用sort来随机排序数组，若不可解，继续随机生成，直到可解为止
     do {
         order.sort(function () {
             return 0.5 - Math.random();
@@ -285,6 +307,7 @@ function randomBlocks() {
     return order[size - 1];
 }
 
+// 逆序数判断order顺序是否可解
 function solvable(order) {
     var order_length = order.length;
     var map = [], less = [];
@@ -312,12 +335,14 @@ function solvable(order) {
     return sum % 2 == 0;
 }
 
+// 游戏计时器
 function gameTiming() {
     globalVar.time += 0.1;
     globalVar.time_screen.value = globalVar.time.toFixed(1);
     globalVar.timing = setTimeout(gameTiming, 100);
 }
 
+// image按钮的点击事件
 function imgEvent() {
     if (globalVar.start) return;
 
