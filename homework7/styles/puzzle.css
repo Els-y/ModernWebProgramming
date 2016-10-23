@@ -68,6 +68,7 @@ body {
 .step {
     margin-left: 55%;
 }
+
 .footer {
     position: relative;
     height: 85px;
@@ -91,19 +92,26 @@ body {
 .btn:hover {
     transform: scale(1.1, 1.1);
 }
+.btn-level {
+   margin-left: 10%;
+    background-color: rgb(220, 50, 30);
+}
+.btn-level:active {
+    background-color: rgb(235, 80, 50);
+}
+.btn-start {
+    margin-left: 39%;
+    background-color: rgb(64, 134, 246);
+}
 .btn-start:active {
     background-color: rgb(80, 160, 255);
 }
-.btn-start {
-    margin-left: 10%;
-    background-color: rgb(64, 134, 246);
-}
 .btn-clear {
-   margin-left: 39%;
-    background-color: rgb(220, 50, 30);
+    margin-left: 39%;
+    background-color: rgb(240, 190, 10);
 }
 .btn-clear:active {
-    background-color: rgb(235, 80, 50);
+    background-color: rgb(220, 180, 20)
 }
 .btn-img {
    margin-left: 68%;
@@ -121,14 +129,15 @@ body {
 .btn-disabled:active {
     background-color: rgb(180, 180, 180);
 }
+
 .puzzle {
-    clear: left;
     position: relative;
     width: 363px;
     height: 363px;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid lightgray;
+    background-color: rgba(220, 220, 220, 0.6); 
     border-radius: 5px;
 }
 .img-0 {
@@ -140,10 +149,9 @@ body {
 .img-2 {
     background-image: url('../images/monv.png');
 }
+
 .block {
     position: absolute;
-    width: 90px;
-    height: 90px;
     border-radius: 5px;
     transition: all 0.2s;
     cursor: pointer;
@@ -151,72 +159,232 @@ body {
 .block:hover {
     transform: scale(1.05, 1.05);
 }
-.col-0 {
-    left: 0;
+
+.level-3 {
+    width: 120px;
+    height: 120px;
 }
-.col-1 {
+.level-4 {
+    width: 90px;
+    height: 90px;
+}
+.level-5 {
+    width: 72px;
+    height: 72px;
+}
+
+.level-3-col-0 {
+    left: 0px;
+}
+.level-3-col-1 {
+    left: 122px;
+}
+.level-3-col-2 {
+    left: 244px;
+}
+.level-3-row-0 {
+    top: 0px;
+}
+.level-3-row-1 {
+    top: 122px;
+}
+.level-3-row-2 {
+    top: 244px;
+}
+.level-3-block-0 {
+    background-position: 0px 0px;
+}
+.level-3-block-1 {
+    background-position: -120px 0px;
+}
+.level-3-block-2 {
+    background-position: -240px 0px;
+}
+.level-3-block-3 {
+    background-position: 0px -120px;
+}
+.level-3-block-4 {
+    background-position: -120px -120px;
+}
+.level-3-block-5 {
+    background-position: -240px -120px;
+}
+.level-3-block-6 {
+    background-position: 0px -240px;
+}
+.level-3-block-7 {
+    background-position: -120px -240px;
+}
+
+.level-4-col-0 {
+    left: 0px;
+}
+.level-4-col-1 {
     left: 91px;
 }
-.col-2 {
+.level-4-col-2 {
     left: 182px;
 }
-.col-3 {
+.level-4-col-3 {
     left: 273px;
 }
-.row-0 {
-    top: 0;
+.level-4-row-0 {
+    top: 0px;
 }
-.row-1 {
+.level-4-row-1 {
     top: 91px;
 }
-.row-2 {
+.level-4-row-2 {
     top: 182px;
 }
-.row-3 {
+.level-4-row-3 {
     top: 273px;
 }
-.block-0 {
-    background-position: 0 0;
+.level-4-block-0 {
+    background-position: 0px 0px;
 }
-.block-1 {
-    background-position: -90px 0;
+.level-4-block-1 {
+    background-position: -90px 0px;
 }
-.block-2 {
-    background-position: -180px 0;
+.level-4-block-2 {
+    background-position: -180px 0px;
 }
-.block-3 {
-    background-position: -270px 0;
+.level-4-block-3 {
+    background-position: -270px 0px;
 }
-.block-4 {
-    background-position: 0 -90px;
+.level-4-block-4 {
+    background-position: 0px -90px;
 }
-.block-5 {
+.level-4-block-5 {
     background-position: -90px -90px;
 }
-.block-6 {
+.level-4-block-6 {
     background-position: -180px -90px;
 }
-.block-7 {
+.level-4-block-7 {
     background-position: -270px -90px;
 }
-.block-8 {
-    background-position: 0 -180px;
+.level-4-block-8 {
+    background-position: 0px -180px;
 }
-.block-9 {
+.level-4-block-9 {
     background-position: -90px -180px;
 }
-.block-10 {
+.level-4-block-10 {
     background-position: -180px -180px;
 }
-.block-11 {
+.level-4-block-11 {
     background-position: -270px -180px;
 }
-.block-12 {
-    background-position: 0 -270px;
+.level-4-block-12 {
+    background-position: 0px -270px;
 }
-.block-13 {
+.level-4-block-13 {
     background-position: -90px -270px;
 }
-.block-14 {
+.level-4-block-14 {
     background-position: -180px -270px;
+}
+
+.level-5-col-0 {
+    left: 0px;
+}
+.level-5-col-1 {
+    left: 73px;
+}
+.level-5-col-2 {
+    left: 146px;
+}
+.level-5-col-3 {
+    left: 219px;
+}
+.level-5-col-4 {
+    left: 292px;
+}
+.level-5-row-0 {
+    top: 0px;
+}
+.level-5-row-1 {
+    top: 73px;
+}
+.level-5-row-2 {
+    top: 146px;
+}
+.level-5-row-3 {
+    top: 219px;
+}
+.level-5-row-4 {
+    top: 292px;
+}
+.level-5-block-0 {
+    background-position: 0px 0px;
+}
+.level-5-block-1 {
+    background-position: -72px 0px;
+}
+.level-5-block-2 {
+    background-position: -144px 0px;
+}
+.level-5-block-3 {
+    background-position: -216px 0px;
+}
+.level-5-block-4 {
+    background-position: -288px 0px;
+}
+.level-5-block-5 {
+    background-position: 0px -72px;
+}
+.level-5-block-6 {
+    background-position: -72px -72px;
+}
+.level-5-block-7 {
+    background-position: -144px -72px;
+}
+.level-5-block-8 {
+    background-position: -216px -72px;
+}
+.level-5-block-9 {
+    background-position: -288px -72px;
+}
+.level-5-block-10 {
+    background-position: 0px -144px;
+}
+.level-5-block-11 {
+    background-position: -72px -144px;
+}
+.level-5-block-12 {
+    background-position: -144px -144px;
+}
+.level-5-block-13 {
+    background-position: -216px -144px;
+}
+.level-5-block-14 {
+    background-position: -288px -144px;
+}
+.level-5-block-15 {
+    background-position: 0px -216px;
+}
+.level-5-block-16 {
+    background-position: -72px -216px;
+}
+.level-5-block-17 {
+    background-position: -144px -216px;
+}
+.level-5-block-18 {
+    background-position: -216px -216px;
+}
+.level-5-block-19 {
+    background-position: -288px -216px;
+}
+.level-5-block-20 {
+    background-position: 0px -288px;
+}
+.level-5-block-21 {
+    background-position: -72px -288px;
+}
+.level-5-block-22 {
+    background-position: -144px -288px;
+}
+.level-5-block-23 {
+    background-position: -216px -288px;
 }
