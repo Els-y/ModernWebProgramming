@@ -81,13 +81,12 @@ function prepareBlock() {
 }
 
 function blockEvent() {
-    var empty_pos = globalVar.empty_pos;
     var name = document.getElementsByClassName("name")[0];
 
     if (globalVar.start) {
         var pos = getPostion(this);
         if (adjacentEmpty(pos)) {
-            moveTo(this, empty_pos);
+            moveTo(this, globalVar.empty_pos);
             
             globalVar.empty_pos.row = pos.row;
             globalVar.empty_pos.col = pos.col;
@@ -96,12 +95,14 @@ function blockEvent() {
 
             if (ifcomplete()) {
                 globalVar.start = false;
+                globalVar.start_btn.innerHTML = "Start";
                 clearTimeout(globalVar.timing);
+                
                 removeClass(globalVar.level_btn, "btn-disabled");
                 removeClass(globalVar.img_btn, "btn-disabled");
-                globalVar.start_btn.innerHTML = "Start";
                 removeClass(globalVar.start_btn, "btn-clear");
                 addClass(globalVar.start_btn, "btn-start");
+
                 fadeToggle(name, "Congratulations");
             }
         }
@@ -135,6 +136,7 @@ function adjacentEmpty(position) {
 
 function moveTo(elem, position) {
     var pos = getPostion(elem);
+
     removeClass(elem, "level-" + globalVar.level + "-row-" + pos.row);
     removeClass(elem, "level-" + globalVar.level + "-col-" + pos.col);
 
@@ -248,6 +250,7 @@ function clearHandler() {
     globalVar.time = 0;
     globalVar.step_screen.value = 0;
     globalVar.time_screen.value = globalVar.time.toFixed(1);
+
     clearTimeout(globalVar.timing);
     removeClass(globalVar.level_btn, "btn-disabled");
     removeClass(globalVar.img_btn, "btn-disabled");
@@ -279,7 +282,6 @@ function randomBlocks() {
         addClass(globalVar.blocks[i], "level-" + globalVar.level + "-col-" + order[i].col);
     }
 
-    console.log(order[size - 1]);
     return order[size - 1];
 }
 
@@ -333,41 +335,3 @@ function imgEvent() {
 addEventLoad(init_global);
 addEventLoad(prepareBlock);
 addEventLoad(prepareButton);
-
-// function calcValue() {
-//     var map = [];
-//     var less = [];
-//     var sum, x, pos;
-
-//     for (var i = 0; i < globalVar.blocks.length; ++i) {
-//         pos = getPostion(globalVar.blocks[i]);
-//         map[pos.row * 4 + pos.col] = i + 1;
-//     }
-
-//     if (map.length == 16) {
-//         for (var i = 0; i < map.length; ++i) {
-//             if (map[i] === undefined) {
-//                 map[i] = 16;
-//                 if (Math.floor(i / 4) % 2 == 0) {
-//                     x = (i % 4) % 2 == 0 ? 0 : 1;
-//                 } else {
-//                     x = (i % 4) % 2 == 0 ? 1 : 0;
-//                 }
-//                 break;
-//             }
-//         }
-//     } else {
-//         map[15] = 16;
-//         x = 0;
-//     }
-
-//     for (var i = 0; i < map.length; ++i) {
-//         less[i] = 0;
-//         for (var j = i + 1; j < map.length; ++j)
-//             if (map[j] < map[i]) less[i]++;
-//     }
-
-//     sum = less.reduce(function (a, b) { return a + b; }) + x;
-
-//     console.log(sum);
-// }
