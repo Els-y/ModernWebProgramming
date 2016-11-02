@@ -1,0 +1,29 @@
+table tr:nth-child(odd) {
+    background-color: white;
+}
+table tr:nth-child(even) {
+    background-color: rgb(245, 245, 245);
+}
+thead th {
+    color: white;
+    background-color: rgb(120, 120, 120);
+}
+thead th:hover {
+    background-color: rgb(140, 140, 140);
+}
+thead th:active {
+    background-color: rgb(160, 160, 160);
+}
+.caret {
+    display: inline-block;
+    border: none;
+    float: right;
+    width: 15px;
+    height: 15px;
+}
+.ascend {
+    background: url('ascend.png') center no-repeat;
+}
+.descend {
+    background: url('descend.png') center no-repeat;
+}

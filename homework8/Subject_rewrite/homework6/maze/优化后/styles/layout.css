@@ -1,0 +1,126 @@
+@font-face {
+    font-family: centuryGothic;
+    src: url('font/century-gothic.ttf');
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Century Gothic", centuryGothic, sans-serif;
+}
+.container {
+    margin-top: 80px;
+}
+.header, .header-direct, .info {
+    text-align: center;
+}
+.header {
+    font-size: 30px;
+}
+.header-direct, .info {
+    font-size: 25px;
+}
+.info {
+    opacity: 0;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;  /* Firefox 4 */
+    -webkit-transition: all 0.5s;  /* Safari 和 Chrome */
+    -o-transition: all 0.5s;  /* Opera */
+    -ms-transition: all 0.5s;  /* IE */
+}
+.info-display {
+    opacity: 1;
+}
+.footer {
+    width: 600px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.block {
+    background-color: #EEEEEE;
+}
+.map {
+    width: 500px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.map-start {
+    cursor: pointer;
+}
+.top {
+    height: 50px;
+    border: 1px solid black;
+}
+.left, .right {
+    margin-top: -1px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    border-top: none;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.wrapper {
+    width: 42px;
+    height: 50px;
+}
+.start-wrapper {
+    clear: left;
+    float: left;
+}
+.end-wrapper {
+    clear: right;
+    float: right;
+}
+.start, .end {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    top: 4px;
+    border: 1px solid black;
+}
+.start {
+    background-color: rgb(132, 255, 130);
+}
+.end {
+    background-color: rgb(132, 133, 255);
+    cursor: default;
+}
+.middle {
+    position: relative;
+    top: 1px;
+    width: 100px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 48px;
+    border: 1px solid black;
+    border-bottom: none;
+}
+.bottom {
+    height: 50px;
+    border: 1px solid black;
+}
+.footer-block {
+    width: 100px;
+    height: 25px;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #EEEEEE;
+}
+.start p, .end p {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1em;
+    margin-top: 6px;
+}
+.block-hover {
+    background-color: red;
+}
