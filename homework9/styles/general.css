@@ -1,0 +1,9 @@
+body {
+    overflow: scroll;
+}
+.navbar {
+    border-radius: 0;
+}
+.clear {
+    clear: both;
+}

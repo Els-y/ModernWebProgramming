@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="scripts/jquery.js"></script>
+    <script>
+        (function () {
+            $(function () {
+                $("button").each(function (i) {
+                    new Tile(this, i);
+                    // 这里的 this 就是每一个button的 dom
+                    // 不是 jQuery 对象
+                });
+            })
+            var Tile = function (dom, seq) {
+                this.dom = dom;  // 因为传进来的 dom 形参，本来就是dom，所以
+                this.seq = seq;      // this.dom 也是 dom，不能使用 jQuery 对象的方法
+                this.listenclick();   // 要想在下面可以直接用 this.dom.click 的话，
+                                               // 就得传 jQuery 对象进来，或者在这里把第一行改成
+                                               // this.dom = $(dom);
+            }
+            var p = Tile.prototype;
+            p.listenclick = function() {
+                $(this.dom).click(function () {
+                    alert(this.seq);
+                }.bind(this));
+                // 这里原来的 .bind(this) 不是很清楚你是用来干什么的，不过
+                // bind里面的第一个参数是事件，这里的 this 是 Tile 实例。
+                // 如果只是想把 listenclick 绑定到所有 Tile 实例上，不用写这个的，
+                // 因为 listenclick 本来就是 Tile 的原型上的方法
+                // 它的所有实例本身就会有这个方法
+            }
+        })();
+    </script>
+</head>
+<body>
+    <button id="abutton">1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+</body>
+</html>
