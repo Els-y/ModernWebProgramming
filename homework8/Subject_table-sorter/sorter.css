@@ -1,18 +1,36 @@
-table tr:nth-child(odd) {
-    background-color: white;
+body {
+    font-family: Tahoma;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
 }
-table tr:nth-child(even) {
-    background-color: rgb(245, 245, 245);
+h1, h2 {
+    font-size: 17px;
+    font-weight: bold;
 }
-thead th {
+.container {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#todo {
+    width: 350px;
+}
+#staff {
+    width: 300px;
+}
+table, tr, th, td {
+    padding: 2px;
+    border: 1px solid rgb(196, 196, 196);
+    border-collapse: collapse;
+}
+th {
+    text-align: left;
     color: white;
-    background-color: rgb(120, 120, 120);
+    background-color: rgb(3, 26, 127);
 }
-thead th:hover {
-    background-color: rgb(140, 140, 140);
-}
-thead th:active {
-    background-color: rgb(160, 160, 160);
+.active {
+    background-color: rgb(165, 172, 252);
 }
 .caret {
     display: inline-block;
@@ -23,7 +41,12 @@ thead th:active {
 }
 .ascend {
     background: url('ascend.png') center no-repeat;
+    background-size: contain;
 }
 .descend {
     background: url('descend.png') center no-repeat;
+    background-size: contain;
+}
+.alternate {
+    background-color: rgb(245, 245, 245);
 }
