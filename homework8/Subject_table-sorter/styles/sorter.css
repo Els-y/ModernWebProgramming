@@ -40,11 +40,11 @@ th {
     height: 15px;
 }
 .ascend {
-    background: url('ascend.png') center no-repeat;
+    background: url('../images/ascend.png') center no-repeat;
     background-size: contain;
 }
 .descend {
-    background: url('descend.png') center no-repeat;
+    background: url('../images/descend.png') center no-repeat;
     background-size: contain;
 }
 .alternate {

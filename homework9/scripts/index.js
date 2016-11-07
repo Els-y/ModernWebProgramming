@@ -90,6 +90,14 @@ function checkEmail() {
     }
 }
 
+function checkValid() {
+    $(":input").blur();
+    if ($(".form-group").hasClass("has-warning"))
+        return false;
+    else
+        return true;
+}
+
 function resetEvent() {
     $(".form-group").removeClass("has-warning").find(".input-group").siblings().remove();
      return true;
@@ -100,4 +108,5 @@ $(function () {
     $(':input[name=stuID]').blur(checkStuID);
     $(':input[name=phone]').blur(checkPhone);
     $('.reset').click(resetEvent);
+    $('.submit').click(checkValid);
 });

@@ -4,45 +4,26 @@ var db = require('./db');
 
 function load(response, pathname, warning) {
     var ext = path.extname(pathname);
-    pathname = pathname.slice(1);
+    var MIME = {
+        '.html': 'text/html',
+        '.css': 'text/css',
+        '.js': 'application/javascript',
+        '.jpg': 'image/jpeg',
+        '.png': 'image/png',
+        '.gif': 'image/gif'
+    };
 
-    // if (ext === '.html') {
-    //     response.writeHead(200, {'Content-Type': 'text/html'});
-    // } else 
-    if (ext === '.css') {
-        response.writeHead(200, {'Content-Type': 'text/css'});
-    } else if (ext === '.js') {
-        response.writeHead(200, {'Content-Type': 'application/javascript'});
-    } else if (ext === '.png') {
-        response.writeHead(200, {'Content-Type': 'image/png'});
-    } else if (ext === '.gif') {
-        response.writeHead(200, {'Content-Type': 'image/gif'});
-    } else if (ext === '.jpg') {
-        response.writeHead(200, {'Content-Type': 'image/jpeg'});
-    } else {
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        pathname = 'index.html';
-    }
-
-    if (pathname === 'index.html') pathname = 'views/index.html';
-
-    if (ext === '.png' || ext === '.gif' || ext === '.jpg') {
-        fs.readFile(pathname, 'binary', function (err, data) {
+    if (ext === '.ico') {
+        response.writeHead(404);
+        response.end();
+    } else if (ext !== '.html' && ext !== '') {
+        fs.readFile(pathname.slice(1), 'binary', function (err, data) {
             if (err) {
-                console.log(err);
-                response.writeHead(404, {'Content-Type': 'image/png'})
+                response.writeHead(404, {'Content-Type': MIME[ext]});
+                response.end(err);j
             } else {
+                response.writeHead(200, {'Content-Type': MIME[ext]});
                 response.write(data, 'binary');
-            }
-            response.end();
-        })
-    } else if (ext === '.css' || ext === '.js') {
-        fs.readFile(pathname, function (err, data) {
-            if (err) {
-                console.log(err);
-                response.writeHead(404, {'Content-Type': 'text/html'})
-            } else {
-                response.write(data.toString());
             }
             response.end();
         });
@@ -69,11 +50,11 @@ function load(response, pathname, warning) {
         response.write('                    <span class="icon-bar"></span>\n');
         response.write('                    <span class="icon-bar"></span>\n');
         response.write('                </button>\n');
-        response.write('                <a href="index.html" class="navbar-brand">Student</a>\n');
+        response.write('                <a href="/" class="navbar-brand">Student</a>\n');
         response.write('            </div>\n');
         response.write('            <div class="navbar-collapse collapse">\n');
         response.write('                <ul class="nav navbar-nav navbar-right">\n');
-        response.write('                    <li><a href=""><span class="glyphicon glyphicon-user"></span> Register</a></li>\n');
+        response.write('                    <li><a href="/"><span class="glyphicon glyphicon-user"></span> Register</a></li>\n');
         response.write('                </ul>\n');
         response.write('            </div>\n');
         response.write('        </div>\n');
@@ -123,7 +104,7 @@ function load(response, pathname, warning) {
         response.write('                    </div>\n');
         response.write('                </div>\n');
         response.write('                <div class="form-group pull-right">\n');
-        response.write('                    <input class="btn btn-primary" type="submit" value="Register">\n');
+        response.write('                    <input class="btn btn-primary submit" type="submit" value="Register">\n');
         response.write('                    <input class="btn btn-default reset" type="reset" value="Reset">\n');
         response.write('                </div>\n');
         response.write('                <div class="clear"></div>\n');
@@ -160,11 +141,11 @@ function login(response, username) {
         response.write('                    <span class="icon-bar"></span>\n');
         response.write('                    <span class="icon-bar"></span>\n');
         response.write('                </button>\n');
-        response.write('                <a href="#" class="navbar-brand">Student</a>\n');
+        response.write('                <a href="/" class="navbar-brand">Student</a>\n');
         response.write('            </div>\n');
         response.write('            <div class="navbar-collapse collapse">\n');
         response.write('                <ul class="nav navbar-nav navbar-right">\n');
-        response.write('                    <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>\n');
+        response.write('                    <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>\n');
         response.write('                </ul>\n');
         response.write('            </div>\n');
         response.write('        </div>\n');
