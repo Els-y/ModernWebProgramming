@@ -1,46 +1,47 @@
 var fs = require('fs');
+var db_path = 'data/db.txt';
 
 function queryByUsername(username) {
-    var db = JSON.parse(fs.readFileSync('data/db.txt'));
+    var db = JSON.parse(fs.readFileSync(db_path));
     return db.filter(function (user) {
         return user.username === username;
     });
 }
 
 function queryByStuID(stuID) {
-    var db = JSON.parse(fs.readFileSync('data/db.txt'));
+    var db = JSON.parse(fs.readFileSync(db_path));
     return db.filter(function (user) {
         return user.stuID === stuID;
     });
 }
 
 function queryByPhone(phone) {
-    var db = JSON.parse(fs.readFileSync('data/db.txt'));
+    var db = JSON.parse(fs.readFileSync(db_path));
     return db.filter(function (user) {
         return user.phone === phone;
     });
 }
 
 function queryByEmail(email) {
-    var db = JSON.parse(fs.readFileSync('data/db.txt'));
+    var db = JSON.parse(fs.readFileSync(db_path));
     return db.filter(function (user) {
         return user.email === email;
     });
 }
 
 function insert(username, stuID, phone, email) {
-    var db = JSON.parse(fs.readFileSync('data/db.txt'));
+    var db = JSON.parse(fs.readFileSync(db_path));
     var user = {username: username,
                         stuID: stuID,
                         phone: phone,
                         email: email};
     db.push(user);
-    fs.writeFileSync('data/db.txt', JSON.stringify(db));
+    fs.writeFileSync(db_path, JSON.stringify(db));
     console.log("Add new user successfully.");
 }
 
 function info_exist(user) {
-    var db = JSON.parse(fs.readFileSync('data/db.txt'));
+    var db = JSON.parse(fs.readFileSync(db_path));
     for (var i = 0; i < db.length; ++i) {
         if (db[i].username === user.username)
             return 1;

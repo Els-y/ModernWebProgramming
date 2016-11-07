@@ -1,8 +1,8 @@
 var http = require('http');
 var url = require('url');
-var route = require('./route');
 var querystring = require('querystring');
 var util = require('util');
+var route = require('./route');
 
 function start(route, handler) {
     var server = http.createServer(requestHandler)

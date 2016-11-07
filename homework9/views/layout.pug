@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Sign Up
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='../styles/general.css')
+    block css
+  body
+    .navbar.navbar-inverse
+      .container
+        .navbar-header
+          button.navbar-toggle(data-target='.navbar-collapse', data-toggle='collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/') Student
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            block iflogout
+    .container
+      block content
+    script(src='http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js')
+    script(src='http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js')
+    script(src='../scripts/index.js')

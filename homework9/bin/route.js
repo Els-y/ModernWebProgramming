@@ -1,6 +1,6 @@
 var url = require('url');
-var handler = require('./handler');
 var util = require('util');
+var handler = require('./handler');
 
 function route(method, request, response, postData) {
     if (method === 'GET') {
