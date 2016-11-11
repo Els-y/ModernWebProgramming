@@ -68,22 +68,22 @@ function checkPhone() {
 }
 
 function checkEmail() {
-    var phone = $(this).val();
-    var reg = /^[1-9]\d{10}$/;
+    var email = $(this).val();
+    var reg = /^[a-zA-Z_\-]+@(([a-zA-Z_\-]+\.)+[a-zA-Z]{2,4})$/;
     var $input_group = $(this).parents('.input-group');
 
-    if (phone === '') {
+    if (email === '') {
         $(this).parents(".form-group").addClass("has-warning");
         if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Mobile phone can\'t be empty.</span>');
+            $input_group.before('<span class="text-warning">Email can\'t be empty.</span>');
         else
-            $input_group.siblings().replaceWith('<span class="text-warning">Mobile phone can\'t be empty.</span>');
-    } else if (!reg.test(phone)) {
+            $input_group.siblings().replaceWith('<span class="text-warning">Email can\'t be empty.</span>');
+    } else if (!reg.test(email)) {
         $(this).parents(".form-group").addClass("has-warning");
         if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Mobile phone is not valid.</span>');
+            $input_group.before('<span class="text-warning">Email is not valid.</span>');
         else
-            $input_group.siblings().replaceWith('<span class="text-warning">Mobile phone is not valid.</span>');
+            $input_group.siblings().replaceWith('<span class="text-warning">Email is not valid.</span>');
     } else {
         $(this).parents(".form-group").removeClass("has-warning")
                    .find('.input-group').siblings().remove();
@@ -107,6 +107,7 @@ $(function () {
     $(':input[name=username]').blur(checkUsername);
     $(':input[name=stuID]').blur(checkStuID);
     $(':input[name=phone]').blur(checkPhone);
+    $(':input[name=email]').blur(checkEmail);
     $('.reset').click(resetEvent);
     $('.submit').click(checkValid);
 });

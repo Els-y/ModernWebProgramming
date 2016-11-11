@@ -1,7 +1,7 @@
 extends layout
 
 block css
-  link(rel='stylesheet', href='../styles/index.css')
+  link(rel='stylesheet', href='../public/styles/index.css')
 
 block iflogout
   li
@@ -40,5 +40,5 @@ block content
           input.form-control(type='text', name='email', placeholder='Email')
       .form-group.pull-right
         input.btn.btn-primary.submit(type='submit', value='Register')
-        button.btn.btn-default.reset(type='reset') Reset
+        input.btn.btn-default.reset(type='reset', value='Reset')
       .clear

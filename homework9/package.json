@@ -1,12 +1,15 @@
 {
-  "name": "signup",
+  "name": "signin",
   "version": "0.0.0",
-  "description": "homework9",
+  "description": "",
+  "main": "signin.js",
+  "bin": {
+    "signin": "db.js"
+  },
   "scripts": {
     "start": "node signin.js"
   },
-  "author": "ye",
   "dependencies": {
-      "pug": "*"
+    "pug": "*"
   }
 }
