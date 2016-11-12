@@ -32,9 +32,9 @@ function queryByEmail(email) {
 function insert(username, stuID, phone, email) {
     var db = JSON.parse(fs.readFileSync(db_path));
     var user = {username: username,
-                        stuID: stuID,
-                        phone: phone,
-                        email: email};
+                   stuID: stuID,
+                   phone: phone,
+                   email: email};
     db.push(user);
     fs.writeFileSync(db_path, JSON.stringify(db));
     console.log("Add new user successfully.");

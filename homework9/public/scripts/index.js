@@ -1,69 +1,39 @@
 function checkUsername() {
     var username = $(this).val();
-    var reg = /^[a-zA-Z][0-9a-zA-Z_]+$/;
-    var $input_group = $(this).parents('.input-group');
+    var reg = /^[a-zA-Z][0-9a-zA-Z_]{5,17}$/;
 
     if (username === '') {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Username can\'t be empty.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Username can\'t be empty.</span>');
-    } else if (username.length < 6 || username.length > 18 || !reg.test(username)) {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Username is not valid.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Username is not valid.</span>');
+        addWarning($(this), "Username can't be empty.");
+    } else if (!reg.test(username)) {
+        addWarning($(this), "Username is not valid.");
     } else {
-        $(this).parents(".form-group").removeClass("has-warning")
-                   .find('.input-group').siblings().remove();
+        checkIfExist($(this), {key: "username", value: username});
     }
 }
 
 function checkStuID() {
     var stuID = $(this).val();
     var reg = /^[1-9]\d{7}$/;
-    var $input_group = $(this).parents('.input-group');
 
     if (stuID === '') {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Student Number can\'t be empty.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Student Number can\'t be empty.</span>');
+        addWarning($(this), "Student Number can't be empty.");
     } else if (!reg.test(stuID)) {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Student Number is not valid.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Student Number is not valid.</span>');
+        addWarning($(this), "Student Number is not valid.");
     } else {
-        $(this).parents(".form-group").removeClass("has-warning")
-                   .find('.input-group').siblings().remove();
+        checkIfExist($(this), {key: "stuID", value: stuID});
     }
 }
 
 function checkPhone() {
     var phone = $(this).val();
     var reg = /^[1-9]\d{10}$/;
-    var $input_group = $(this).parents('.input-group');
-
+    
     if (phone === '') {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Mobile phone can\'t be empty.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Mobile phone can\'t be empty.</span>');
+        addWarning($(this), "Mobile phone can't be empty.");
     } else if (!reg.test(phone)) {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Mobile phone is not valid.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Mobile phone is not valid.</span>');
+        addWarning($(this), "Mobile phone is not valid.");
     } else {
-        $(this).parents(".form-group").removeClass("has-warning")
-                   .find('.input-group').siblings().remove();
+        checkIfExist($(this), {key: "phone", value: phone});
     }
 }
 
@@ -73,24 +43,39 @@ function checkEmail() {
     var $input_group = $(this).parents('.input-group');
 
     if (email === '') {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Email can\'t be empty.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Email can\'t be empty.</span>');
+        addWarning($(this), "Email can't be empty.");
     } else if (!reg.test(email)) {
-        $(this).parents(".form-group").addClass("has-warning");
-        if ($input_group.siblings().length === 0)
-            $input_group.before('<span class="text-warning">Email is not valid.</span>');
-        else
-            $input_group.siblings().replaceWith('<span class="text-warning">Email is not valid.</span>');
+        addWarning($(this), "Email is not valid.");
     } else {
-        $(this).parents(".form-group").removeClass("has-warning")
-                   .find('.input-group').siblings().remove();
+        checkIfExist($(this), {key: "email", value: email});
     }
 }
 
-function checkValid() {
+function addWarning($input, warning) {
+    var $input_group = $input.parents('.input-group');
+    $input.parents(".form-group").addClass("has-warning");
+
+    if ($input_group.siblings().length === 0)
+        $input_group.before('<span class="text-warning">' + warning + '</span>');
+    else
+        $input_group.siblings().replaceWith('<span class="text-warning">' + warning + '</span>');
+}
+
+function removeWarning($input) {
+    $input.parents(".form-group").removeClass("has-warning")
+          .find(".text-warning").html("&nbsp;");
+}
+
+function checkIfExist($input, valueObject) {
+    $.post("/checkexist", valueObject, function(data, textStatus) {
+        if (data.toString() === "passed")
+            removeWarning($input);
+        else
+            addWarning($input, data.toString());
+    });
+}
+
+function submitCheckValid() {
     $(":input").blur();
     if ($(".form-group").hasClass("has-warning"))
         return false;
@@ -99,15 +84,15 @@ function checkValid() {
 }
 
 function resetEvent() {
-    $(".form-group").removeClass("has-warning").find(".input-group").siblings().remove();
+    $(".form-group").removeClass("has-warning").find(".text-warning").html("&nbsp;");
      return true;
 }
 
 $(function () {
-    $(':input[name=username]').blur(checkUsername);
-    $(':input[name=stuID]').blur(checkStuID);
-    $(':input[name=phone]').blur(checkPhone);
-    $(':input[name=email]').blur(checkEmail);
+    $(':input[name=username]').blur(checkUsername).keyup(checkUsername);
+    $(':input[name=stuID]').blur(checkStuID).keyup(checkStuID);
+    $(':input[name=phone]').blur(checkPhone).keyup(checkPhone);
+    $(':input[name=email]').blur(checkEmail).keyup(checkEmail);
     $('.reset').click(resetEvent);
-    $('.submit').click(checkValid);
+    $('.submit').click(submitCheckValid);
 });

@@ -1,10 +1,10 @@
 var path = require('path');
 var fs = require('fs');
-var pug = require('pug');
 var db = require('./db');
+var render = require('./render');
 var views_path = 'views/';
 
-function load(response, pathname, warning) {
+function load(response, pathname) {
     var ext = path.extname(pathname);
     var MIME = {
         '.html': 'text/html',
@@ -15,11 +15,9 @@ function load(response, pathname, warning) {
         '.gif': 'image/gif'
     };
 
-    if (ext === '.ico') {
-        response.writeHead(404);
-        response.end();
-    } else if (ext !== '.html' && ext !== '') {
-        fs.readFile(pathname.slice(1), 'binary', function (err, data) {
+    if (ext === '') pathname = views_path + "index.html";
+    if (ext !== '.html' && ext !== '') {
+        fs.readFile(pathname.slice(1), 'binary', function(err, data) {
             if (err) {
                 response.writeHead(404, {'Content-Type': MIME[ext]});
                 response.end(err);j
@@ -30,18 +28,31 @@ function load(response, pathname, warning) {
             response.end();
         });
     } else {
-        var index = pug.compileFile(views_path + 'index.pug');
-        response.write(index({warning: warning}));
-        response.end();
+        fs.readFile(views_path + "index.html", function(err, data) {
+            if (err) {
+                response.writeHead(404, {'Content-Type': MIME[ext]});
+                response.end(err);j
+            } else {
+                response.writeHead(200, {'Content-Type': MIME[ext]});
+                response.end(data);
+            }
+        });
     }
 }
 
 function login(response, username) {
     var user = db.queryByUsername(username);
     if (user.length !== 0) {
-        var user_pug = pug.compileFile(views_path + 'user.pug');
-        response.write(user_pug({user: user[0]}));
-        response.end();
+        fs.readFile(views_path + "user.html", function(err, data) {
+            if (err) {
+                response.writeHead(404, {'Content-Type': "text/html"});
+                response.end(err);j
+            } else {
+                data = render(data.toString(), user[0]);
+                response.writeHead(200, {'Content-Type': "text/html"});
+                response.end(data);
+            }
+        });
     } else {
         load(response, "/");
     }
@@ -49,27 +60,40 @@ function login(response, username) {
 
 function register(response, postData) {
     var exist = db.info_exist(postData);
-    var err = '';
     if (exist === 0) {
         db.insert(postData.username, postData.stuID, postData.phone, postData.email);
         login(response, postData.username);
     } else if (exist === 1) {
-        err = "Username has existed";
         console.log("[Rigister] Username has existed");
     } else if (exist === 2) {
-        err = "Student Number has existed";
         console.log("[Rigister] Student Number has existed");
     } else if (exist === 3) {
-        err = "Phone has existed";
         console.log("[Rigister] Phone has existed");
     } else if (exist === 4) {
-        err = "Email has existed";
         console.log("[Rigister] Email has existed");
     }
 
-    if (exist !== 0) load(response, "/", err);
+    if (exist !== 0) load(response, "/");
+}
+
+function checkIfExist(response, postData) {
+    var funcMap = {
+        "username": {"query": db.queryByUsername, "message": "Username has existed"},
+        "stuID": {"query": db.queryByStuID, "message": "Student Number has existed"},
+        "phone": {"query": db.queryByPhone, "message": "Phone has existed"},
+        "email": {"query": db.queryByEmail, "message": "Email has existed"}
+    };
+    var users = funcMap[postData.key]["query"](postData.value);
+
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    if (users.length !== 0) {
+        response.end(funcMap[postData.key].message);
+    } else {
+        response.end("passed");
+    }
 }
 
 exports.load = load;
 exports.login = login;
 exports.register = register;
+exports.checkIfExist = checkIfExist;

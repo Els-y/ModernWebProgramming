@@ -18,7 +18,11 @@ function route(method, request, response, postData) {
     } else {
         console.log('[POST] postData = ');
         console.log(postData);
-        handler.register(response, postData);
+        if ("key" in postData) {
+            handler.checkIfExist(response, postData);
+        } else {
+            handler.register(response, postData);
+        }
     }
 }
 
