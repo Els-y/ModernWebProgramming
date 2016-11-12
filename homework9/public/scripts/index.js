@@ -52,13 +52,9 @@ function checkEmail() {
 }
 
 function addWarning($input, warning) {
-    var $input_group = $input.parents('.input-group');
     $input.parents(".form-group").addClass("has-warning");
 
-    if ($input_group.siblings().length === 0)
-        $input_group.before('<span class="text-warning">' + warning + '</span>');
-    else
-        $input_group.siblings().replaceWith('<span class="text-warning">' + warning + '</span>');
+    $input.siblings().text(warning);
 }
 
 function removeWarning($input) {
