@@ -22,3 +22,6 @@ index.js、index2.js　正确
 ###S3
 index.js　不容易实现每个按钮对应一个xhr处理，再触发apb的click事件后，移除重置就会出现问题，无法中断ajax请求。
 index2.js　在S1的index2.js基础上写的，完美实现
+
+###S4
+index.js　正确

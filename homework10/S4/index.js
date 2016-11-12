@@ -139,7 +139,7 @@
   p = Apb.prototype;
 
   p.apbClickHandler = function(game) {
-    if ($(".waiting").length !== 0) return;
+    if ($(".waiting").length !== 0 || $(".hasnum").length === 5) return;
     var order = [0, 1, 2, 3, 4];
     var letter_order, mapTable = {"0": "A", "1": "B", "2": "C", "3": "D", "4": "E"};
     order = _.shuffle(order);
