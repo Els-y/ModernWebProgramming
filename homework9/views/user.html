@@ -1,54 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Home</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../public/styles/general.css">
-        <link rel="stylesheet" href="../public/styles/user.css"/>
-    </head>
-    <body>
-        <div class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="/" class="navbar-brand">Student</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                    </ul>
-                </div>
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../public/styles/general.css"/>
+    <link rel="stylesheet" href="../public/styles/user.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Student</a>
+        </div>
+        <div class="navbar-body">
+            <ul class="navbar-nav">
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Your information</h1>
+        </div>
+        <div class="information">
+            <div class="info-group">
+                <p><span class="tag">Username:</span><span class="value">#{username}</span></p>
+            </div>
+            <div class="info-group">
+                <p><span class="tag">Student Number:</span><span class="value">#{stuID}</span></p>
+            </div>
+            <div class="info-group">
+                <p><span class="tag">Phone:</span><span class="value">#{phone}</span></p>
+            </div>
+            <div class="info-group">
+                <p><span class="tag">Email:</span><span class="value">#{email}</span></p>
             </div>
         </div>
-        <div class="container">
-            <div class="page-header">
-                <h1>Welcome</h1>
-            </div>
-            <div class="rows">
-                <div class="information col-md-4 col-md-offset-4">
-                    <div class="info-group">
-                        <p>Username: <span>#{username}</span></p>
-                    </div>
-                    <div class="info-group">
-                        <p>Student Number: <span>#{stuID}</span></p>
-                    </div>
-                    <div class="info-group">
-                        <p>Phone: <span>#{phone}</span></p>
-                    </div>
-                    <div class="info-group">
-                        <p>Email: <span>#{email}</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="../public/scripts/index.js"></script>
-    </body>
+    </div>
+</body>
 </html>

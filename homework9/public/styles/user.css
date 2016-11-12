@@ -1,12 +1,5 @@
-/*.container {
-    margin-top: 80px;
-}
-.container {
-    width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
-}
 .page-header {
+    margin-top: 60px;
     border-bottom: 1px solid rgb(238, 238, 238);
     margin-bottom: 30px;
 }
@@ -15,13 +8,25 @@
     height: 40px;
     margin-top: 20px;
     margin-bottom: 10px;
-}*/
+}
 .information {
     width: 400px;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
+    padding: 30px;
     font-size: 20px;
     border: 1px solid lightgray;
     border-radius: 8px;
+}
+.info-group {
+    margin-bottom: 10px;
+}
+.tag {
+    display: inline-block;
+    text-align: right;
+    width: 160px;
+    margin-right: 14px;
+}
+.value {
+    color: #428bca;
 }

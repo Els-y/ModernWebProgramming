@@ -1,15 +1,81 @@
-#login-form {
-    margin-top: 50px;
+.login-form {
+    margin: 80px auto;
     padding: 35px;
+    width: 230px;
     border-radius: 6px;
     border: 1px solid lightgray;
+    overflow: hidden;
 }
-.submit {
-	margin-right: 5px;
+.form-header {
+    border-bottom: 1px solid lightgray;
+    font-weight: 500;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
 }
 .form-group {
-	margin-bottom: 5px;
+    position: relative;
+    width: 250px;
+    margin-bottom: 5px;
+}
+.form-control {
+    display: block;
+    width: 218px;
+    height: 20px;
+    padding: 3px 6px;
+    font-size: 13px;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.has-warning .form-control {
+    border-color: #8a6d3b;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-warning .form-control:focus {
+    border-color: #66512c;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #c0a16b;
+}
+.text-warning {
+    font-size: 14px;
+    color: #8a6d3b;
 }
 .btns {
-	margin-top: 10px;
+    margin-top: 15px;
+}
+.btn {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+.btn:hover {
+    cursor: pointer;
+}
+.submit {
+    color: white;
+    background-color: #428bca;
+}
+.submit:hover {
+    background-color: #3071a9;
+}
+.submit:active {
+    background-color: #307faa;
+}
+.reset {
+    background-color: white;
+}
+.reset:hover {
+    background-color: #e6e6e6;
+}
+.reset:active {
+    background-color: #d3d3d3;
 }
