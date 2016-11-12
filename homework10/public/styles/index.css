@@ -1,0 +1,207 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+ul {
+    list-style: none;
+}
+/* 整体位置 */
+#at-plus-container {
+    position: fixed;
+    bottom: 400px;
+    width: 100%;
+}
+#button {
+    position: relative;
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border-radius: 50px;
+}
+/*
+    @ 位置保持：
+        left + width / 2 = 0
+        top + height / 2 = 0
+*/
+.apb {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: -18px;
+    top: 62px;
+    border-radius: 50%;
+    background: url('../images/atplus_white.png') no-repeat center;
+    background-color: rgba(48, 63, 159, 1);
+    background-size: 80% 60%;
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out 0.37s;
+    -moz-transition: all 0.3s ease-in-out 0.37s;  /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out 0.37s;  /* Safari 和 Chrome */
+    -o-transition: all 0.3s ease-in-out 0.37s;  /* Opera */
+    -ms-transition: all 0.3s ease-in-out 0.37s;  /* IE */
+}
+#button:hover .apb {
+    width: 70px;
+    height: 70px;
+    left: -35px;
+    top: 45px;
+    background: url('../images/atplus_green.png') no-repeat center;
+    background-size: 80% 60%;
+    background-color: rgba(48, 63, 159, 1);
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;  /* Firefox 4 */
+    -webkit-transition: all 0.35s ease-in-out;  /* Safari 和 Chrome */
+    -o-transition: all 0.35s ease-in-out;  /* Opera */
+    -ms-transition: all 0.35s ease-in-out;  /* IE */
+    opacity: 1;
+}
+#info-bar {
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 80px;
+    border-radius: 50%;
+    background-color: #7E7E7E;
+    transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
+    overflow: hidden;
+    opacity: 0;
+}
+#button:hover #info-bar {
+    width: 174px;
+    height: 174px;
+    left: -87px;
+    top: -145px;
+    opacity: 1;
+}
+.answer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 40px;
+    color: #00deaa;
+    font-weight: bold;
+    transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
+    opacity: 0;
+}
+.answer-display {
+    opacity: 1;
+}
+#control-ring-container {
+    width: 0;
+    height: 0;
+    transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
+}
+#button:hover #control-ring-container {
+    margin-left: -140px;
+    width: 210px;
+    height: 200px;
+}
+.button {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: -25px;
+    top: 55px;
+    border-radius: 50%;
+    transition: 0.27s ease-in-out 0.1s;
+    -moz-transition: 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: 0.27s ease-in-out 0.1s;  /* IE */
+    background-color: rgb(48, 63, 159);
+    opacity: 0;
+}
+.button-disabled {
+    background-color: #6E6E6E;
+}
+#button:hover .button {
+    opacity: 1;
+}
+#button:hover .numA {
+    left: -110px;
+    top: 5px;
+}
+#button:hover .numB {
+    left: -124px;
+    top: 62px;
+}
+#button:hover .numC {
+    left: -100px;
+    top: 118px;
+}
+.tag {
+    display: block;
+    font-size: 30px;
+    color: #00deaa;
+    margin-top: 6px;
+    text-align: center;
+}
+.tag-disabled {
+    color: #AFAFAF;
+}
+.num {
+    display: block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: red;
+    margin-top: -45px;
+    margin-left: 34px;
+    border-radius: 50%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.27s ease-in-out 0.1s;
+    -moz-transition: opacity 0.27s ease-in-out 0.1s;  /* Firefox 4 */
+    -webkit-transition: opacity 0.27s ease-in-out 0.1s;  /* Safari 和 Chrome */
+    -o-transition: opacity 0.27s ease-in-out 0.1s;  /* Opera */
+    -ms-transition: opacity 0.27s ease-in-out 0.1s;  /* IE */
+}
+.num-display {
+    opacity: 1;
+}
+.waiting {
+    font-size: 10px;
+}
+#button:hover .numD {
+    left: -43px;
+    top: 143px;
+}
+#button:hover .numE {
+    left: 20px;
+    top: 140px;
+}
+.btns-order {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 0px;
+    height: 0px;
+    transition: all 0.27s ease-in-out 0.1s;
+}
+#button:hover .btns-order {
+    left: -75px;
+    top: -185px;
+    width: 150px;
+    height: 25px;
+}
+.order-info {
+    font-size: 20px;
+}
