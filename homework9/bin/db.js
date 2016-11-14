@@ -1,29 +1,29 @@
 var fs = require('fs');
-var db_path = 'data/db.txt';
+var db_path = 'data/db.json';
 
 function queryByUsername(username) {
-    var db = JSON.parse(fs.readFileSync(db_path));
+    var db = JSON.parse(fs.readFileSync(db_path)).users;
     return db.filter(function (user) {
         return user.username === username;
     });
 }
 
 function queryByStuID(stuID) {
-    var db = JSON.parse(fs.readFileSync(db_path));
+    var db = JSON.parse(fs.readFileSync(db_path)).users;
     return db.filter(function (user) {
         return user.stuID === stuID;
     });
 }
 
 function queryByPhone(phone) {
-    var db = JSON.parse(fs.readFileSync(db_path));
+    var db = JSON.parse(fs.readFileSync(db_path)).users;
     return db.filter(function (user) {
         return user.phone === phone;
     });
 }
 
 function queryByEmail(email) {
-    var db = JSON.parse(fs.readFileSync(db_path));
+    var db = JSON.parse(fs.readFileSync(db_path)).users;
     return db.filter(function (user) {
         return user.email === email;
     });
@@ -35,13 +35,13 @@ function insert(username, stuID, phone, email) {
                    stuID: stuID,
                    phone: phone,
                    email: email};
-    db.push(user);
+    db.users.push(user);
     fs.writeFileSync(db_path, JSON.stringify(db));
     console.log("Add new user successfully.");
 }
 
 function info_exist(user) {
-    var db = JSON.parse(fs.readFileSync(db_path));
+    var db = JSON.parse(fs.readFileSync(db_path)).users;
     for (var i = 0; i < db.length; ++i) {
         if (db[i].username === user.username)
             return 1;

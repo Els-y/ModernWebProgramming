@@ -16,7 +16,10 @@ function load(response, pathname) {
     };
 
     if (ext === '') pathname = views_path + "index.html";
-    if (ext !== '.html' && ext !== '') {
+    if (ext === '.ico') {
+        response.writeHead(404);
+        response.end();
+    } else if (ext !== '.html' && ext !== '') {
         fs.readFile(pathname.slice(1), 'binary', function(err, data) {
             if (err) {
                 response.writeHead(404, {'Content-Type': MIME[ext]});
@@ -64,13 +67,13 @@ function register(response, postData) {
         db.insert(postData.username, postData.stuID, postData.phone, postData.email);
         login(response, postData.username);
     } else if (exist === 1) {
-        console.log("[Rigister] Username has existed");
+        console.log("[Rigister] Username already exists");
     } else if (exist === 2) {
-        console.log("[Rigister] Student Number has existed");
+        console.log("[Rigister] Student Number already exists");
     } else if (exist === 3) {
-        console.log("[Rigister] Phone has existed");
+        console.log("[Rigister] Phone already exists");
     } else if (exist === 4) {
-        console.log("[Rigister] Email has existed");
+        console.log("[Rigister] Email already exists");
     }
 
     if (exist !== 0) load(response, "/");
@@ -78,10 +81,10 @@ function register(response, postData) {
 
 function checkIfExist(response, postData) {
     var funcMap = {
-        "username": {"query": db.queryByUsername, "message": "Username has existed"},
-        "stuID": {"query": db.queryByStuID, "message": "Student Number has existed"},
-        "phone": {"query": db.queryByPhone, "message": "Phone has existed"},
-        "email": {"query": db.queryByEmail, "message": "Email has existed"}
+        "username": {"query": db.queryByUsername, "message": "Username already exists"},
+        "stuID": {"query": db.queryByStuID, "message": "Student Number already exists"},
+        "phone": {"query": db.queryByPhone, "message": "Phone already exists"},
+        "email": {"query": db.queryByEmail, "message": "Email already exists"}
     };
     var users = funcMap[postData.key]["query"](postData.value);
 
