@@ -3,9 +3,9 @@ function checkUsername() {
     var reg = /^[a-zA-Z][0-9a-zA-Z_]{5,17}$/;
 
     if (username === '') {
-        addWarning($(this), "Username can't be empty.");
+        addWarning($(this), "Username can't be empty");
     } else if (!reg.test(username)) {
-        addWarning($(this), "Username is not valid.");
+        addWarning($(this), "Username is not valid");
     } else {
         checkIfExist($(this), {key: "username", value: username});
     }
@@ -16,9 +16,9 @@ function checkStuID() {
     var reg = /^[1-9]\d{7}$/;
 
     if (stuID === '') {
-        addWarning($(this), "Student Number can't be empty.");
+        addWarning($(this), "Student Number can't be empty");
     } else if (!reg.test(stuID)) {
-        addWarning($(this), "Student Number is not valid.");
+        addWarning($(this), "Student Number is not valid");
     } else {
         checkIfExist($(this), {key: "stuID", value: stuID});
     }
@@ -29,9 +29,9 @@ function checkPhone() {
     var reg = /^[1-9]\d{10}$/;
     
     if (phone === '') {
-        addWarning($(this), "Mobile phone can't be empty.");
+        addWarning($(this), "Mobile phone can't be empty");
     } else if (!reg.test(phone)) {
-        addWarning($(this), "Mobile phone is not valid.");
+        addWarning($(this), "Mobile phone is not valid");
     } else {
         checkIfExist($(this), {key: "phone", value: phone});
     }
@@ -43,9 +43,9 @@ function checkEmail() {
     var $input_group = $(this).parents('.input-group');
 
     if (email === '') {
-        addWarning($(this), "Email can't be empty.");
+        addWarning($(this), "Email can't be empty");
     } else if (!reg.test(email)) {
-        addWarning($(this), "Email is not valid.");
+        addWarning($(this), "Email is not valid");
     } else {
         checkIfExist($(this), {key: "email", value: email});
     }

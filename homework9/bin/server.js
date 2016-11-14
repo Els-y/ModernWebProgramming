@@ -4,7 +4,7 @@ var querystring = require('querystring');
 var util = require('util');
 var route = require('./route');
 
-function start(route, handler) {
+function start() {
     var server = http.createServer(requestHandler)
     server.listen(8000);
     console.log("Server running at http://127.0.0.1:8000/")
