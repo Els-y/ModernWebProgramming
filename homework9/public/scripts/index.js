@@ -39,7 +39,8 @@ function checkPhone() {
 
 function checkEmail() {
     var email = $(this).val();
-    var reg = /^[a-zA-Z_\-]+@(([a-zA-Z_\-]+\.)+[a-zA-Z]{2,4})$/;
+    // var reg = /^[a-zA-Z_\-]+@(([a-zA-Z_\-]+\.)+[a-zA-Z]{2,4})$/;
+    var reg = /^\w+([-+.]\w+)*@(([0-9a-zA-Z_\-]+\.)+[a-zA-Z]{2,4})$/;
     var $input_group = $(this).parents('.input-group');
 
     if (email === '') {
