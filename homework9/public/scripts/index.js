@@ -14,9 +14,16 @@ function checkUsername() {
 function checkStuID() {
     var stuID = $(this).val();
     var reg = /^[1-9]\d{7}$/;
+    var reg_num = /[^\d]/;
 
     if (stuID === '') {
         addWarning($(this), "Student Number can't be empty");
+    } else if (stuID[0] === '0') {
+        addWarning($(this), "Student Number can not start with 0");
+    } else if (reg_num.test(stuID)) {
+        addWarning($(this), "Student Number must be number");
+    } else if (stuID.length !== 8) {
+        addWarning($(this), "Student Number length must be 8");
     } else if (!reg.test(stuID)) {
         addWarning($(this), "Student Number is not valid");
     } else {
@@ -27,9 +34,16 @@ function checkStuID() {
 function checkPhone() {
     var phone = $(this).val();
     var reg = /^[1-9]\d{10}$/;
-    
+    var reg_num = /[^\d]/;
+
     if (phone === '') {
         addWarning($(this), "Mobile phone can't be empty");
+    } else if (phone[0] === '0') {
+        addWarning($(this), "Mobile phone can not start with 0");
+    } else if (reg_num.test(phone)) {
+        addWarning($(this), "Mobile phone must be number");
+    } else if (phone.length !== 11) {
+        addWarning($(this), "Mobile phone length must be 11");
     } else if (!reg.test(phone)) {
         addWarning($(this), "Mobile phone is not valid");
     } else {
