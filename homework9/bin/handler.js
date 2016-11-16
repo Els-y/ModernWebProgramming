@@ -15,30 +15,20 @@ function load(response, pathname) {
         '.gif': 'image/gif'
     };
 
-    if (ext === '') pathname = views_path + "index.html";
+    if (!(ext in MIME) || ext === '.html')
+        pathname = "/" + views_path + "index.html";
     if (ext === '.ico') {
-        response.writeHead(404);
         response.end();
-    } else if (ext !== '.html' && ext !== '') {
-        fs.readFile(pathname.slice(1), 'binary', function(err, data) {
+    } else {
+        fs.readFile(pathname.slice(1), function(err, data) {
             if (err) {
                 response.writeHead(404, {'Content-Type': MIME[ext]});
-                response.end(err);j
+                response.end(err.toString());
             } else {
                 response.writeHead(200, {'Content-Type': MIME[ext]});
-                response.write(data, 'binary');
+                response.write(data);
             }
             response.end();
-        });
-    } else {
-        fs.readFile(views_path + "index.html", function(err, data) {
-            if (err) {
-                response.writeHead(404, {'Content-Type': MIME[ext]});
-                response.end(err);j
-            } else {
-                response.writeHead(200, {'Content-Type': MIME[ext]});
-                response.end(data);
-            }
         });
     }
 }
@@ -49,7 +39,7 @@ function login(response, username) {
         fs.readFile(views_path + "user.html", function(err, data) {
             if (err) {
                 response.writeHead(404, {'Content-Type': "text/html"});
-                response.end(err);j
+                response.end(err.toString());
             } else {
                 data = render(data.toString(), user[0]);
                 response.writeHead(200, {'Content-Type': "text/html"});
