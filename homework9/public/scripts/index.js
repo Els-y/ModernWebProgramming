@@ -1,9 +1,14 @@
 function checkUsername() {
     var username = $(this).val();
     var reg = /^[a-zA-Z][0-9a-zA-Z_]{5,17}$/;
+    var reg_alp = /^[a-zA-Z]/;
 
     if (username === '') {
         addWarning($(this), "Username can't be empty");
+    } else if (!reg_alp.test(username)) {
+        addWarning($(this), "Username must start with letter");
+    } else if (username.length < 6 || username.length > 18) {
+        addWarning($(this), "Length must be between 6 and 18");
     } else if (!reg.test(username)) {
         addWarning($(this), "Username is not valid");
     } else {
