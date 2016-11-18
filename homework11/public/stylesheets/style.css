@@ -1,0 +1,145 @@
+body {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.login-form {
+  margin: 80px auto;
+  padding: 35px;
+  width: 230px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  overflow: hidden;
+}
+.form-header {
+  border-bottom: 1px solid lightgray;
+  font-weight: 500;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+}
+.form-group {
+  position: relative;
+  width: 250px;
+  margin-bottom: 5px;
+}
+.form-control {
+  display: block;
+  width: 218px;
+  height: 20px;
+  padding: 3px 6px;
+  font-size: 13px;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.has-warning .form-control {
+  border-color: #8a6d3b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-warning .form-control:focus {
+  border-color: #66512c;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #c0a16b;
+}
+.text-warning {
+  font-size: 14px;
+  color: #8a6d3b;
+}
+.btns {
+  margin-top: 20px;
+}
+.btn {
+  display: inline-block;
+  padding: 6px 10px;
+  margin-right: 8px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+}
+.btn:hover {
+  cursor: pointer;
+}
+.submit {
+  color: white;
+  background-color: #428bca;
+}
+.submit:hover {
+  background-color: #3071a9;
+}
+.submit:active {
+  background-color: #307faa;
+}
+.reset {
+  background-color: white;
+}
+.reset:hover {
+  background-color: #e6e6e6;
+}
+.reset:active {
+  background-color: #d3d3d3;
+}
+.alert {
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.close {
+  float: right;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.2;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+.close:hover,
+.close:focus {
+  opacity: .5;
+}
+
+.page-header {
+  margin-top: 60px;
+  border-bottom: 1px solid rgb(238, 238, 238);
+  margin-bottom: 30px;
+}
+.page-header h1 {
+  font-weight: 500;
+  height: 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.information {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  font-size: 20px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+}
+.info-group {
+  margin-bottom: 10px;
+}
+.tag {
+  display: inline-block;
+  text-align: right;
+  width: 160px;
+  margin-right: 14px;
+}
+.value {
+  color: #428bca;
+}

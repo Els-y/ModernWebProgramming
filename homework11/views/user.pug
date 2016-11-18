@@ -1,0 +1,27 @@
+extends layout
+
+block nav
+  li
+    a(href="/logout") Logout
+
+block content
+  .container
+    .page-header
+      h1 Your information
+    .information
+      .info-group
+        p
+          span.tag Username:
+          span.value #{user.username}
+      .info-group
+        p
+          span.tag Student Number:
+          span.value #{user.stuID}
+      .info-group
+        p
+          span.tag Phone:
+          span.value #{user.phone}
+      .info-group
+        p
+          span.tag Email:
+          span.value #{user.email}

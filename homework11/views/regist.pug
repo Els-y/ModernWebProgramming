@@ -1,0 +1,33 @@
+extends layout
+
+block nav
+  li
+    a(href="/") Login
+
+block content
+  .container
+    form.login-form(action="/regist", method="post")
+      h3.form-header Sign Up
+      .form-group
+        p.text-warning  
+        input.form-control(type="text", name="username", placeholder="Username")
+      .form-group
+        p.text-warning  
+        input.form-control(type="password", name="password", placeholder="Password")
+      .form-group
+        p.text-warning  
+        input.form-control(type="password", name="confirm", placeholder="Confirm password")
+      .form-group
+        p.text-warning  
+        input.form-control(type="text", name="stuID", placeholder="Student Number")
+      .form-group
+        p.text-warning  
+        input.form-control(type="text", name="phone", placeholder="Mobile phone")
+      .form-group
+        p.text-warning  
+        input.form-control(type="text", name="email", placeholder="Email")
+      .form-group.btns
+        input.btn.submit(type="submit", value="Submit")
+        input.btn.reset(type="reset", value="Reset")
+  script(src="/javascripts/jquery.js")
+  script(src="/javascripts/signup.js")
