@@ -88,7 +88,7 @@
   p.btnLoading = function() {
     this.$dom.find(".num").text("。。。").addClass("num-display waiting");
     this.$dom.siblings().not(".hasnum").addClass("button-disabled")
-               .find(".tag").addClass("tag-disabled");
+             .find(".tag").addClass("tag-disabled");
   }
 
   p.ajaxGet = function() {
@@ -96,8 +96,8 @@
     this.xhr = $.get("/" + randomID, null, function(data, textStatus) {
       var $notHasnum = that.$dom.siblings().not(".hasnum");
       that.$dom.addClass("button-disabled hasnum")
-                 .find(".tag").addClass("tag-disabled")
-                 .next().text(data).removeClass("waiting");
+               .find(".tag").addClass("tag-disabled")
+               .next().text(data).removeClass("waiting");
       $notHasnum.removeClass("button-disabled")
                 .find(".tag").removeClass("tag-disabled");
       if ($notHasnum.length === 0) $("#info-bar").removeClass("answer-disabled").click();

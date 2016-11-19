@@ -89,7 +89,7 @@
   p.btnLoading = function() {
     this.$dom.find(".num").text("。。。").addClass("num-display waiting");
     this.$dom.siblings().not(".hasnum").addClass("button-disabled")
-               .find(".tag").addClass("tag-disabled");
+             .find(".tag").addClass("tag-disabled");
   }
 
   p.ajaxGet = function() {
@@ -97,8 +97,8 @@
     this.xhr = $.get("/" + new Date().getTime(), null, function(data, textStatus) {
       var $notHasnum = that.$dom.siblings().not(".hasnum");
       that.$dom.addClass("button-disabled hasnum")
-                 .find(".tag").addClass("tag-disabled")
-                 .next().text(data).removeClass("waiting");
+               .find(".tag").addClass("tag-disabled")
+               .next().text(data).removeClass("waiting");
       $notHasnum.removeClass("button-disabled")
                 .find(".tag").removeClass("tag-disabled");
       if ($notHasnum.length === 0) $("#info-bar").removeClass("answer-disabled").click();
@@ -124,8 +124,8 @@
     this.xhr = $.get("/" + new Date().getTime(), null, function(data, textStatus) {
       var $notHasnum = that.$dom.siblings().not(".hasnum");
       that.$dom.addClass("button-disabled hasnum")
-                 .find(".tag").addClass("tag-disabled")
-                 .next().text(data).removeClass("waiting");
+               .find(".tag").addClass("tag-disabled")
+               .next().text(data).removeClass("waiting");
       $notHasnum.removeClass("button-disabled")
                 .find(".tag").removeClass("tag-disabled");
       if ($notHasnum.length === 0) $("#info-bar").removeClass("answer-disabled").click();
@@ -142,6 +142,7 @@
     if ($(".waiting").length !== 0 || $(".hasnum").length === 5) return;
     var order = [0, 1, 2, 3, 4];
     var letter_order, mapTable = {"0": "A", "1": "B", "2": "C", "3": "D", "4": "E"};
+    
     order = _.shuffle(order);
     letter_order = _.map(order, function(n) { return mapTable[n]; })
     $(".order-info").text(letter_order.join("、"));

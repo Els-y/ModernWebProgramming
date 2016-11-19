@@ -188,20 +188,26 @@ ul {
     left: 20px;
     top: 140px;
 }
-.btns-order {
+.alert, .order-info {
     position: absolute;
     left: 0px;
     top: 0px;
     width: 0px;
     height: 0px;
+    text-align: center;
     transition: all 0.27s ease-in-out 0.1s;
 }
-#button:hover .btns-order {
-    left: -75px;
+#button:hover .order-info {
+    left: -90px;
     top: -185px;
-    width: 150px;
+    width: 180px;
     height: 25px;
+    font-size: 20px;
 }
-.order-info {
+#button:hover .alert {
+    left: -200px;
+    top: -220px;
+    width: 400px;
+    height: 25px;
     font-size: 20px;
 }
