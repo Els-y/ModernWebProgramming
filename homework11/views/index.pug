@@ -1,0 +1,26 @@
+extends layout
+
+block nav
+  li
+    a(href="/regist") Regist
+
+block content
+  .container
+    form.login-form(action="/", method="post")
+      h3.form-header Sign In
+      if warning
+        div.alert
+          button.close &times;
+          p #{warning}
+
+      .form-group
+        p.text-warning  
+        input.form-control(type="text", name="username", placeholder="Username")
+      .form-group
+        p.text-warning  
+        input.form-control(type="password", name="password", placeholder="Password")
+      .form-group.btns
+        input.btn.submit(type="submit", value="Submit")
+        input.btn.reset(type="reset", value="Reset")
+  script(src="/javascripts/jquery.js")
+  script(src="/javascripts/signin.js")
