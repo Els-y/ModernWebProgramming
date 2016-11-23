@@ -94,19 +94,17 @@ function btnLoading($btn) {
 
 function ajaxGet($btn, obj, callback) {
   var that = this;
+  if ("currentSum" in obj) updateAlert(obj.message)
   this.xhr = $.get("/" + new Date().getTime(), null, function(data, textStatus) {
     var ifError = randomError(0.3);
     var nextObj = {message: getAlert($btn, ifError),
                    currentSum: obj.currentSum};
 
-    if ("currentSum" in obj) {
-      updateAlert(obj.message)
-      if (ifError) {
-        ajaxGet.bind(that)($btn, nextObj, callback);
-        return;
-      }
+    if (("currentSum" in obj) && ifError) {
+      ajaxGet.bind(that)($btn, nextObj, callback);
+      return;
     }
-    
+
     nextObj.currentSum += parseInt(data);
     updateBtnAndSetNum($btn, data)
     if ($(".button").not(".hasnum").length === 0　&& typeof callback !== 'function')
