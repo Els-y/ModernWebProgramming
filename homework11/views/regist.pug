@@ -1,12 +1,8 @@
 extends layout
 
-block nav
-  li
-    a(href="/") Login
-
 block content
   .container
-    form.login-form(action="/regist", method="post")
+    form.regist-form(action="/regist", method="post")
       h3.form-header Sign Up
       .form-group
         p.text-warning  
@@ -29,5 +25,3 @@ block content
       .form-group.btns
         input.btn.submit(type="submit", value="Submit")
         input.btn.reset(type="reset", value="Reset")
-  script(src="/javascripts/jquery.js")
-  script(src="/javascripts/signup.js")

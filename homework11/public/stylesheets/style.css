@@ -1,7 +1,8 @@
 body {
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-.login-form {
+.login-form,
+.regist-form {
   margin: 80px auto;
   padding: 35px;
   width: 230px;
@@ -142,4 +143,11 @@ body {
 }
 .value {
   color: #428bca;
+}
+.user-alert {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 450px;
 }

@@ -12,5 +12,14 @@ html(lang="en")
         a.navbar-brand(href="/") Student
       .navbar-body
         ul.navbar-nav
-          block nav
+          if logined
+            li
+              a(href="/logout") Logout
+          else
+            li
+              a(href="/regist") Regist
+            li
+              a(href="/") Login
     block content
+    script(src="/javascripts/jquery.js")
+    script(src='/javascripts/general.js')
