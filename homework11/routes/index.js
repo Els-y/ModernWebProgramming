@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var validator = require('../modules/validator');
+var assistant = require('../modules/assistant');
 
 router.get('/', function(req, res, next) {
   if (req.session.user) {
@@ -15,9 +16,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
+  var password = assistant.decryptPassword(req.body.password, req.session.token);
+
   User.findOne({username: req.body.username}).exec().then(function(user) {
     if (user) {
-      if (user.comparePassword(req.body.password)) {
+      if (user.comparePassword(password)) {
         req.session.user = user;
         res.redirect('/users');
       } else {
@@ -43,7 +46,7 @@ router.post('/regist', function(req, res, next) {
   var newUser;
   var userInfo = {
     username: req.body.username,
-    password: req.body.password,
+    password: assistant.decryptPassword(req.body.password, req.session.token),
     stuID: req.body.stuID,
     email: req.body.email,
     phone: req.body.phone

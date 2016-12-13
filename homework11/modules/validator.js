@@ -19,6 +19,6 @@ var validator = {
            this.checkStuID(user.stuID) && this.checkPhone(user.phone) &&
            this.checkEmail(user.email);
   }
-}
+};
 
 module.exports = validator;

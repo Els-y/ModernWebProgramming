@@ -12,7 +12,7 @@ html(lang="en")
         a.navbar-brand(href="/") Student
       .navbar-body
         ul.navbar-nav
-          if logined
+          if user
             li
               a(href="/logout") Logout
           else
@@ -21,5 +21,8 @@ html(lang="en")
             li
               a(href="/") Login
     block content
-    script(src="/javascripts/jquery.js")
+    script(src='/javascripts/jquery.js')
     script(src='/javascripts/general.js')
+    script(src='/javascripts/core-min.js')
+    script(src='/javascripts/aes.js')
+    script(src='/javascripts/mode-ecb-min.js')

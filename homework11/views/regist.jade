@@ -2,6 +2,7 @@ extends layout
 
 block content
   .container
+    input(type='hidden', name='_token', value='#{_token}')
     form.regist-form(action="/regist", method="post")
       h3.form-header Sign Up
       .form-group

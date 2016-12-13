@@ -6,9 +6,9 @@ router.get('/', checkNotLogin);
 router.get('/', function(req, res, next) {
   if (req.session.alert) {
     req.session.alert = false;
-    res.render('user', {user: req.session.user, warning: "You can only see your own information"});
+    res.render('user', {warning: "You can only see your own information"});
   } else {
-    res.render('user', {user: req.session.user});
+    res.render('user');
   }
 });
 
