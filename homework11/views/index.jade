@@ -2,6 +2,7 @@ extends layout
 
 block content
   .container
+    input(type='hidden', name='_token', value='#{_token}')
     form.login-form(action="/login", method="post")
       h3.form-header Sign In
       if warning

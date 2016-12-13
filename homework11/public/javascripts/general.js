@@ -62,10 +62,12 @@
   }
 
   function submitCheckValid() {
+    var $password = $(".login-form :input[name=password]");
     $(".login-form :input").blur();
     if ($(".login-form .form-group").hasClass("has-warning")) {
       return false;
     } else {
+      $password.val(encryptPassword($password.val()));
       return true;
     }
   }
@@ -73,6 +75,17 @@
   function resetEvent() {
     $(".login-form .form-group").removeClass("has-warning").find(".text-warning").html("&nbsp;");
     return true;
+  }
+
+  function encryptPassword(password) {
+    var key = CryptoJS.enc.Utf8.parse($(':input[name=_token]').val().slice(7, 23));
+
+    var encryptedData = CryptoJS.AES.encrypt(password, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return encryptedData.ciphertext.toString();
   }
 })();
 
@@ -214,11 +227,24 @@
     });
   }
 
+  function encryptPassword(password) {
+    var key = CryptoJS.enc.Utf8.parse($(':input[name=_token]').val().slice(7, 23));
+
+    var encryptedData = CryptoJS.AES.encrypt(password, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+
+    return encryptedData.ciphertext.toString();
+  }
+
   function submitCheckValid() {
+    var $password = $('.regist-form :input[name=password]');
     $(".regist-form :input").blur();
     if ($(".form-group").hasClass("has-warning")) {
       return false;
     } else {
+      $password.val(encryptPassword($password.val()));
       return true;
     }
   }
