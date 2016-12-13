@@ -1,29 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var validator = require('../validator');
+var validator = require('../modules/validator');
 
-/* GET home page. */
-router.get('/', checkLogin);
 router.get('/', function(req, res, next) {
-  if (req.query.username) {
-    User.findOne({username: req.query.username}, function(err, user) {
-      if (err) {
-        console.log(err);
-      } else if (user) {
-        return res.render('user', {user: user});
-      }
-      res.render('index');
-    });
+  if (req.session.user) {
+    if (req.query.username &&
+        req.query.username !== req.session.user.username)
+      req.session.alert = true;
+    res.redirect('/users');
   } else {
     res.render('index');
   }
 });
-router.post('/', function(req, res, next) {
-  User.findOne({username: req.body.username}, function(err, user) {
-    if (err) {
-      console.log(err);
-    } else if (user) {
+
+router.post('/login', function(req, res, next) {
+  User.findOne({username: req.body.username}).exec().then(function(user) {
+    if (user) {
       if (user.comparePassword(req.body.password)) {
         req.session.user = user;
         res.redirect('/users');
@@ -33,14 +26,21 @@ router.post('/', function(req, res, next) {
     } else {
       res.render('index', {warning: "User does not exist"});
     }
+  }).catch(function(reason) {
+    console.log(reason);
+    res.render('index', {warning: "Database error"});
   });
 });
 
-router.get('/regist', checkLogin);
 router.get('/regist', function(req, res, next) {
-  res.render('regist');
+  if (req.session.user) {
+    res.redirect('/users');
+  } else {
+    res.render('regist');
+  }
 });
 router.post('/regist', function(req, res, next) {
+  var newUser;
   var userInfo = {
     username: req.body.username,
     password: req.body.password,
@@ -50,15 +50,15 @@ router.post('/regist', function(req, res, next) {
   };
 
   if (validator.isValidUser(userInfo)) {
-    user = new User(userInfo);
-    user.save(function(err, u) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Add new account.");
-        req.session.user = u;
-        res.redirect('/users');
-      }
+    newUser = new User(userInfo);
+    newUser.save().then(function(user) {
+      console.log("Add new account.");
+      console.log(user);
+      req.session.user = user;
+      res.redirect('/users');
+    }).catch(function(reason) {
+      console.log(reason);
+      res.render('regist');
     });
   } else {
     res.render('regist');
@@ -79,25 +79,17 @@ router.post('/checkexist', function(req, res, next) {
     "email": "Email already exists"
   };
   findInfo[req.body.key] = req.body.value;
-  User.findOne(findInfo, function(err, user) {
-    if (err) {
-      console.log(err);
-    } else if (user) {
+
+  User.findOne(findInfo).exec().then(function(user) {
+    if (user) {
       res.send({success: false, message: message[req.body.key]});
     } else {
       res.send({success: true});
     }
+  }).catch(function(reason) {
+    console.log(reason);
+    res.send({success: false, message: "Database error"});
   });
 });
-
-function checkLogin(req, res, next) {
-  console.log("checklogin");
-  console.log(req.session.user);
-  console.log("checklogin");
-
-  if (req.session.user)
-    return res.redirect('/users');
-  next();
-}
 
 module.exports = router;

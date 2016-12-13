@@ -1,10 +1,10 @@
 extends layout
 
-block nav
-  li
-    a(href="/logout") Logout
-
 block content
+  if warning
+    .alert.user-alert
+      button.close &times;
+      p #{warning}
   .container
     .page-header
       h1 Your information

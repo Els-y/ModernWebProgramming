@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('homework11:server');
 var http = require('http');
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 mongoose.connect('mongodb://localhost/signin');
 /**

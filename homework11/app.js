@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var session = require('express-session');
-var settings = require("./settings");
+var settings = require("./modules/settings");
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,9 +25,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+  resave: true,
+  saveUninitialized: true,
   secret: settings.secret,
   cookie: settings.cookie
 }));
+
+app.use(function(req, res, next) {
+  if (req.session.user)
+    res.locals.logined = true;
+  next();
+});
 
 app.use('/', index);
 app.use('/users', users);
