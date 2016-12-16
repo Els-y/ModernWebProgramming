@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Promise = require('bluebird');
 var User = require('../models/user');
 var validator = require('../modules/validator');
 var assistant = require('../modules/assistant');
@@ -42,6 +43,7 @@ router.get('/regist', function(req, res, next) {
     res.render('regist');
   }
 });
+
 router.post('/regist', function(req, res, next) {
   var newUser;
   var userInfo = {
@@ -53,18 +55,20 @@ router.post('/regist', function(req, res, next) {
   };
 
   if (validator.isValidUser(userInfo)) {
-    newUser = new User(userInfo);
-    newUser.save().then(function(user) {
+    User.checkExist(userInfo).then(function() {
+      newUser = new User(userInfo);
+      return newUser.save();
+    }).then(function(user) {
       console.log("Add new account.");
       console.log(user);
       req.session.user = user;
       res.redirect('/users');
     }).catch(function(reason) {
       console.log(reason);
-      res.render('regist');
+      res.redirect('/regist');
     });
   } else {
-    res.render('regist');
+    res.redirect('/regist');
   }
 });
 
