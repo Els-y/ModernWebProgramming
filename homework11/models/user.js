@@ -26,11 +26,11 @@ userScheMa.methods.comparePassword = function(pwd) {
 };
 
 userScheMa.statics.checkExist = function(userInfo) {
-  var promiseList = [
-    this.findOne({username: userInfo.username}).exec(),
-    this.findOne({stuID: userInfo.stuID}).exec(),
-    this.findOne({phone: userInfo.phone}).exec(),
-    this.findOne({email: userInfo.email}).exec(),
+  var queryArray = [
+    {username: userInfo.username},
+    {stuID: userInfo.stuID},
+    {phone: userInfo.phone},
+    {email: userInfo.email}
   ];
 
   var message = {
@@ -40,17 +40,17 @@ userScheMa.statics.checkExist = function(userInfo) {
     "email": "Email already exists",
   };
 
-  return Promise.all(promiseList).spread(function(uname, uid, uphone, uemail) {
-    if (uname) {
-      return Promise.reject(message.username);
-    } else if (uid) {
-      return Promise.reject(message.stuID);
-    } else if (uphone) {
-      return Promise.reject(message.phone);
-    } else if (uemail) {
-      return Promise.reject(message.uemail);
-    } else {
+  return this.findOne({$or: queryArray}).exec().then(function(user) {
+    if (!user) {
       return Promise.resolve();
+    } else if (user.username === userInfo.username) {
+      return Promise.reject(message.username);
+    } else if (user.stuID === userInfo.stuID) {
+      return Promise.reject(message.stuID);
+    } else if (user.phone === userInfo.phone) {
+      return Promise.reject(message.phone);
+    } else {
+      return Promise.reject(message.uemail);
     }
   });
 };
