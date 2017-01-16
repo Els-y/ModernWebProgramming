@@ -1,0 +1,18 @@
+.col-md-8.col-md-offset-2
+  h1 Welcome, {{username}}
+  hr
+  h4 There are {{posts.length}} posts
+  .posts-list(ng-repeat='post in posts')
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title {{post.title}}
+      .panel-body
+        p {{post.text}}
+      .panel-footer
+        .pull-right
+          a.btn.btn-danger(href='/deletePost/{{post.id}}', ng-show='haslogin && post.author == username') Delete
+          a.btn.btn-primary(href='/editPost/{{post.id}}', ng-show='haslogin && post.author == username') Edit
+          a.btn.btn-success(href='/readPost/{{post.id}}') More
+        .info
+          span.author {{post.author}}
+          span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}

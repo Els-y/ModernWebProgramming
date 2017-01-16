@@ -1,0 +1,37 @@
+doctype html
+html(ng-app='myApp')
+  head
+    title= title
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .navbar.navbar-inverse
+      .container
+        .navbar-header
+          button.navbar-toggle(data-target='.navbar-collapse', data-toggle='collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') Blog
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li
+              a(href='/') Home
+          ul.nav.navbar-nav.navbar-right
+            li(ng-hide='haslogin')
+              a(href='/regist')
+                span.glyphicon.glyphicon-user
+                |  Register
+            li(ng-hide='haslogin')
+              a(href='/login')
+                span.glyphicon.glyphicon-log-in
+                |  Login
+            li(ng-show='haslogin')
+              a(href='/addPost') Add a new post
+            li(ng-show='haslogin')
+              a(href='/logout')
+                span.glyphicon.glyphicon-log-out
+                |  Logout
+    block content
+    script(src='jquery/dist/jquery.min.js')
+    script(src='bootstrap/dist/js/bootstrap.min.js')

@@ -1,0 +1,14 @@
+.col-md-8.col-md-offset-2
+  .delete-wrap
+    h3.post-title {{post.title}}
+    .post-info
+      span.author {{post.author}}
+      span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}
+    hr
+    .post-body
+      p.post-text {{post.text}}
+    hr
+    p.confirm
+      | Are you sure you want to delete this post?
+      button.btn.btn-danger.btn-delete(ng-click='deletePost()') Yes
+      button.btn.btn-success(ng-click='home()') No thanks
