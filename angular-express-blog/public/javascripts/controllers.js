@@ -2,21 +2,38 @@
 
 /* Controllers */
 // posts
-function IndexCtrl($scope, $http, $rootScope) {
+function IndexCtrl($scope, $http, $rootScope, $filter) {
   $scope.posts = {
     currentPage: 1,
     postPerPage: 4,
     maxSize: 8,
     totalPosts: [],
-    totalPostsSize: 0,
+    filterPosts: [],
     currentStart: 0,
     currentEnd: 0,
     currentPosts: []
   };
 
+  $scope.$watch('postsQuery', function(newValue, oldValue) {
+    var reg = new RegExp(newValue);
+
+    $scope.posts.currentPage = 1;
+    if (!newValue) {
+      $scope.posts.filterPosts = $scope.posts.totalPosts;
+    } else {
+      $scope.posts.filterPosts = $scope.posts.totalPosts.filter(function(post, i) {
+        if (reg.test(post.title) || reg.test(post.text)) return true;
+        else return false;
+      });
+    }
+
+    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
+    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
+    $scope.posts.currentPosts = $scope.posts.filterPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
+  });
+
   $http.get('/posts').then(function successCallback(response) {
-    $scope.posts.totalPosts = response.data.posts;
-    $scope.posts.totalPostsSize = $scope.posts.totalPosts.length;
+    $scope.posts.totalPosts = $scope.posts.filterPosts = response.data.posts;
 
     $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
     $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
@@ -250,7 +267,7 @@ angular.module('myApp').controller('PaginationDemoCtrl', function ($scope, $log)
   $scope.pageChanged = function() {
     $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
     $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
-    $scope.posts.currentPosts = $scope.posts.totalPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
+    $scope.posts.currentPosts = $scope.posts.filterPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
   };
 
 });

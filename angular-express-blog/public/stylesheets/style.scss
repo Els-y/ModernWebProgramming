@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow-y: scroll;
 }
 .navbar {
   border-radius: 0;
@@ -39,23 +40,29 @@ body {
     margin-top: 20px;
   }
 }
-.posts-list {
-  .panel .btn {
-    margin-right: 10px;
+.index-wrap {
+  .posts-info .search-wrap {
+    width: 200px;
+    margin-top: -12px;
   }
-  .panel-footer {
-    background-color: white;
-    overflow: hidden;
-    padding: 5px 10px;
-  }
-  .info {
-    padding-top: 5px;
-    color: gray;
-    .author {
-      padding-left: 6px;
+  .posts-list {
+    .panel .btn {
+      margin-right: 10px;
     }
-    .time {
-      padding-left: 20px;
+    .panel-footer {
+      background-color: white;
+      overflow: hidden;
+      padding: 5px 10px;
+    }
+    .info {
+      padding-top: 5px;
+      color: gray;
+      .author {
+        padding-left: 6px;
+      }
+      .time {
+        padding-left: 20px;
+      }
     }
   }
 }

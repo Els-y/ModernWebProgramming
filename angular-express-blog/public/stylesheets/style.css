@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow-y: scroll;
 }
 
 .navbar {
@@ -46,22 +47,26 @@ body {
   margin-top: 20px;
 }
 
-.posts-list .panel .btn {
+.index-wrap .posts-info .search-wrap {
+  width: 200px;
+  margin-top: -12px;
+}
+.index-wrap .posts-list .panel .btn {
   margin-right: 10px;
 }
-.posts-list .panel-footer {
+.index-wrap .posts-list .panel-footer {
   background-color: white;
   overflow: hidden;
   padding: 5px 10px;
 }
-.posts-list .info {
+.index-wrap .posts-list .info {
   padding-top: 5px;
   color: gray;
 }
-.posts-list .info .author {
+.index-wrap .posts-list .info .author {
   padding-left: 6px;
 }
-.posts-list .info .time {
+.index-wrap .posts-list .info .time {
   padding-left: 20px;
 }
 
