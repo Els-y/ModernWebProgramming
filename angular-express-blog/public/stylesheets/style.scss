@@ -1,0 +1,147 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow-y: scroll;
+}
+.navbar {
+  border-radius: 0;
+}
+.pagination {
+  margin-top: 0;
+  margin-bottom: 80px;
+}
+.main-view {
+  margin-bottom: 100px;
+}
+.login-form,
+.regist-form {
+  margin-top: 50px;
+  padding: 35px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  overflow: hidden;
+  .text-warning {
+    margin: 0 0 5px 0;
+  }
+  .submit {
+    margin-right: 10px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+}
+.regist-form {
+  hr {
+    margin-bottom: 5px;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+  .btns {
+    margin-top: 20px;
+  }
+}
+.index-wrap {
+  .posts-list-wrap {
+    min-height: 500px;
+  }
+  .posts-info .search-wrap {
+    width: 200px;
+    margin-top: -12px;
+  }
+  .posts-list {
+    .panel .btn {
+      margin-right: 10px;
+    }
+    .panel-footer {
+      background-color: white;
+      overflow: hidden;
+      padding: 5px 10px;
+    }
+    .info {
+      padding-top: 5px;
+      color: gray;
+      .author {
+        padding-left: 6px;
+      }
+      .time {
+        padding-left: 20px;
+      }
+    }
+  }
+}
+.edit-wrap {
+  .text-wrap, .btns {
+    margin-top: 15px;
+    .btn {
+      margin-right: 10px;
+    }
+  }
+}
+.delete-wrap, .read-wrap .post-wrap {
+  .post-title {
+    text-align: center;
+  }
+  .post-info {
+    color: gray;
+    text-align: center;
+    .time {
+      margin-left: 10px;
+    }
+  }
+  .post-body {
+    min-height: 200px;
+    .post-text {
+      word-wrap: break-word;
+    }
+  }
+  .post-hide {
+    padding-left: 30px;
+  }
+}
+.read-wrap, .delete-wrap {
+  hr {
+    border-style: dashed;
+  }
+  .btn {
+    margin-right: 10px;
+  }
+}
+.delete-wrap {
+  .confirm {
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .btn-delete {
+    margin-left: 30px;
+  }
+}
+.read-wrap .comments-wrap {
+  .clear {
+    clear: both;
+  }
+  .comment-submit {
+    margin-top: 10px;
+  }
+  .login-warning {
+    position: relative;
+    top: 5px;
+    padding-right: 20px;
+    font-size: 15px;
+  }
+  .comments-list {
+    .comment-author {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .comment-time {
+      color: gray;
+      padding-left: 20px;
+    }
+    .comment-hide {
+      padding-left: 30px;
+    }
+    .comment-content {
+      word-wrap: break-word;
+    }
+  }
+}

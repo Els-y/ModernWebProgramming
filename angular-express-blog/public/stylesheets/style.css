@@ -1,0 +1,145 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow-y: scroll;
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+.pagination {
+  margin-top: 0;
+  margin-bottom: 80px;
+}
+
+.main-view {
+  margin-bottom: 100px;
+}
+
+.login-form,
+.regist-form {
+  margin-top: 50px;
+  padding: 35px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+  overflow: hidden;
+}
+.login-form .text-warning,
+.regist-form .text-warning {
+  margin: 0 0 5px 0;
+}
+.login-form .submit,
+.regist-form .submit {
+  margin-right: 10px;
+}
+.login-form .form-group,
+.regist-form .form-group {
+  margin-bottom: 20px;
+}
+
+.regist-form hr {
+  margin-bottom: 5px;
+}
+.regist-form .form-group {
+  margin-bottom: 0;
+}
+.regist-form .btns {
+  margin-top: 20px;
+}
+
+.index-wrap .posts-list-wrap {
+  min-height: 500px;
+}
+.index-wrap .posts-info .search-wrap {
+  width: 200px;
+  margin-top: -12px;
+}
+.index-wrap .posts-list .panel .btn {
+  margin-right: 10px;
+}
+.index-wrap .posts-list .panel-footer {
+  background-color: white;
+  overflow: hidden;
+  padding: 5px 10px;
+}
+.index-wrap .posts-list .info {
+  padding-top: 5px;
+  color: gray;
+}
+.index-wrap .posts-list .info .author {
+  padding-left: 6px;
+}
+.index-wrap .posts-list .info .time {
+  padding-left: 20px;
+}
+
+.edit-wrap .text-wrap, .edit-wrap .btns {
+  margin-top: 15px;
+}
+.edit-wrap .text-wrap .btn, .edit-wrap .btns .btn {
+  margin-right: 10px;
+}
+
+.delete-wrap .post-title, .read-wrap .post-wrap .post-title {
+  text-align: center;
+}
+.delete-wrap .post-info, .read-wrap .post-wrap .post-info {
+  color: gray;
+  text-align: center;
+}
+.delete-wrap .post-info .time, .read-wrap .post-wrap .post-info .time {
+  margin-left: 10px;
+}
+.delete-wrap .post-body, .read-wrap .post-wrap .post-body {
+  min-height: 200px;
+}
+.delete-wrap .post-body .post-text, .read-wrap .post-wrap .post-body .post-text {
+  word-wrap: break-word;
+}
+.delete-wrap .post-hide, .read-wrap .post-wrap .post-hide {
+  padding-left: 30px;
+}
+
+.read-wrap hr, .delete-wrap hr {
+  border-style: dashed;
+}
+.read-wrap .btn, .delete-wrap .btn {
+  margin-right: 10px;
+}
+
+.delete-wrap .confirm {
+  font-weight: bold;
+  font-size: 15px;
+}
+.delete-wrap .btn-delete {
+  margin-left: 30px;
+}
+
+.read-wrap .comments-wrap .clear {
+  clear: both;
+}
+.read-wrap .comments-wrap .comment-submit {
+  margin-top: 10px;
+}
+.read-wrap .comments-wrap .login-warning {
+  position: relative;
+  top: 5px;
+  padding-right: 20px;
+  font-size: 15px;
+}
+.read-wrap .comments-wrap .comments-list .comment-author {
+  font-size: 16px;
+  font-weight: bold;
+}
+.read-wrap .comments-wrap .comments-list .comment-time {
+  color: gray;
+  padding-left: 20px;
+}
+.read-wrap .comments-wrap .comments-list .comment-hide {
+  padding-left: 30px;
+}
+.read-wrap .comments-wrap .comments-list .comment-content {
+  word-wrap: break-word;
+}
+
+/*# sourceMappingURL=style.css.map */

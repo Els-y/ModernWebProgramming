@@ -1,0 +1,13 @@
+.col-md-8.col-md-offset-2
+  .edit-wrap
+    h2 Edit post
+    hr
+    .title-wrap
+      label(for='title') Title:
+      input.form-control#title(ng-model='form.title', name='title')
+    .text-wrap
+      label(for='text') Body:
+      textarea.form-control#text(ng-model='form.text', cols='50', rows='15')
+    .btns
+      button.btn.btn-primary(ng-click='editPost()') Edit Post
+      a.btn.btn-default(ng-click='backPost()') Details

@@ -1,0 +1,12 @@
+.col-md-8.col-md-offset-2
+  .edit-wrap
+    h2 Write a new post
+    hr
+    .title-wrapper
+      label(for='title') Title:
+      input.form-control#title(ng-model='form.title', name='title')
+    .text-wrapper
+      label(for='text') Body:
+      textarea.form-control#text(ng-model='form.text', cols='50', rows='15')
+    .btns
+      button.btn.btn-primary(ng-click='submitPost()', ng-disabled='!haslogin || !form.title || !form.text') Submit Post
