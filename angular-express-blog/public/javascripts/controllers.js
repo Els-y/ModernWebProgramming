@@ -14,6 +14,12 @@ function IndexCtrl($scope, $http, $rootScope, $filter) {
     currentPosts: []
   };
 
+  $scope.updateCurrentPosts = function() {
+    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
+    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
+    $scope.posts.currentPosts = $scope.posts.filterPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
+  };
+
   $scope.$watch('postsQuery', function(newValue, oldValue) {
     var reg = new RegExp(newValue);
 
@@ -27,21 +33,17 @@ function IndexCtrl($scope, $http, $rootScope, $filter) {
       });
     }
 
-    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
-    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
-    $scope.posts.currentPosts = $scope.posts.filterPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
+    $scope.updateCurrentPosts();
   });
 
   $http.get('/posts').then(function successCallback(response) {
     $scope.posts.totalPosts = $scope.posts.filterPosts = response.data.posts;
 
-    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
-    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
-    $scope.posts.currentPosts = $scope.posts.totalPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
-
     $rootScope.haslogin = response.data.user.logined;
     $rootScope.username = response.data.user.username;
     $rootScope.role = response.data.user.role;
+
+    $scope.updateCurrentPosts();
   });
 
   $scope.pageChanged = function() {
@@ -258,16 +260,9 @@ angular.module('myApp').controller('commentsCtrl', function($scope, $rootScope, 
 });
 
 angular.module('myApp').controller('PaginationDemoCtrl', function ($scope, $log) {
-
-
   $scope.setPage = function (pageNo) {
     $scope.posts.currentPage = pageNo;
   };
 
-  $scope.pageChanged = function() {
-    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
-    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
-    $scope.posts.currentPosts = $scope.posts.filterPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
-  };
-
+  $scope.pageChanged = $scope.updateCurrentPosts;
 });
