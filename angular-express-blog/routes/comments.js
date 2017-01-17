@@ -20,7 +20,8 @@ router.get('/get/:id', function(req, res) {
       resJSON.comment = {
         id: comment._id,
         author: comment.author.username,
-        content: comment.content,
+        content: comment.hide && (!req.session.user || req.session.user.role === 1 || req.session.user.username !== comment.author.username) ? 'This content has been hidden by the administrator' : comment.content,
+        hide: comment.hide
       };
     }
   }).finally(function() {
@@ -40,16 +41,19 @@ router.get('/getbypost/:id', function(req, res) {
       populate: 'author'
     }
   ];
-  Post.findById(id).populate({path: 'comments', select: 'author content time', populate: {path: 'author'}}).exec().then(function(post) {
+  Post.findById(id).populate({path: 'comments', populate: {path: 'author'}}).exec().then(function(post) {
     if (post) {
       post.comments.forEach(function(comment, i) {
+        console.log(comment);
         resJSON.comments.push({
           id: comment._id,
           author: comment.author.username,
-          content: comment.content,
-          time: comment.time
+          content: comment.hide && (!req.session.user || req.session.user.role === 1 || req.session.user.username !== comment.author.username) ? 'This content has been hidden by the administrator' : comment.content,
+          time: comment.time,
+          hide: comment.hide
         });
       });
+      console.log(resJSON.comments);
       resJSON.success = true;
     }
   }).finally(function() {
@@ -76,7 +80,8 @@ router.post('/add', function (req, res) {
         post: post,
         author: req.session.user,
         content: req.body.content,
-        time: new Date().toISOString()
+        time: new Date().toISOString(),
+        hide: false
       });
       return Promise.all([comment.save(), post]);
     }).spread(function(comment, post) {
@@ -117,6 +122,46 @@ router.put('/edit/:id', function (req, res) {
   });
 });
 
+router.put('/hide/:id', function (req, res) {
+  var id = req.params.id;
+  var resJSON = {
+    success: false,
+  };
+  if (!req.session.user || req.session.user.role !== 1) return res.json(resJSON);
+  Comment.findById(id).exec().then(function(comment) {
+    if (comment) {
+      comment.hide = true;
+      return comment.save();
+    } else {
+      return Promise.reject();
+    }
+  }).then(function(comment) {
+    resJSON.success = true;
+  }).finally(function() {
+    res.json(resJSON);
+  });
+});
+
+router.put('/show/:id', function (req, res) {
+  var id = req.params.id;
+  var resJSON = {
+    success: false,
+  };
+  if (!req.session.user || req.session.user.role !== 1) return res.json(resJSON);
+  Comment.findById(id).exec().then(function(comment) {
+    if (comment) {
+      comment.hide = false;
+      return comment.save();
+    } else {
+      return Promise.reject();
+    }
+  }).then(function(comment) {
+    resJSON.success = true;
+  }).finally(function() {
+    res.json(resJSON);
+  });
+});
+
 // DELETE
 router.delete('/delete/:id', function (req, res) {
   var id = req.params.id;
@@ -137,31 +182,6 @@ router.delete('/delete/:id', function (req, res) {
     res.json(resJSON);
   });
 });
-
-//
-// // PUT
-// router.put('/edit/:id', function (req, res) {
-//   var id = req.params.id;
-//   var resJSON = {
-//     success: false,
-//   };
-//   if (!req.session.user) return res.json(resJSON);
-//   Post.findById(id).populate('author').exec().then(function(post) {
-//     if (post && post.author.username === req.session.user.username) {
-//       post.time = new Date().toISOString();
-//       post.title = req.body.title;
-//       post.text = req.body.text;
-//       return post.save();
-//     } else {
-//       return Promise.reject();
-//     }
-//   }).then(function(post) {
-//     resJSON.success = true;
-//   }).finally(function() {
-//     res.json(resJSON);
-//   });
-// });
-//
 
 
 module.exports = router;

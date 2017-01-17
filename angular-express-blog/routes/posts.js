@@ -14,7 +14,8 @@ router.get('/', function (req, res) {
     posts: [],
     user: {
       username: 'guest',
-      logined: false
+      logined: false,
+      role: 0
     }
   };
   Post.find().sort({'time': 'desc'}).populate('author').exec().then(function(posts) {
@@ -22,7 +23,7 @@ router.get('/', function (req, res) {
       resJSON.posts.push({
         id: post._id,
         title: post.title,
-        text: post.text.substr(0, 50) + '...',
+        text: post.hide ? 'This content has been hidden by the administrator' : post.text.substr(0, 50) + '...',
         author: post.author.username,
         time: post.time
       });
@@ -30,6 +31,7 @@ router.get('/', function (req, res) {
     if (req.session.user) {
       resJSON.user.logined = true;
       resJSON.user.username = req.session.user.username;
+      resJSON.user.role = req.session.user.role;
     }
     resJSON.success = true;
   }).finally(function() {
@@ -52,17 +54,18 @@ router.get('/get/:id', function (req, res) {
         id: post._id,
         title: post.title,
         author: post.author.username,
-        text: post.text,
+        text: post.hide && (!req.session.user || req.session.user.role === 1 || req.session.user.username !== post.author.username) ? 'This content has been hidden by the administrator' : post.text,
         time: post.time,
-        comments: []
+        comments: [],
+        hide: post.hide
       };
-      // post.comments = _.sortBy(post.comments, 'time');
       post.comments.forEach(function(comment, i) {
         resJSON.post.comments.push({
           id: comment._id,
           author: comment.author.username,
-          content: comment.content,
-          time: comment.time
+          content: comment.hide && (!req.session.user || req.session.user.role === 1 || req.session.user.username !== comment.author.username) ? 'This content has been hidden by the administrator' : comment.content,
+          time: comment.time,
+          hide: comment.hide
         });
       });
     }
@@ -78,7 +81,8 @@ router.post('/add', function (req, res) {
     title: req.body.title,
     author: req.session.user,
     text: req.body.text,
-    time: new Date().toISOString()
+    time: new Date().toISOString(),
+    hide: false
   };
   var resJSON = {
     success: false,
@@ -116,6 +120,46 @@ router.put('/edit/:id', function (req, res) {
       post.time = new Date().toISOString();
       post.title = req.body.title;
       post.text = req.body.text;
+      return post.save();
+    } else {
+      return Promise.reject();
+    }
+  }).then(function(post) {
+    resJSON.success = true;
+  }).finally(function() {
+    res.json(resJSON);
+  });
+});
+
+router.put('/hide/:id', function (req, res) {
+  var id = req.params.id;
+  var resJSON = {
+    success: false,
+  };
+  if (!req.session.user || req.session.user.role !== 1) return res.json(resJSON);
+  Post.findById(id).exec().then(function(post) {
+    if (post) {
+      post.hide = true;
+      return post.save();
+    } else {
+      return Promise.reject();
+    }
+  }).then(function(post) {
+    resJSON.success = true;
+  }).finally(function() {
+    res.json(resJSON);
+  });
+});
+
+router.put('/show/:id', function (req, res) {
+  var id = req.params.id;
+  var resJSON = {
+    success: false,
+  };
+  if (!req.session.user || req.session.user.role !== 1) return res.json(resJSON);
+  Post.findById(id).exec().then(function(post) {
+    if (post) {
+      post.hide = false;
       return post.save();
     } else {
       return Promise.reject();

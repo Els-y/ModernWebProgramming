@@ -9,7 +9,7 @@ var userScheMa = new Schema({
   stuid: String,
   email: String,
   phone: String,
-  role: Number
+  role: Number  // 0: common, 1: admin
 });
 
 userScheMa.pre('save', function(next) {

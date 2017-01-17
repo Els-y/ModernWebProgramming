@@ -36,14 +36,6 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
         templateUrl: 'partials/login',
         controller: LogoutCtrl
       }).
-      // when('/editComment/:id', {
-      //   templateUrl: '/partials/editComment',
-      //   controller: EditCommentCtrl
-      // }).
-      // when('/deleteComment/:id', {
-      //   // templateUrl: '/partials/deleteComment',
-      //   controller: DeleteCommentCtrl
-      // }).
       otherwise({
         redirectTo: '/login'
       });

@@ -6,6 +6,10 @@ body {
   border-radius: 0;
 }
 
+.main-view {
+  margin-bottom: 100px;
+}
+
 .login-form,
 .regist-form {
   margin-top: 50px;
@@ -79,6 +83,9 @@ body {
 .delete-wrap .post-body .post-text, .read-wrap .post-wrap .post-body .post-text {
   word-wrap: break-word;
 }
+.delete-wrap .post-hide, .read-wrap .post-wrap .post-hide {
+  padding-left: 30px;
+}
 
 .read-wrap hr, .delete-wrap hr {
   border-style: dashed;
@@ -101,7 +108,7 @@ body {
 .read-wrap .comments-wrap .comment-submit {
   margin-top: 10px;
 }
-.read-wrap .comments-wrap .text-warning {
+.read-wrap .comments-wrap .login-warning {
   position: relative;
   top: 5px;
   padding-right: 20px;
@@ -114,6 +121,9 @@ body {
 .read-wrap .comments-wrap .comments-list .comment-time {
   color: gray;
   padding-left: 20px;
+}
+.read-wrap .comments-wrap .comments-list .comment-hide {
+  padding-left: 30px;
 }
 .read-wrap .comments-wrap .comments-list .comment-content {
   word-wrap: break-word;

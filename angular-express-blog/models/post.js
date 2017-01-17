@@ -7,6 +7,7 @@ var articleScheMa = new Schema({
   text: String,
   comments: [{type: Schema.Types.ObjectId, ref: 'comments'}],
   time: Date,
+  hide: Boolean
 });
 
 module.exports = mongoose.model('posts', articleScheMa);

@@ -1,6 +1,6 @@
 module.exports = {
   secret: "a simple sign in",
   cookie: {
-    maxAge: 600000
+    maxAge: 3600000
   }
 };

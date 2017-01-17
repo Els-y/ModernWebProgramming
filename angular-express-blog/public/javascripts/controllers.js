@@ -8,6 +8,7 @@ function IndexCtrl($scope, $http, $rootScope) {
       $scope.posts = data.posts;
       $rootScope.haslogin = data.user.logined;
       $rootScope.username = data.user.username;
+      $rootScope.role = data.user.role;
     });
 }
 
@@ -27,6 +28,28 @@ function ReadPostCtrl($scope, $http, $routeParams) {
     success(function(data) {
       $scope.post = data.post;
     });
+
+  $scope.showPost = function() {
+    $http.put('/posts/show/' + $scope.post.id).
+      success(function(data) {
+        if (data.success) {
+          $http.get('/posts/get/' + $scope.post.id).
+            success(function(response) {
+              $scope.post = response.post;
+            });
+        }
+      });
+  };
+
+  $scope.hidePost = function() {
+    $http.put('/posts/hide/' + $scope.post.id).
+      success(function(data) {
+        if (data.success) {
+          $scope.post.hide = true;
+          $scope.post.text = 'This content has been hidden by the administrator';
+        }
+      });
+  };
 }
 
 function EditPostCtrl($scope, $http, $location, $routeParams, $rootScope) {
@@ -191,5 +214,29 @@ angular.module('myApp').controller('commentsCtrl', function($scope, $rootScope, 
           }
         });
       $('#editComment-modal').modal('hide');
+    };
+
+    $scope.hideComment = function(commentid) {
+      $http.put('/comments/hide/' + commentid).
+        success(function(data) {
+          if (data.success) {
+            $http.get('/comments/getbypost/' + $scope.post.id).
+              success(function(commentsData) {
+                $scope.post.comments = commentsData.comments;
+              });
+          }
+        });
+    };
+
+    $scope.showComment = function(commentid) {
+      $http.put('/comments/show/' + commentid).
+        success(function(data) {
+          if (data.success) {
+            $http.get('/comments/getbypost/' + $scope.post.id).
+              success(function(commentsData) {
+                $scope.post.comments = commentsData.comments;
+              });
+          }
+        });
     };
 });

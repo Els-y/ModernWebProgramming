@@ -8,32 +8,41 @@
       hr
       .post-body
         p.post-text {{post.text}}
-      hr(ng-show='haslogin && post.author == username')
-      .btns(ng-show='haslogin && post.author == username')
+      hr(ng-show='haslogin && (role == 1 || post.author == username)')
+      .btns(ng-show='haslogin && (role == 1 || post.author == username)')
         a.btn.btn-danger(href='/deletePost/{{post.id}}', ng-show='haslogin && post.author == username') Delete
         a.btn.btn-primary(href='/editPost/{{post.id}}', ng-show='haslogin && post.author == username') Edit
+        button.btn.btn-warning(ng-show='role == 1 && !post.hide', ng-click='hidePost()') hide
+        button.btn.btn-success(ng-show='role == 1 && post.hide', ng-click='showPost()') show
+        span.post-hide.text-warning(ng-show='haslogin && role == 0 && username == post.author') This content has been hidden by the administrator
     hr
     .comments-wrap(ng-controller='commentsCtrl')
       h3.comments-title Comments
       textarea.form-control#text(ng-model='form.content', ng-disabled='!haslogin', cols='50', rows='6')
       .pull-right
-        span.text-warning(ng-show='!haslogin') Please login first
+        span.text-warning.login-warning(ng-show='!haslogin') Please login first
         button.btn.btn-success.comment-submit(ng-click='addComment()', ng-disabled='!haslogin || !form.content') Submit
       .clear
       hr
       .comments-list(ng-repeat='comment in post.comments')
         .comment
-          .btn-group.pull-right(ng-show='haslogin && comment.author == username')
+          .btn-group.pull-right(ng-show='haslogin && (comment.author == username || role == 1)')
             button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-              span.glyphicon.glyphicon-cog
+              span.glyphicon.glyphicon-option-horizontal
             ul.dropdown-menu(role='menu')
-              li
+              li(ng-show='comment.author == username')
                 a(ng-click='deleteComment(comment.id)') Delete
-              li
+              li(ng-show='comment.author == username')
                 a(ng-click='editComment(comment.id)') Edit
+              li(ng-show='role == 1 && !comment.hide')
+                a(ng-click='hideComment(comment.id)') hide
+              li(ng-show='role == 1 && comment.hide')
+                a(ng-click='showComment(comment.id)') show
+
           p.comment-info
             span.comment-author {{comment.author}}
             span.comment-time {{comment.time | date:'yyyy-MM-dd hh:mm'}}
+            span.comment-hide.text-warning(ng-show='haslogin && role == 0 && username == comment.author') This content has been hidden by the administrator
           p.comment-content {{comment.content}}
         hr
       #deleteComment-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')

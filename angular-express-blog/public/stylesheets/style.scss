@@ -4,6 +4,9 @@ body {
 .navbar {
   border-radius: 0;
 }
+.main-view {
+  margin-bottom: 100px;
+}
 .login-form,
 .regist-form {
   margin-top: 50px;
@@ -77,6 +80,9 @@ body {
       word-wrap: break-word;
     }
   }
+  .post-hide {
+    padding-left: 30px;
+  }
 }
 .read-wrap, .delete-wrap {
   hr {
@@ -102,7 +108,7 @@ body {
   .comment-submit {
     margin-top: 10px;
   }
-  .text-warning {
+  .login-warning {
     position: relative;
     top: 5px;
     padding-right: 20px;
@@ -116,6 +122,9 @@ body {
     .comment-time {
       color: gray;
       padding-left: 20px;
+    }
+    .comment-hide {
+      padding-left: 30px;
     }
     .comment-content {
       word-wrap: break-word;
