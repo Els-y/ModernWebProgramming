@@ -9,6 +9,12 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.1",
+    "angular-animate": "^1.6.1",
+    "angular-touch": "^1.6.1",
+    "angular-route": "^1.6.1",
+    "angular-sanitize": "^1.6.1",
+    "angular-bootstrap": "^2.4.0"
   }
 }

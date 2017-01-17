@@ -1,8 +1,8 @@
 .col-md-8.col-md-offset-2
   h1 Welcome, {{username}}
   hr
-  h4 There are {{posts.length}} posts
-  .posts-list(ng-repeat='post in posts')
+  h4 There are {{posts.totalPostsSize}} posts
+  .posts-list(ng-repeat='post in posts.currentPosts')
     .panel.panel-default
       .panel-heading
         h3.panel-title {{post.title}}
@@ -16,3 +16,6 @@
         .info
           span.author {{post.author}}
           span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}
+  hr
+  .pagination-wrap(ng-controller="PaginationDemoCtrl")
+    ul.pagination(uib-pagination='', total-items='posts.totalPostsSize', items-per-page='posts.postPerPage', ng-model='posts.currentPage', max-size='posts.maxSize', boundary-links='true', first-text='«', last-text='»', previous-text='‹', next-text='›', ng-change='pageChanged()')

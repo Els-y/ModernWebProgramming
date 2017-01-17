@@ -42,7 +42,7 @@
           p.comment-info
             span.comment-author {{comment.author}}
             span.comment-time {{comment.time | date:'yyyy-MM-dd hh:mm'}}
-            span.comment-hide.text-warning(ng-show='haslogin && role == 0 && username == comment.author') This content has been hidden by the administrator
+            span.comment-hide.text-warning(ng-show='haslogin && comment.hide && role == 0 && username == comment.author') This content has been hidden by the administrator
           p.comment-content {{comment.content}}
         hr
       #deleteComment-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')

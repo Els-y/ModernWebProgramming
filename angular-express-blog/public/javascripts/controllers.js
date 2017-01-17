@@ -3,71 +3,86 @@
 /* Controllers */
 // posts
 function IndexCtrl($scope, $http, $rootScope) {
-  $http.get('/posts').
-    success(function(data, status, headers, config) {
-      $scope.posts = data.posts;
-      $rootScope.haslogin = data.user.logined;
-      $rootScope.username = data.user.username;
-      $rootScope.role = data.user.role;
-    });
+  $scope.posts = {
+    currentPage: 1,
+    postPerPage: 4,
+    maxSize: 8,
+    totalPosts: [],
+    totalPostsSize: 0,
+    currentStart: 0,
+    currentEnd: 0,
+    currentPosts: []
+  };
+
+  $http.get('/posts').then(function successCallback(response) {
+    $scope.posts.totalPosts = response.data.posts;
+    $scope.posts.totalPostsSize = $scope.posts.totalPosts.length;
+
+    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
+    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
+    $scope.posts.currentPosts = $scope.posts.totalPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
+
+    $rootScope.haslogin = response.data.user.logined;
+    $rootScope.username = response.data.user.username;
+    $rootScope.role = response.data.user.role;
+  });
+
+  $scope.pageChanged = function() {
+    $scope.currentStart = $scope.postPerPage * ($scope.currentPage - 1);
+    $scope.currentEnd = $scope.currentStart + $scope.postPerPage;
+    $scope.currentPosts = $scope.totalPosts.slice($scope.currentStart, $scope.currentEnd);
+  };
 }
 
 function AddPostCtrl($scope, $http, $location, $rootScope) {
   $scope.form = {};
   $scope.submitPost = function () {
     if (!$rootScope.haslogin || !$scope.form.title || !$scope.form.text) return;
-    $http.post('/posts/add', $scope.form).
-      success(function(data) {
-        $location.path('/');
-      });
+    $http.post('/posts/add', $scope.form).then(function successCallback(response) {
+      $location.path('/');
+    });
   };
 }
 
 function ReadPostCtrl($scope, $http, $routeParams) {
-  $http.get('/posts/get/' + $routeParams.id).
-    success(function(data) {
-      $scope.post = data.post;
-    });
+  $http.get('/posts/get/' + $routeParams.id).then(function successCallback(response) {
+    $scope.post = response.data.post;
+  });
 
   $scope.showPost = function() {
-    $http.put('/posts/show/' + $scope.post.id).
-      success(function(data) {
-        if (data.success) {
-          $http.get('/posts/get/' + $scope.post.id).
-            success(function(response) {
-              $scope.post = response.post;
-            });
-        }
-      });
+    $http.put('/posts/show/' + $scope.post.id).then(function successCallback(response) {
+      if (response.data.success) {
+        $http.get('/posts/get/' + $scope.post.id).then(function successCallback(response) {
+          $scope.post = response.data.post;
+        });
+      }
+    });
   };
 
   $scope.hidePost = function() {
-    $http.put('/posts/hide/' + $scope.post.id).
-      success(function(data) {
-        if (data.success) {
-          $scope.post.hide = true;
-          $scope.post.text = 'This content has been hidden by the administrator';
-        }
-      });
+    $http.put('/posts/hide/' + $scope.post.id).then(function successCallback(response) {
+      if (response.data.success) {
+        $scope.post.hide = true;
+        $scope.post.text = 'This content has been hidden by the administrator';
+      }
+    });
   };
 }
 
 function EditPostCtrl($scope, $http, $location, $routeParams, $rootScope) {
   $scope.form = {};
-  $http.get('/posts/get/' + $routeParams.id).
-    success(function(data) {
-      if (!$rootScope.haslogin || data.post.author !== $rootScope.username) {
-        $location.url('/');
-      } else {
-        $scope.form = data.post;
-      }
-    });
+  $http.get('/posts/get/' + $routeParams.id).then(function successCallback(response) {
+    if (!$rootScope.haslogin || response.data.post.author !== $rootScope.username) {
+      $location.url('/');
+    } else {
+      $scope.form = response.data.post;
+    }
+  });
 
   $scope.editPost = function() {
-    $http.put('/posts/edit/' + $routeParams.id, $scope.form).
-      success(function(data) {
-        $location.url('/readPost/' + $routeParams.id);
-      });
+    $http.put('/posts/edit/' + $routeParams.id, $scope.form).then(function successCallback(response) {
+      $location.url('/readPost/' + $routeParams.id);
+    });
   };
 
   $scope.backPost = function() {
@@ -79,21 +94,19 @@ function EditPostCtrl($scope, $http, $location, $routeParams, $rootScope) {
 }
 
 function DeletePostCtrl($scope, $http, $location, $routeParams, $rootScope) {
-  $http.get('/posts/get/' + $routeParams.id).
-    success(function(data) {
-      if (!$rootScope.haslogin || data.post.author !== $rootScope.username) {
-        $location.url('/');
-      } else {
-        $scope.post = data.post;
-      }
-    });
+  $http.get('/posts/get/' + $routeParams.id).then(function successCallback(response) {
+    if (!$rootScope.haslogin || response.data.post.author !== $rootScope.username) {
+      $location.url('/');
+    } else {
+      $scope.post = response.data.post;
+    }
+  });
 
   $scope.deleteCommentId = null;
   $scope.deletePost = function () {
-    $http.delete('/posts/delete/' + $routeParams.id).
-      success(function(data) {
-        $location.url('/');
-      });
+    $http.delete('/posts/delete/' + $routeParams.id).then(function successCallback(response) {
+      $location.url('/');
+    });
   };
 
   $scope.home = function () {
@@ -108,45 +121,42 @@ function LoginCtrl($scope, $http, $location, $rootScope) {
     $rootScope.loginInfo = null;
   };
   $scope.loginPost = function () {
-    $http.post('/authorization/login', $scope.form).
-      success(function(data) {
-        if (data.success) {
-          $rootScope.haslogin = true;
-          $rootScope.username = data.data.username;
-          $rootScope.role = data.data.role;
-          $location.path('/');
-        } else {
-          $rootScope.loginInfo = data.data.info;
-        }
-      });
+    $http.post('/authorization/login', $scope.form).then(function successCallback(response) {
+      if (response.data.success) {
+        $rootScope.haslogin = true;
+        $rootScope.username = response.data.data.username;
+        $rootScope.role = response.data.data.role;
+        $location.path('/');
+      } else {
+        $rootScope.loginInfo = response.data.data.info;
+      }
+    });
   };
 }
 
 function RegistCtrl($scope, $http, $location, $rootScope) {
   $scope.form = {};
   $scope.registPost = function () {
-    $http.post('/authorization/regist', $scope.form).
-      success(function(data) {
-        if (data.success) {
-          $rootScope.haslogin = true;
-          $rootScope.username = data.data.username;
-          $rootScope.role = data.data.role;
-          $location.path('/');
-        }
-      });
+    $http.post('/authorization/regist', $scope.form).then(function successCallback(response) {
+      if (response.data.success) {
+        $rootScope.haslogin = true;
+        $rootScope.username = response.data.data.username;
+        $rootScope.role = response.data.data.role;
+        $location.path('/');
+      }
+    });
   };
 }
 
 function LogoutCtrl($scope, $http, $location, $rootScope) {
-  $http.get('/authorization/logout').
-    success(function(data) {
-      if (data.success) {
-        $rootScope.haslogin = false;
-        $rootScope.username = 'guest';
-        $rootScope.role = null;
-        $location.path('/login');
-      }
-    });
+  $http.get('/authorization/logout').then(function successCallback(response) {
+    if (response.data.success) {
+      $rootScope.haslogin = false;
+      $rootScope.username = 'guest';
+      $rootScope.role = null;
+      $location.path('/login');
+    }
+  });
 }
 
 // comments
@@ -155,16 +165,14 @@ angular.module('myApp').controller('commentsCtrl', function($scope, $rootScope, 
     $scope.addComment = function() {
       if (!$rootScope.haslogin || !$scope.form.content) return;
       $scope.form.post = $scope.post.id;
-      $http.post('/comments/add', $scope.form).
-        success(function(data) {
-          if (data.success) {
-            $scope.form.content = '';
-            $http.get('/comments/getbypost/' + $scope.post.id).
-              success(function(commentsData) {
-                $scope.post.comments = commentsData.comments;
-              });
-          }
-        });
+      $http.post('/comments/add', $scope.form).then(function successCallback(response) {
+        if (response.data.success) {
+          $scope.form.content = '';
+          $http.get('/comments/getbypost/' + $scope.post.id).then(function successCallback(response) {
+            $scope.post.comments = response.data.comments;
+          });
+        }
+      });
     };
 
     $scope.deleteComment = function(commentid) {
@@ -175,14 +183,12 @@ angular.module('myApp').controller('commentsCtrl', function($scope, $rootScope, 
 
     $scope.deleteConfirm = function() {
       if (!$scope.deleteCommentId) return;
-      $http.delete('/comments/delete/' + $scope.deleteCommentId).
-        success(function(data) {
-          if (data.success) {
+      $http.delete('/comments/delete/' + $scope.deleteCommentId).then(function successCallback(response) {
+          if (response.data.success) {
             $scope.form.content = '';
             $scope.deleteCommentId = null;
-            $http.get('/comments/getbypost/' + $scope.post.id).
-              success(function(commentsData) {
-                $scope.post.comments = commentsData.comments;
+            $http.get('/comments/getbypost/' + $scope.post.id).then(function successCallback(response) {
+                $scope.post.comments = response.data.comments;
               });
           }
         });
@@ -192,10 +198,9 @@ angular.module('myApp').controller('commentsCtrl', function($scope, $rootScope, 
     $scope.editComment = function(commentid) {
       if (!$rootScope.haslogin || !commentid) return;
 
-      $http.get('/comments/get/' + commentid).
-        success(function(data) {
-          if (data.success) {
-            $scope.editCommentForm = data.comment;
+      $http.get('/comments/get/' + commentid).then(function successCallback(response) {
+          if (response.data.success) {
+            $scope.editCommentForm = response.data.comment;
             $('#editComment-modal').modal('show');
           }
         });
@@ -203,40 +208,49 @@ angular.module('myApp').controller('commentsCtrl', function($scope, $rootScope, 
 
     $scope.editConfirm = function() {
       if (!$rootScope.haslogin || !$scope.editCommentForm || !$scope.editCommentForm.content) return;
-      $http.put('/comments/edit/' + $scope.editCommentForm.id, $scope.editCommentForm).
-        success(function(data) {
-          if (data.success) {
-            $scope.editCommentForm = null;
-            $http.get('/comments/getbypost/' + $scope.post.id).
-              success(function(commentsData) {
-                $scope.post.comments = commentsData.comments;
-              });
-          }
-        });
+      $http.put('/comments/edit/' + $scope.editCommentForm.id, $scope.editCommentForm).then(function successCallback(response) {
+        if (response.data.success) {
+          $scope.editCommentForm = null;
+          $http.get('/comments/getbypost/' + $scope.post.id).then(function successCallback(response) {
+            $scope.post.comments = response.data.comments;
+          });
+        }
+      });
       $('#editComment-modal').modal('hide');
     };
 
     $scope.hideComment = function(commentid) {
-      $http.put('/comments/hide/' + commentid).
-        success(function(data) {
-          if (data.success) {
-            $http.get('/comments/getbypost/' + $scope.post.id).
-              success(function(commentsData) {
-                $scope.post.comments = commentsData.comments;
-              });
-          }
-        });
+      $http.put('/comments/hide/' + commentid).then(function successCallback(response) {
+        if (response.data.success) {
+          $http.get('/comments/getbypost/' + $scope.post.id).then(function successCallback(response) {
+            $scope.post.comments = response.data.comments;
+          });
+        }
+      });
     };
 
     $scope.showComment = function(commentid) {
-      $http.put('/comments/show/' + commentid).
-        success(function(data) {
-          if (data.success) {
-            $http.get('/comments/getbypost/' + $scope.post.id).
-              success(function(commentsData) {
-                $scope.post.comments = commentsData.comments;
+      $http.put('/comments/show/' + commentid).then(function successCallback(response) {
+          if (response.data.success) {
+            $http.get('/comments/getbypost/' + $scope.post.id).then(function successCallback(response) {
+                $scope.post.comments = response.data.comments;
               });
           }
         });
     };
+});
+
+angular.module('myApp').controller('PaginationDemoCtrl', function ($scope, $log) {
+
+
+  $scope.setPage = function (pageNo) {
+    $scope.posts.currentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {
+    $scope.posts.currentStart = $scope.posts.postPerPage * ($scope.posts.currentPage - 1);
+    $scope.posts.currentEnd = $scope.posts.currentStart + $scope.posts.postPerPage;
+    $scope.posts.currentPosts = $scope.posts.totalPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
+  };
+
 });
