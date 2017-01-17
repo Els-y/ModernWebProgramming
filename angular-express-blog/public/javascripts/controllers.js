@@ -5,7 +5,7 @@
 function IndexCtrl($scope, $http, $rootScope, $filter) {
   $scope.posts = {
     currentPage: 1,
-    postPerPage: 4,
+    postPerPage: 8,
     maxSize: 8,
     totalPosts: [],
     filterPosts: [],
@@ -155,13 +155,66 @@ function LoginCtrl($scope, $http, $location, $rootScope) {
 
 function RegistCtrl($scope, $http, $location, $rootScope) {
   $scope.form = {};
+  $scope.noExist = false;
+  $scope.infoValid = {
+    username: false,
+    stuid: false,
+    email: false,
+    phone: false
+  };
   $scope.registPost = function () {
+    if (!$scope.noExist) return;
     $http.post('/authorization/regist', $scope.form).then(function successCallback(response) {
       if (response.data.success) {
         $rootScope.haslogin = true;
         $rootScope.username = response.data.data.username;
         $rootScope.role = response.data.data.role;
         $location.path('/');
+      }
+    });
+  };
+  $scope.checkExist = function(key) {
+    var postData = {};
+    if (key === 'username') {
+      postData = {
+        key: "username",
+        value: $scope.form.username
+      };
+    } else if (key === 'stuid') {
+      postData = {
+        key: "stuid",
+        value: $scope.form.stuid
+      };
+    } else if (key === 'phone') {
+      postData = {
+        key: "phone",
+        value: $scope.form.phone
+      };
+    } else if (key === 'email') {
+      postData = {
+        key: "email",
+        value: $scope.form.email
+      };
+    }
+    $http.post('/authorization/checkexist', postData).then(function successCallback(response) {
+      if (response.data.success) {
+        $scope.infoValid[key] = true;
+      } else {
+        $scope.infoValid[key] = false;
+        if (key === 'username') {
+          $scope.registUsernameInfo = response.data.message;
+        } else if (key === 'stuid') {
+          $scope.registStuidInfo = response.data.message;
+        } else if (key === 'phone') {
+          $scope.registPhoneInfo = response.data.message;
+        } else if (key === 'email') {
+          $scope.registEmailInfo = response.data.message;
+        }
+      }
+      if (!$scope.infoValid.username || !$scope.infoValid.stuid || !$scope.infoValid.email || !$scope.infoValid.phone) {
+        $scope.noExist = false;
+      } else {
+        $scope.noExist = true;
       }
     });
   };

@@ -90,30 +90,25 @@ router.post('/checkexist', function(req, res, next) {
   var findInfo = {};
   var message = {
     "username": "Username already exists",
-    "stuID": "Student Number already exists",
+    "stuid": "Student Number already exists",
     "phone": "Phone already exists",
     "email": "Email already exists"
   };
   var status = {
     success: false,
-    data: {
-      role: null,
-      info: null
-    }
+    message: null
   };
 
   findInfo[req.body.key] = req.body.value;
 
   User.findOne(findInfo).exec().then(function(user) {
     if (user) {
-      status.data.info = message[req.body.key];
+      status.message = message[req.body.key];
     } else {
       status.success = true;
-      res.send({success: true});
     }
   }).catch(function(reason) {
-    console.log(reason);
-    status.data.info = "Database error";
+    status.message = "Database error";
   }).finally(function() {
     res.json(status);
   });

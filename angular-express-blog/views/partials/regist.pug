@@ -6,59 +6,41 @@
         h3.form-header Sign Up
         hr
         .form-group
-          p.text-warning(ng-show='!registForm.username.$dirty || registForm.username.$valid') &nbsp;
-          p.text-warning(ng-show='registForm.username.$dirty && registForm.username.$error.required') Username can't be empty
-          p.text-warning(ng-show='registForm.username.$dirty && registForm.username.$error.startWithLetter') Username must start with letter
-          p.text-warning(ng-show='registForm.username.$dirty && registForm.username.$error.minlength || registForm.username.$error.maxlength') Length must be between 6 and 18
-          p.text-warning(ng-show='registForm.username.$dirty && registForm.username.$error.valid && !registForm.username.$error.minlength && !registForm.username.$error.maxlength && !registForm.username.$error.startWithLetter') Username is not valid
+          p.text-warning {{registUsernameInfo}} &nbsp;
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-user
-            input.form-control(type='text', name='username', placeholder='Username', ng-model='form.username', required, username-validator, ng-minlength='6', ng-maxlength='18')
+            input.form-control(type='text', name='username', placeholder='Username', ng-model='form.username', username-validator, ng-blur='checkExist("username")')
         .form-group
-          p.text-warning(ng-show='!registForm.password.$dirty || registForm.password.$valid') &nbsp;
-          p.text-warning(ng-show='registForm.password.$dirty && registForm.password.$error.required') Password can't be empty
-          p.text-warning(ng-show='registForm.password.$dirty && registForm.password.$error.minlength || registForm.password.$error.maxlength') Length must be between 6 and 12
-          p.text-warning(ng-show='registForm.password.$dirty && registForm.password.$error.valid && !registForm.password.$error.minlength && !registForm.password.$error.maxlength') Password is not valid
+          p.text-warning {{registPasswordInfo}} &nbsp;
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-lock
-            input.form-control(type='password', name='password', placeholder='Password', ng-model='form.password', required, password-validator, ng-minlength='6', ng-maxlength='12')
+            input.form-control(type='password', name='password', placeholder='Password', ng-model='form.password', password-validator)
         .form-group
-          p.text-warning(ng-show='!registForm.confirm.$dirty || form.password == form.confirm') &nbsp;
-          p.text-warning(ng-show='registForm.confirm.$dirty && form.password != form.confirm') Not consistent or invalid
+          p.text-warning {{registConfirmInfo}} &nbsp;
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-lock
-            input.form-control(type="password", name='confirm', placeholder="Confirm password", ng-model='form.confirm', required)
+            input.form-control(type="password", name='confirm', placeholder="Confirm password", ng-model='form.confirm', confirm-validator)
         .form-group
-          p.text-warning(ng-show='!registForm.stuid.$dirty || registForm.stuid.$valid') &nbsp;
-          p.text-warning(ng-show='registForm.stuid.$dirty && registForm.stuid.$error.required') Student Number can't be empty
-          p.text-warning(ng-show='registForm.stuid.$dirty && ( registForm.stuid.$error.minlength || registForm.stuid.$error.maxlength)') Length must be 8
-          p.text-warning(ng-show='registForm.stuid.$dirty && !registForm.stuid.$error.required && !registForm.stuid.$error.minlength && !registForm.stuid.$error.maxlength && registForm.stuid.$error.hasLetter') Must be number
-          p.text-warning(ng-show='registForm.stuid.$dirty && !registForm.stuid.$error.required && !registForm.stuid.$error.hasLetter && registForm.stuid.$error.startWithZero && !registForm.stuid.$error.minlength && !registForm.stuid.$error.maxlength') Can not start with 0
+          p.text-warning {{registStuidInfo}} &nbsp;
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-pencil
-            input.form-control(type='text', name='stuid', placeholder='Student Number', ng-model='form.stuid', required, stuid-validator, ng-minlength='8', ng-maxlength='8')
+            input.form-control(type='text', name='stuid', placeholder='Student Number', ng-model='form.stuid', stuid-validator, ng-blur='checkExist("stuid")')
         .form-group
-          p.text-warning(ng-show='!registForm.email.$dirty || registForm.email.$valid') &nbsp;
-          p.text-warning(ng-show='registForm.email.$dirty && registForm.email.$error.required') Email can't be empty
-          p.text-warning(ng-show='registForm.email.$dirty && registForm.email.$error.valid && !registForm.email.$error.required') Email is not valid
+          p.text-warning {{registEmailInfo}} &nbsp;
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-envelope
-            input.form-control(type='email', name='email', placeholder='Email', ng-model='form.email', required, email-validator)
+            input.form-control(type='email', name='email', placeholder='Email', ng-model='form.email', email-validator, ng-blur='checkExist("email")')
         .form-group
-          p.text-warning(ng-show='!registForm.phone.$dirty || registForm.phone.$valid') &nbsp;
-          p.text-warning(ng-show='registForm.phone.$dirty && registForm.phone.$error.required') Mobile phone can't be empty
-          p.text-warning(ng-show='registForm.phone.$dirty && ( registForm.phone.$error.minlength || registForm.phone.$error.maxlength)') Length must be 11
-          p.text-warning(ng-show='registForm.phone.$dirty && !registForm.phone.$error.required && !registForm.phone.$error.minlength && !registForm.phone.$error.maxlength && registForm.phone.$error.hasLetter') Must be number
-          p.text-warning(ng-show='registForm.phone.$dirty && !registForm.phone.$error.required && !registForm.phone.$error.hasLetter && registForm.phone.$error.startWithZero && !registForm.phone.$error.minlength && !registForm.phone.$error.maxlength') Can not start with 0
+          p.text-warning {{registPhoneInfo}} &nbsp;
           .input-group
             span.input-group-addon
               span.glyphicon.glyphicon-earphone
-            input.form-control(type='text', name='phone', placeholder='Mobile phone', ng-model='form.phone', required, phone-validator, ng-minlength='11', ng-maxlength='11')
+            input.form-control(type='text', name='phone', placeholder='Mobile phone', ng-model='form.phone', phone-validator, ng-blur='checkExist("phone")')
         .form-group.pull-right.btns
-          button.btn.btn-primary.submit(ng-click='registPost()', ng-disabled='registForm.username.$invalid || registForm.password.$invalid || registForm.stuid.$invalid || registForm.email.$invalid || registForm.phone.$invalid || form.password != form.confirm') Submit
+          button.btn.btn-primary.submit(ng-click='registPost()', ng-disabled='!form.username || !form.password || !form.confirm || !form.stuid || !form.email || !form.phone || registForm.username.$invalid || registForm.password.$invalid || registForm.stuid.$invalid || registForm.email.$invalid || registForm.phone.$invalid || form.password != form.confirm || !noExist') Submit
           button.btn.btn-default.reset(type="reset") Reset
