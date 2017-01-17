@@ -7,20 +7,21 @@
         span.glyphicon.glyphicon-search
       input.form-control.search-input(type='text', placeholder='Search', ng-model='postsQuery')
     h4 There are {{posts.filterPosts.length}} posts
-  .posts-list(ng-repeat='post in posts.currentPosts')
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title {{post.title}}
-      .panel-body
-        p {{post.text}}
-      .panel-footer
-        .pull-right
-          a.btn.btn-danger(href='/deletePost/{{post.id}}', ng-show='haslogin && post.author == username') Delete
-          a.btn.btn-primary(href='/editPost/{{post.id}}', ng-show='haslogin && post.author == username') Edit
-          a.btn.btn-success(href='/readPost/{{post.id}}') More
-        .info
-          span.author {{post.author}}
-          span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}
+  .posts-list-wrap
+    .posts-list(ng-repeat='post in posts.currentPosts')
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title {{post.title}}
+        .panel-body
+          p {{post.text}}
+        .panel-footer
+          .pull-right
+            a.btn.btn-danger(href='/deletePost/{{post.id}}', ng-show='haslogin && post.author == username') Delete
+            a.btn.btn-primary(href='/editPost/{{post.id}}', ng-show='haslogin && post.author == username') Edit
+            a.btn.btn-success(href='/readPost/{{post.id}}') More
+          .info
+            span.author {{post.author}}
+            span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}
   hr
   .pagination-wrap(ng-controller="PaginationDemoCtrl")
     ul.pagination(uib-pagination='', total-items='posts.filterPosts.length', items-per-page='posts.postPerPage', ng-model='posts.currentPage', max-size='posts.maxSize', boundary-links='true', first-text='«', last-text='»', previous-text='‹', next-text='›', ng-change='pageChanged()')

@@ -41,6 +41,9 @@ body {
   }
 }
 .index-wrap {
+  .posts-list-wrap {
+    min-height: 500px;
+  }
   .posts-info .search-wrap {
     width: 200px;
     margin-top: -12px;

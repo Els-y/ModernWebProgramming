@@ -47,6 +47,9 @@ body {
   margin-top: 20px;
 }
 
+.index-wrap .posts-list-wrap {
+  min-height: 500px;
+}
 .index-wrap .posts-info .search-wrap {
   width: 200px;
   margin-top: -12px;
