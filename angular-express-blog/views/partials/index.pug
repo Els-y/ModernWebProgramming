@@ -1,12 +1,13 @@
 .col-md-8.col-md-offset-2.index-wrap
   h1 Welcome, {{username}}
   hr
-  .posts-info
+  h4.posts-info There are {{posts.filterPosts.length}} posts
+    button.btn.btn-default.posts-refresh(ng-click='refreshPosts()')
+      span.glyphicon.glyphicon-refresh
     .input-group.search-wrap.pull-right
       span.input-group-addon
         span.glyphicon.glyphicon-search
       input.form-control.search-input(type='text', placeholder='Search', ng-model='postsQuery')
-    h4 There are {{posts.filterPosts.length}} posts
   .posts-list-wrap
     .posts-list(ng-repeat='post in posts.currentPosts')
       .panel.panel-default

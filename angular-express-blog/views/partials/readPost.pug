@@ -14,7 +14,7 @@
         a.btn.btn-primary(href='/editPost/{{post.id}}', ng-show='haslogin && post.author == username') Edit
         button.btn.btn-warning(ng-show='role == 1 && !post.hide', ng-click='hidePost()') hide
         button.btn.btn-success(ng-show='role == 1 && post.hide', ng-click='showPost()') show
-        span.post-hide.text-warning(ng-show='haslogin && role == 0 && username == post.author') This content has been hidden by the administrator
+        span.post-hide.text-warning(ng-show='haslogin && post.hide && role == 0 && username == post.author') This content has been hidden by the administrator
     hr
     .comments-wrap(ng-controller='commentsCtrl')
       h3.comments-title Comments
