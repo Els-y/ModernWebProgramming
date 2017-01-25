@@ -22,7 +22,7 @@
             a.btn.btn-success(href='/readPost/{{post.id}}') More
           .info
             span.author {{post.author}}
-            span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}
+            span.time {{post.time | date:'yyyy-MM-dd hh:mm a'}}
   hr
   .pagination-wrap(ng-controller="PaginationDemoCtrl")
     ul.pagination(uib-pagination='', total-items='posts.filterPosts.length', items-per-page='posts.postPerPage', ng-model='posts.currentPage', max-size='posts.maxSize', boundary-links='true', first-text='«', last-text='»', previous-text='‹', next-text='›', ng-change='pageChanged()')

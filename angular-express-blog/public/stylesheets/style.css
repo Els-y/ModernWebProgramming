@@ -117,6 +117,9 @@ body {
   margin-left: 30px;
 }
 
+.read-wrap .comments-wrap {
+  margin-bottom: 150px;
+}
 .read-wrap .comments-wrap .clear {
   clear: both;
 }

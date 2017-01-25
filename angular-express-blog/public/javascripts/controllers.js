@@ -1,5 +1,3 @@
-"use strict";
-
 /* Controllers */
 // posts
 function IndexCtrl($scope, $http, $rootScope, $filter) {
