@@ -4,7 +4,7 @@
       h3.post-title {{post.title}}
       .post-info
         span.author {{post.author}}
-        span.time {{post.time | date:'yyyy-MM-dd hh:mm'}}
+        span.time {{post.time | date:'yyyy-MM-dd hh:mm a'}}
       hr
       .post-body
         p.post-text {{post.text}}
@@ -14,7 +14,7 @@
         a.btn.btn-primary(href='/editPost/{{post.id}}', ng-show='haslogin && post.author == username') Edit
         button.btn.btn-warning(ng-show='role == 1 && !post.hide', ng-click='hidePost()') hide
         button.btn.btn-success(ng-show='role == 1 && post.hide', ng-click='showPost()') show
-        span.post-hide.text-warning(ng-show='haslogin && role == 0 && username == post.author') This content has been hidden by the administrator
+        span.post-hide.text-warning(ng-show='haslogin && post.hide && role == 0 && username == post.author') This content has been hidden by the administrator
     hr
     .comments-wrap(ng-controller='commentsCtrl')
       h3.comments-title Comments
@@ -41,7 +41,7 @@
 
           p.comment-info
             span.comment-author {{comment.author}}
-            span.comment-time {{comment.time | date:'yyyy-MM-dd hh:mm'}}
+            span.comment-time {{comment.time | date:'yyyy-MM-dd hh:mm a'}}
             span.comment-hide.text-warning(ng-show='haslogin && comment.hide && role == 0 && username == comment.author') This content has been hidden by the administrator
           p.comment-content {{comment.content}}
         hr

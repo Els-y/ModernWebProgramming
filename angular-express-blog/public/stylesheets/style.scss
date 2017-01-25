@@ -44,9 +44,13 @@ body {
   .posts-list-wrap {
     min-height: 500px;
   }
-  .posts-info .search-wrap {
-    width: 200px;
-    margin-top: -12px;
+  .posts-info {
+    .search-wrap {
+      width: 200px;
+    }
+    .posts-refresh {
+      margin-left: 20px;
+    }
   }
   .posts-list {
     .panel .btn {
@@ -116,6 +120,7 @@ body {
   }
 }
 .read-wrap .comments-wrap {
+  margin-bottom: 150px;
   .clear {
     clear: both;
   }

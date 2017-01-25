@@ -1,5 +1,3 @@
-"use strict";
-
 /* Controllers */
 // posts
 function IndexCtrl($scope, $http, $rootScope, $filter) {
@@ -20,6 +18,25 @@ function IndexCtrl($scope, $http, $rootScope, $filter) {
     $scope.posts.currentPosts = $scope.posts.filterPosts.slice($scope.posts.currentStart, $scope.posts.currentEnd);
   };
 
+  $scope.pageChanged = function() {
+    $scope.currentStart = $scope.postPerPage * ($scope.currentPage - 1);
+    $scope.currentEnd = $scope.currentStart + $scope.postPerPage;
+    $scope.currentPosts = $scope.totalPosts.slice($scope.currentStart, $scope.currentEnd);
+  };
+
+  $scope.refreshPosts = function() {
+    $http.get('/posts').then(function successCallback(response) {
+      $scope.posts.totalPosts = $scope.posts.filterPosts = response.data.posts;
+
+      $rootScope.haslogin = response.data.user.logined;
+      $rootScope.username = response.data.user.username;
+      $rootScope.role = response.data.user.role;
+
+      $scope.updateCurrentPosts();
+    });
+    $scope.postsQuery = '';
+  };
+
   $scope.$watch('postsQuery', function(newValue, oldValue) {
     var reg = new RegExp(newValue);
 
@@ -36,21 +53,7 @@ function IndexCtrl($scope, $http, $rootScope, $filter) {
     $scope.updateCurrentPosts();
   });
 
-  $http.get('/posts').then(function successCallback(response) {
-    $scope.posts.totalPosts = $scope.posts.filterPosts = response.data.posts;
-
-    $rootScope.haslogin = response.data.user.logined;
-    $rootScope.username = response.data.user.username;
-    $rootScope.role = response.data.user.role;
-
-    $scope.updateCurrentPosts();
-  });
-
-  $scope.pageChanged = function() {
-    $scope.currentStart = $scope.postPerPage * ($scope.currentPage - 1);
-    $scope.currentEnd = $scope.currentStart + $scope.postPerPage;
-    $scope.currentPosts = $scope.totalPosts.slice($scope.currentStart, $scope.currentEnd);
-  };
+  $scope.refreshPosts();
 }
 
 function AddPostCtrl($scope, $http, $location, $rootScope) {

@@ -52,7 +52,9 @@ body {
 }
 .index-wrap .posts-info .search-wrap {
   width: 200px;
-  margin-top: -12px;
+}
+.index-wrap .posts-info .posts-refresh {
+  margin-left: 20px;
 }
 .index-wrap .posts-list .panel .btn {
   margin-right: 10px;
@@ -115,6 +117,9 @@ body {
   margin-left: 30px;
 }
 
+.read-wrap .comments-wrap {
+  margin-bottom: 150px;
+}
 .read-wrap .comments-wrap .clear {
   clear: both;
 }
