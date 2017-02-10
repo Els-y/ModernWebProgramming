@@ -4,18 +4,18 @@
   angular.
     module('app.core').
     factory('storage', function() {
-      var data = {
-        user: {}
-      };
-      var _getUser = function() {
-        return data.user;
-      };
-      var _setUser = function(user) {
-        data.user = user;
-      };
+      var data = {};
       return {
-        getUser: _getUser,
-        setUser: _setUser
+        get: get,
+        set: set
       };
+
+      function get(key) {
+        return data[key];
+      }
+
+      function set(key, value) {
+        data[key] = value;
+      }
     });
 })();

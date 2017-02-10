@@ -3,19 +3,24 @@
 
   angular.
     module('app').
-    config(['$locationProvider' ,'$stateProvider', '$urlRouterProvider',
-    function config($locationProvider, $stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/login');
-      $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-      });
-      $stateProvider.
+    config(appStateConfig);
+
+  appStateConfig.$inject = ['$locationProvider' ,'$stateProvider', '$urlRouterProvider'];
+  function appStateConfig($locationProvider, $stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/login');
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
+
+    $stateProvider.
       state('login', {
         url: '/login',
         views: {
           'main': {
-            template: '<login-page layout="column" flex></login-page>'
+            templateUrl: '/templates/login',
+            controller: 'loginController',
+            controllerAs: 'vm'
           }
         }
       }).
@@ -24,7 +29,9 @@
         abstract: true,
         views: {
           'main': {
-            template: '<home-page layout="row" flex></home-page>'
+            templateUrl: '/templates/home',
+            controller: 'homeController',
+            controllerAs: 'vm'
           }
         }
       }).
@@ -32,7 +39,9 @@
         url: '/dashboard',
         views: {
           'content': {
-            template: '<home-dashboard></home-dashboard>'
+            templateUrl: '/templates/dashboard',
+            controller: 'homeDashboardController',
+            controllerAs: 'vm'
           }
         }
       }).
@@ -40,10 +49,11 @@
         url: '/detail',
         views: {
           'content': {
-            template: '<home-detail></home-detail>'
+            templateUrl: '/templates/detail',
+            controller: 'homeDetailController',
+            controllerAs: 'vm'
           }
         }
       });
     }
-  ]);
 })();
