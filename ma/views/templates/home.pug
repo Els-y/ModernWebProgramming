@@ -1,0 +1,35 @@
+md-sidenav.md-whiteframe-z2(md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')", layout='column')
+  header.nav-header
+    h1.user-name {{user.name}}
+    p.user-info
+      span.user-class 班级: {{user.class == 0 ? '-' : user.class}}
+      span.user-group 小组: {{user.group == 0 ? '-' : user.group}}
+  md-content.nav-content(flex, role='navigation', layout='column')
+    ul.ma-menu(layout='column')
+      li.list-item
+        md-button(ui-sref='home.dashboard', ui-sref-active='active')
+          ng-md-icon(icon="list" style="fill: white" size="14")
+          | 作业概览
+      li.list-item
+        md-button(ui-sref='home.detail', ui-sref-active='active')
+          ng-md-icon(icon="edit" style="fill: white" size="14")
+          | 作业详情
+    div(flex)
+    ul.ma-menu(layout='column')
+      li.list-item
+        md-button(ng-click='$ctrl.logout()')
+          ng-md-icon(icon="person" style="fill: white" size="14")
+          | 个人信息
+      li.list-item
+        md-button(ng-click='$ctrl.logout()')
+          ng-md-icon(icon="logout" style="fill: white" size="14")
+          | 退出
+div(layout='column', tabIndex='-1', role='home-main', flex)
+  md-toolbar.md-whiteframe-z1
+    .md-toolbar-tools(tabIndex='-1')
+      md-button.md-icon-button(ng-click='$ctrl.toggleSideNav()', hide-gt-sm, aria-label='Toggle Menu')
+        ng-md-icon(icon="menu" style="fill: #666" size="24")
+      .fill-height(layout='row', flex)
+        h2.md-toolbar-item.md-breadcrumb.md-headline Hello World
+  .ui-view-container(flex)
+    .content(ui-view='content')

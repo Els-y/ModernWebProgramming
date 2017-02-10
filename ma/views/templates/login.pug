@@ -1,0 +1,11 @@
+md-content(layout='column', layout-align='center center', flex)
+  .login-form-wrap.md-whiteframe-4dp
+    h3.login-form-header 登录
+    form(name='loginForm', layout='column')
+      md-input-container.login-stuid-container
+        label 用户名
+        input(type='text', ng-model='$ctrl.form.stuid')
+      md-input-container.login-password-container
+        label 密码
+        input(type='password', ng-model='$ctrl.form.password')
+      md-button.md-raised.md-primary(type='submit', ng-click='$ctrl.login()') 登录
