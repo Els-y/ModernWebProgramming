@@ -3,23 +3,26 @@ var router = express.Router();
 var User = require('../models/user');
 
 router.get('/haslogin', function(req, res, next) {
+  var resJson = {
+    success: false,
+    data: {
+      user: null,
+      menu: null
+    }
+  };
+
   if (req.session.user) {
-    res.json({
-      logined: true,
-      user: {
-        stuid: req.session.user.stuid,
-        name: req.session.user.name,
-        class: req.session.user.class,
-        group: req.session.user.group,
-        role: req.session.user.role
-      }
-    });
-  } else {
-    res.json({
-      logined: false,
-      user: null
-    });
+    resJson.success = true;
+    resJson.data.user = {
+      stuid: req.session.user.stuid,
+      name: req.session.user.name,
+      class: req.session.user.class,
+      group: req.session.user.group,
+      role: req.session.user.role
+    };
   }
+
+  res.json(resJson);
 });
 
 router.get('/logout', function(req, res, next) {
@@ -30,7 +33,6 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  console.log(req.body);
   var status = {
     success: false,
     data: {
@@ -41,11 +43,11 @@ router.post('/login', function(req, res, next) {
         group: null,
         role: null
       },
-      info: null
+      err: null
     }
   };
   if (!req.body.stuid || !req.body.password) {
-    status.data.info = '用户名或密码未填写';
+    status.data.err = '用户名或密码未填写';
     return res.json(status);
   }
   User.findOne({stuid: req.body.stuid}).exec().then(function(user) {
@@ -61,13 +63,13 @@ router.post('/login', function(req, res, next) {
           role: user.role
         };
       } else {
-        status.data.info = "密码错误";
+        status.data.err = "密码错误";
       }
     } else {
-      status.data.info = "用户不存在";
+      status.data.err = "用户不存在";
     }
   }).catch(function(reason) {
-    status.data.info = "数据库出错";
+    status.data.err = "数据库出错";
   }).finally(function() {
     res.json(status);
   });

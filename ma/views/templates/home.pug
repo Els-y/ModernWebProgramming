@@ -7,14 +7,10 @@ div(layout='row', flex)
         span.user-group 小组: {{user.group == 0 ? '-' : user.group}}
     md-content.nav-content(flex, role='navigation', layout='column')
       ul.ma-menu(layout='column')
-        li.list-item
-          md-button(ui-sref='home.dashboard', ui-sref-active='active')
-            ng-md-icon(icon="list" style="fill: white" size="14")
-            | 作业概览
-        li.list-item
-          md-button(ui-sref='home.detail', ui-sref-active='active')
-            ng-md-icon(icon="edit" style="fill: white" size="14")
-            | 作业详情
+        li.list-item(ng-repeat='section in vm.menu')
+          md-button(ui-sref='{{section.sref}}', ui-sref-active='active')
+            ng-md-icon(icon="{{section.icon}}" style="fill: white" size="14")
+            | {{section.title}}
       div(flex)
       ul.ma-menu(layout='column')
         li.list-item

@@ -2,9 +2,11 @@
   'use strict';
 
   angular.module('app.home', [
+    'ui.router',
     'ngMaterial',
     'app.core',
-    'app.home.dashboard',
-    'app.home.detail'
+    'app.home.student',
+    'app.home.ta',
+    'app.home.teacher'
   ]);
 })();

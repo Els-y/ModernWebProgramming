@@ -34,26 +34,6 @@
             controllerAs: 'vm'
           }
         }
-      }).
-      state('home.dashboard', {
-        url: '/dashboard',
-        views: {
-          'content': {
-            templateUrl: '/templates/dashboard',
-            controller: 'homeDashboardController',
-            controllerAs: 'vm'
-          }
-        }
-      }).
-      state('home.detail', {
-        url: '/detail',
-        views: {
-          'content': {
-            templateUrl: '/templates/detail',
-            controller: 'homeDetailController',
-            controllerAs: 'vm'
-          }
-        }
       });
     }
 })();

@@ -9,6 +9,7 @@
     function homeController($scope, storage, authorization, $http, $state, $mdSidenav) {
       var vm = this;
       $scope.user = storage.get('user');
+      vm.menu = storage.get('menu');
       vm.logout = function() {
         authorization.logout().then(function(response) {
           if (response.success) {
