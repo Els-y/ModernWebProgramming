@@ -1,0 +1,34 @@
+div.home-content(layout='row', flex)
+  md-sidenav.md-whiteframe-z2.left-sidenav(md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')", layout='column')
+    header.nav-header
+      h1.user-name {{user.name}}
+      p.user-info
+        span.user-class 班级: {{user.class == 0 ? '-' : user.class}}
+        span.user-group 小组: {{user.group == 0 ? '-' : user.group}}
+    md-content.nav-content(flex, role='navigation', layout='column')
+      ul.ma-menu(layout='column')
+        li.list-item(ng-repeat='section in vm.menu', ng-class='{"sectionActive": vm.isSectionSelected(section)}', ng-click='selectSection(section)')
+          md-button(ui-sref='{{section.sref}}')
+            ng-md-icon(icon="{{section.icon}}", size="14")
+            | {{section.title}}
+      div(flex)
+      ul.ma-menu.user-menu(layout='column')
+        li.list-item
+          md-button(ng-click='vm.logout()')
+            ng-md-icon(icon="logout", size="14")
+            | 退出
+  div(layout='column', tabIndex='-1', role='home-main', flex)
+    md-toolbar.md-whiteframe-z1.top-toolbar
+      .md-toolbar-tools(tabIndex='-1')
+        md-button.md-icon-button(ng-click='vm.toggleSideNav()', hide-gt-sm, aria-label='Toggle Menu')
+          ng-md-icon.menu-icon(icon="menu", size="24")
+        div.fill-height(layout='row', flex)
+          h2.md-toolbar-item.md-breadcrumb.md-headline {{vm.openedSection.title}}
+          span(flex)
+          h2.md-toolbar-item.select-heading(ng-if='user.role != 0') 班级
+          .md-toolbar-item(ng-if='user.role != 0')
+            md-select(ng-model='$parent.selectedClass', aria-label='Select Class')
+              md-option(ng-repeat='class in classes', ng-value='class') {{class}}
+
+    .ui-view-container(layout='column', flex)
+      .content(ui-view='content', layout='column', flex)

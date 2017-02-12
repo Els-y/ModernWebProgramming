@@ -1,0 +1,100 @@
+.login-form-wrap {
+  padding: 32px;
+}
+.login-form-wrap .login-form-header {
+  text-align: center;
+}
+.login-form-wrap .login-password-container {
+  margin-top: 0;
+}
+
+.home-content .top-toolbar {
+  background: #f6f6f6 !important;
+  color: #202020 !important;
+  min-height: 56px;
+}
+.home-content .top-toolbar .md-toolbar-tools {
+  height: 56px;
+  max-height: 56px;
+}
+.home-content .top-toolbar .md-toolbar-tools .menu-icon {
+  fill: #666;
+}
+.home-content .top-toolbar .md-toolbar-tools .select-heading {
+  padding-right: 10px;
+}
+.home-content .left-sidenav {
+  width: 250px;
+}
+.home-content .left-sidenav .nav-header {
+  background-color: #373c47;
+  color: #f6f6f6 !important;
+}
+.home-content .left-sidenav .nav-header .user-name {
+  font-size: 25px;
+  text-align: center;
+}
+.home-content .left-sidenav .nav-header .user-info {
+  text-align: center;
+}
+.home-content .left-sidenav .nav-header .user-info .user-class {
+  padding-right: 20px;
+}
+.home-content .left-sidenav .nav-content {
+  background-color: #2d323e;
+  color: #f6f6f6 !important;
+}
+.home-content .left-sidenav .nav-content .ma-menu {
+  padding: 0;
+}
+.home-content .left-sidenav .nav-content .ma-menu .list-item .md-button {
+  width: 100%;
+  padding: 6px;
+  margin: 0;
+}
+.home-content .left-sidenav .nav-content .ma-menu .list-item .md-button ng-md-icon {
+  padding-right: 8px;
+  fill: #fff;
+}
+.home-content .left-sidenav .nav-content .ma-menu .sectionActive {
+  background-color: rgba(100, 100, 110, 0.8);
+}
+.home-content .publish-button-wrap .publish-button {
+  padding-top: 6px;
+}
+.home-content .publish-button-wrap .publish-button .create-icon {
+  fill: #fff;
+}
+
+.common-dashboard-content {
+  align-content: flex-start;
+}
+.common-dashboard-content md-card {
+  height: 250px;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.common-dashboard-content md-card ng-md-icon {
+  fill: #666;
+}
+.common-dashboard-content md-card .card-heading {
+  height: 30px;
+}
+.common-dashboard-content md-card .card-heading .md-subhead {
+  padding-top: 7px;
+  padding-left: 18px;
+}
+.common-dashboard-content md-card .card-content .homework-title {
+  font-size: 36px;
+}
+.common-dashboard-content md-card .card-footer {
+  border-top: 1px solid lightgray;
+  background-color: #f4f4f4;
+  height: 45px;
+}
+.common-dashboard-content md-card .card-footer .homework-status, .common-dashboard-content md-card .card-footer .upload-status {
+  padding-top: 4px;
+}
+
+/*# sourceMappingURL=style.css.map */

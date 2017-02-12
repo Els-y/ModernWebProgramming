@@ -1,0 +1,25 @@
+md-dialog(aria-label='Upload Homework', style='width:350px')
+  form(ng-cloak)
+    md-toolbar
+      .md-toolbar-tools
+        h2 提交作业
+        span(flex)
+        md-button.md-icon-button(ng-click='dialog.cancel()', aria-label='Close dialog')
+          ng-md-icon(icon='close', style='fill: white', size='24')
+    md-dialog-content
+      .md-dialog-content(layout='column', flex)
+        div(layout='row', layout-align='space-between', flex)
+          .upload-code(flex, style='height: 110px; background-color:lightblue', layout)
+            input(type='file', accept='.zip', nv-file-select, uploader='dialog.code', flex, layout='column', ng-click='dialog.clear()')
+              //- ng-md-icon(icon='folder', style='fill:blue', size='52')
+              //- span(style='margin-top: -6px') 代码
+          .upload-preview(flex, style='height: 110px; background-color:lightgreen', layout)
+            md-button(flex, layout='column')
+              ng-md-icon(icon='image', style='fill:blue', size='52')
+              span(style='margin-top: -6px') 预览图
+        div(layout='row', style='margin-top:8px')
+          div(style='height: 50px; width: 50px; background-color:lightgreen')
+          div(style='height: 50px; width: 50px; background-color:lightblue')
+    md-dialog-actions(layout='row', layout-align='end')
+      md-button.md-primary.md-raised(ng-click="dialog.upload()") 上传
+      md-button.md-raised(ng-click="dialog.cancel()") 取消
