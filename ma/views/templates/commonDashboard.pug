@@ -20,3 +20,7 @@ md-content.common-dashboard-content(layout='row', layout-padding, md-scroll-y, f
     .card-footer(layout='row', layout-padding, layout-align='space-between')
       span.homework-status Action 1
       span.upload-status Action 2
+  div.publish-button-wrap
+    md-button.md-fab.md-fab-bottom-right.md-primary.publish-button(type='button', aria-label='Publish Homework', ng-click='vm.addHomework()')
+      md-tooltip(md-direction='top') 发布新作业
+      ng-md-icon.create-icon(icon="create", size="24")

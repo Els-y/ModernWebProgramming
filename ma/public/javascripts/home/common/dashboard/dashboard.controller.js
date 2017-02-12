@@ -5,13 +5,13 @@
     module('app.home.common.dashboard').
     controller('homeCommonDashboardController', homeCommonDashboardController);
 
-  homeCommonDashboardController.$inject = ['info', '$state', '$scope'];
-  function homeCommonDashboardController(info, $state, $scope) {
+  homeCommonDashboardController.$inject = ['info', '$state', '$scope', 'storage'];
+  function homeCommonDashboardController(info, $state, $scope, storage) {
     var vm = this;
     vm.homeworkMenu = info.homeworkMenu;
     vm.homeworks = [];
     vm.openMenu = openMenu;
-    vm.deleteHomework = deleteHomework;
+    vm.addHomework = addHomework;
     vm.editHomework = editHomework;
 
     activate();
@@ -20,8 +20,12 @@
       $mdMenu.open(ev);
     }
 
-    function deleteHomework(homework) {
-      console.log(homework);
+    function addHomework() {
+      if ($scope.user.role === 0) return;
+      $scope.selectSection({
+        title: '发布作业'
+      });
+      $state.go('home.adminEdit');
     }
 
     function editHomework(homework) {

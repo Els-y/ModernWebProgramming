@@ -5,8 +5,8 @@
     module('app.home.admin.common.edit').
     controller('homeAdminEditController', homeAdminEditController);
 
-  homeAdminEditController.$inject = ['info', 'homeworkService', '$state', '$scope', '$mdToast'];
-  function homeAdminEditController(info, homeworkService, $state, $scope, $mdToast) {
+  homeAdminEditController.$inject = ['info', 'storage', 'homeworkService', '$state', '$scope', '$mdToast'];
+  function homeAdminEditController(info, storage, homeworkService, $state, $scope, $mdToast) {
     var vm = this;
     vm.form = {};
     vm.publish = publish;
@@ -30,6 +30,7 @@
     }
 
     function publish() {
+      if ($scope.user.role === 0) return;
       if (!checkComplete()) {
         toast('作业信息未填写完整');
       } else if (!checkValid()) {
@@ -40,6 +41,7 @@
     }
 
     function edit() {
+      if ($scope.user.role === 0) return;
       if (!checkComplete()) {
         toast('作业信息未填写完整');
       } else if (!checkValid()) {

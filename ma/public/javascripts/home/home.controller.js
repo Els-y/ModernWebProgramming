@@ -17,7 +17,6 @@
       vm.logout = logout;
       vm.toggleSideNav = toggleSideNav;
       vm.isSectionSelected = isSectionSelected;
-      vm.addHomework = addHomework;
 
       function logout() {
         authorization.logout().then(function(response) {
@@ -38,13 +37,6 @@
 
       function isSectionSelected(section) {
         return vm.openedSection.sref === section.sref;
-      }
-
-      function addHomework() {
-        $scope.selectSection({
-          title: '发布作业'
-        });
-        $state.go('home.adminEdit');
       }
     }
 })();
