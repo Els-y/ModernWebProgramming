@@ -5,21 +5,46 @@
     module('app.home').
     controller('homeController', homeController);
 
-    homeController.$inject = ['$scope', 'storage', 'authorization', '$http', '$state', '$mdSidenav'];
-    function homeController($scope, storage, authorization, $http, $state, $mdSidenav) {
+    homeController.$inject = ['$scope', 'storage', 'authorization', '$http', '$state', '$mdSidenav', 'info'];
+    function homeController($scope, storage, authorization, $http, $state, $mdSidenav, info) {
       var vm = this;
       $scope.user = storage.get('user');
-      vm.menu = storage.get('menu');
-      vm.logout = function() {
+      $scope.selectSection = selectSection;
+      $scope.classes = info.classes;
+      $scope.selectedClass = $scope.classes.length !== 0 ? $scope.classes[0] : null;
+      vm.menu = info.menu;
+      vm.openedSection = vm.menu[0];
+      vm.logout = logout;
+      vm.toggleSideNav = toggleSideNav;
+      vm.isSectionSelected = isSectionSelected;
+      vm.addHomework = addHomework;
+
+      function logout() {
         authorization.logout().then(function(response) {
           if (response.success) {
             storage.set('user', {});
             $state.go('login');
           }
         });
-      };
-      vm.toggleSideNav = function() {
+      }
+
+      function toggleSideNav() {
         $mdSidenav('left').toggle();
-      };
+      }
+
+      function selectSection(section) {
+        vm.openedSection = section;
+      }
+
+      function isSectionSelected(section) {
+        return vm.openedSection.sref === section.sref;
+      }
+
+      function addHomework() {
+        $scope.selectSection({
+          title: '发布作业'
+        });
+        $state.go('home.teacherEdit');
+      }
     }
 })();

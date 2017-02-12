@@ -1,0 +1,60 @@
+md-content.edit-content(layout='row', layout-padding, flex, layout-align='center start')
+  div(layout='row', layout-margin, flex='90', flex-gt-sm='80', flex-gt-md='60')
+    form.edit-form(layout='column', flex)
+      div(layout='row')
+        md-input-container(flex='80')
+          label 标题
+          input(type='text', ng-model='vm.form.title')
+        md-input-container(flex)
+          label 班级
+          md-select(ng-model='vm.form.class', aria-label='Select Class', ng-disabled='vm.form._id != undefined')
+            md-option(ng-repeat='class in classes', ng-value='class') {{class}}
+      div(layout='row')
+        md-input-container(flex)
+          label 链接
+          input(type='text', ng-model='vm.form.url')
+      div(layout='row')
+        md-input-container(flex='15')
+          span 起始日期
+        md-input-container(flex)
+          label 日期
+          md-datepicker(ng-model="vm.form.begin.date")
+        md-input-container(flex)
+          label 时
+          md-select(ng-model='vm.form.begin.hour', aria-label='Select Begin Hour')
+            md-option(ng-repeat='hour in vm.hours', ng-value='hour') {{hour}}
+        md-input-container(flex)
+          label 分
+          md-select(ng-model='vm.form.begin.minute', aria-label='Select Begin Minute')
+            md-option(ng-repeat='minute in vm.minutes', ng-value='minute') {{minute}}
+      div(layout='row')
+        md-input-container(flex='15')
+          span 评审日期
+        md-input-container(flex)
+          label 日期
+          md-datepicker(ng-model="vm.form.review.date")
+        md-input-container(flex)
+          label 时
+          md-select(ng-model='vm.form.review.hour', aria-label='Select Begin Hour')
+            md-option(ng-repeat='hour in vm.hours', ng-value='hour') {{hour}}
+        md-input-container(flex)
+          label 分
+          md-select(ng-model='vm.form.review.minute', aria-label='Select Begin Minute')
+            md-option(ng-repeat='minute in vm.minutes', ng-value='minute') {{minute}}
+      div(layout='row')
+        md-input-container(flex='15')
+          span 结束日期
+        md-input-container(flex)
+          label 日期
+          md-datepicker(ng-model="vm.form.end.date")
+        md-input-container(flex)
+          label 时
+          md-select(ng-model='vm.form.end.hour', aria-label='Select Begin Hour')
+            md-option(ng-repeat='hour in vm.hours', ng-value='hour') {{hour}}
+        md-input-container(flex)
+          label 分
+          md-select(ng-model='vm.form.end.minute', aria-label='Select Begin Minute')
+            md-option(ng-repeat='minute in vm.minutes', ng-value='minute') {{minute}}
+      div(layout='row', layout-align='end')
+        md-button.md-primary.md-raised(ng-if='vm.form._id == undefined', ng-click='vm.publish()') 发布
+        md-button.md-primary.md-raised(ng-if='vm.form._id != undefined', ng-click='vm.edit()') 修改

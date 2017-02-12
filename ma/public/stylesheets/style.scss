@@ -24,6 +24,9 @@ md-toolbar {
   .md-toolbar-tools {
     height: 56px;
     max-height: 56px;
+    .select-heading {
+      padding-right: 10px;
+    }
   }
 }
 
@@ -56,9 +59,49 @@ md-sidenav {
           padding-right: 8px;
         }
       }
+      .sectionActive {
+        background-color: rgba(100, 100, 110, 0.8);
+      }
     }
   }
 }
+
+// Teacher
+// Dashboard
+.teacher-dashboard-content {
+  align-content: flex-start;
+  md-card {
+    height: 250px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    ng-md-icon {
+      fill: #666;
+    }
+    .card-heading {
+      height: 30px;
+      .md-subhead {
+        padding-top: 7px;
+        padding-left: 10px;
+      }
+    }
+    .card-content {
+      .homework-title {
+        font-size: 36px;
+      }
+    }
+    .card-footer {
+      border-top: 1px solid lightgray;
+      background-color: #f4f4f4;
+      height: 45px;
+      .homework-status, .upload-status {
+        padding-top: 4px;
+      }
+    }
+  }
+}
+
+
 
 // /* ui-view-animation */
 // .ui-view-container {

@@ -18,85 +18,45 @@
     function activate() {
       authorization.haslogin().then(function(response) {
         if (response.success) {
-          storage.set('user', response.data.user);
-          addMenu(response.data.user.role);
-          if (response.data.user.role === 0) {
-            $state.go('home.studentDashboard');
-          } else if (response.data.user.role === 1) {
-            $state.go('home.taDashboard');
-          } else {
-            $state.go('home.teacherDashboard');
-          }
+          changeState(response);
         }
       });
     }
 
     function login() {
-      authorization.login(vm.form).then(function(response) {
-        if (response.success) {
-          storage.set('user', response.data.user);
-          addMenu(response.data.user.role);
-          if (response.data.user.role === 0) {
-            $state.go('home.studentDashboard');
-          } else if (response.data.user.role === 1) {
-            $state.go('home.taDashboard');
+      if (!vm.form.stuid || !vm.form.password) {
+        $mdToast.show(
+          $mdToast.simple().
+            position('top right').
+            textContent('用户名或密码未填写').
+            hideDelay(1000)
+        );
+      } else {
+        authorization.login(vm.form).then(function(response) {
+          if (response.success) {
+            changeState(response);
           } else {
-            $state.go('home.teacherDashboard');
+            $mdToast.show(
+              $mdToast.simple().
+                position('top right').
+                textContent(response.data.err).
+                hideDelay(1000)
+            );
           }
-        } else {
-          $mdToast.show(
-            $mdToast.simple().
-              position('top right').
-              textContent(response.data.err).
-              hideDelay(1000)
-          );
-        }
-      });
+        });
+      }
     }
 
-    function addMenu(role) {
-      var menu = [];
-      if (role === 0) {
-        menu = [
-          {
-            title: '作业概览',
-            sref: 'home.studentDashboard',
-            icon: 'list'
-          },
-          {
-            title: '作业详情',
-            sref: 'home.studentDetail',
-            icon: 'edit'
-          }
-        ];
-      } else if (role === 1) {
-        menu = [
-          {
-            title: '作业概览',
-            sref: 'home.taDashboard',
-            icon: 'list'
-          },
-          {
-            title: '作业详情',
-            sref: 'home.taDetail',
-            icon: 'edit'
-          }
-        ];
+    function changeState(response) {
+      storage.set('user', response.data.user);
+      storage.set('classes', response.data.classes);
+      if (response.data.user.role === 0) {
+        $state.go('home.studentDashboard');
+      } else if (response.data.user.role === 1) {
+        $state.go('home.taDashboard');
       } else {
-        menu = [
-          {
-            title: '作业概览',
-            sref: 'home.teacherDashboard',
-            icon: 'list'
-          },
-          {
-            title: '作业详情',
-            sref: 'home.teacherDetail',
-            icon: 'edit'
-          }
-        ];
+        $state.go('home.teacherDashboard');
       }
-      storage.set('menu', menu);
     }
   }
 })();

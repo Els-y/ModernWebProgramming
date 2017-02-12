@@ -14,33 +14,19 @@
       };
 
       function haslogin() {
-        return $http.get('/users/haslogin').
-                 then(successCallback, errorCallback);
-
-        function successCallback(response) {
-          return response.data;
-        }
-
-        function errorCallback(response) {
-          console.log('error happened');
-        }
+        return basic('/users/haslogin', 'get');
       }
 
       function login(form) {
-        return $http.post('/users/login', form).
-                 then(successCallback, errorCallback);
-
-        function successCallback(response) {
-          return response.data;
-        }
-
-        function errorCallback(response) {
-          console.log('error happened');
-        }
+        return basic('/users/login', 'post', form);
       }
 
       function logout() {
-        return $http.get('/users/logout').
+        return basic('/users/logout', 'get');
+      }
+
+      function basic(url, methods, data) {
+        return $http[methods](url, data).
                  then(successCallback, errorCallback);
 
         function successCallback(response) {

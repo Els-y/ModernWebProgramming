@@ -17,6 +17,9 @@ md-toolbar .md-toolbar-tools {
   height: 56px;
   max-height: 56px;
 }
+md-toolbar .md-toolbar-tools .select-heading {
+  padding-right: 10px;
+}
 
 md-sidenav {
   width: 250px;
@@ -49,6 +52,40 @@ md-sidenav .nav-content .ma-menu .list-item .md-button {
 }
 md-sidenav .nav-content .ma-menu .list-item .md-button ng-md-icon {
   padding-right: 8px;
+}
+md-sidenav .nav-content .ma-menu .sectionActive {
+  background-color: rgba(100, 100, 110, 0.8);
+}
+
+.teacher-dashboard-content {
+  align-content: flex-start;
+}
+.teacher-dashboard-content md-card {
+  height: 250px;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.teacher-dashboard-content md-card ng-md-icon {
+  fill: #666;
+}
+.teacher-dashboard-content md-card .card-heading {
+  height: 30px;
+}
+.teacher-dashboard-content md-card .card-heading .md-subhead {
+  padding-top: 7px;
+  padding-left: 10px;
+}
+.teacher-dashboard-content md-card .card-content .homework-title {
+  font-size: 36px;
+}
+.teacher-dashboard-content md-card .card-footer {
+  border-top: 1px solid lightgray;
+  background-color: #f4f4f4;
+  height: 45px;
+}
+.teacher-dashboard-content md-card .card-footer .homework-status, .teacher-dashboard-content md-card .card-footer .upload-status {
+  padding-top: 4px;
 }
 
 /*# sourceMappingURL=style.css.map */

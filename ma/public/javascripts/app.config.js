@@ -31,7 +31,17 @@
           'main': {
             templateUrl: '/templates/home',
             controller: 'homeController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+              info: function(storage, infoService) {
+                var role = storage.get('user').role;
+                var classes = storage.get('classes');
+                return {
+                  menu: infoService.getMenu(role),
+                  classes: infoService.getClasses(classes)
+                };
+              }
+            }
           }
         }
       });

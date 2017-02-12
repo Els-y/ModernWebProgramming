@@ -7,8 +7,8 @@ div(layout='row', flex)
         span.user-group 小组: {{user.group == 0 ? '-' : user.group}}
     md-content.nav-content(flex, role='navigation', layout='column')
       ul.ma-menu(layout='column')
-        li.list-item(ng-repeat='section in vm.menu')
-          md-button(ui-sref='{{section.sref}}', ui-sref-active='active')
+        li.list-item(ng-repeat='section in vm.menu', ng-class='{"sectionActive": vm.isSectionSelected(section)}', ng-click='selectSection(section)')
+          md-button(ui-sref='{{section.sref}}')
             ng-md-icon(icon="{{section.icon}}" style="fill: white" size="14")
             | {{section.title}}
       div(flex)
@@ -26,7 +26,16 @@ div(layout='row', flex)
       .md-toolbar-tools(tabIndex='-1')
         md-button.md-icon-button(ng-click='vm.toggleSideNav()', hide-gt-sm, aria-label='Toggle Menu')
           ng-md-icon(icon="menu" style="fill: #666" size="24")
-        .fill-height(layout='row', flex)
-          h2.md-toolbar-item.md-breadcrumb.md-headline Hello World
-    .ui-view-container(flex)
-      .content(ui-view='content')
+        div.fill-height(layout='row', flex)
+          h2.md-toolbar-item.md-breadcrumb.md-headline {{vm.openedSection.title}}
+          span(flex)
+          h2.md-toolbar-item.select-heading(ng-if='user.role != 0') 班级
+          .md-toolbar-item(ng-if='user.role == 2')
+            md-select(ng-model='$parent.selectedClass', aria-label='Select Class')
+              md-option(ng-repeat='class in classes', ng-value='class') {{class}}
+
+    .ui-view-container(layout='column', flex)
+      .content(ui-view='content', layout='column', flex)
+    div
+      button.md-fab.md-fab-bottom-right.md-button.md-ink-ripple(type='button', aria-label='Publish Homework', ng-click='vm.addHomework()')
+        span(style='font-size: 32px') +

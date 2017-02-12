@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var Promise = require('bluebird');
 var User = require('../models/user');
+var settings = require('../modules/settings');
 
 router.get('/haslogin', function(req, res, next) {
   var resJson = {
     success: false,
     data: {
       user: null,
-      menu: null
+      menu: null,
+      classes: settings.classes.length
     }
   };
 
@@ -43,6 +46,7 @@ router.post('/login', function(req, res, next) {
         group: null,
         role: null
       },
+      classes: settings.classes.length,
       err: null
     }
   };

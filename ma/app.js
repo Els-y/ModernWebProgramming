@@ -10,6 +10,7 @@ var settings = require('./modules/settings');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var homework = require('./routes/homework');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use(session({
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/homework', homework);
 
 app.use(function(req, res, next) {
   res.redirect('/');
