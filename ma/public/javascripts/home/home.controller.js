@@ -11,7 +11,7 @@
       $scope.user = storage.get('user');
       $scope.selectSection = selectSection;
       $scope.classes = info.classes;
-      $scope.selectedClass = $scope.classes.length !== 0 ? $scope.classes[0] : null;
+      $scope.selectedClass = $scope.user.role === 0 ? $scope.user.class : ($scope.classes.length !== 0 ? $scope.classes[0] : null);
       vm.menu = info.menu;
       vm.openedSection = vm.menu[0];
       vm.logout = logout;
@@ -44,7 +44,7 @@
         $scope.selectSection({
           title: '发布作业'
         });
-        $state.go('home.teacherEdit');
+        $state.go('home.adminEdit');
       }
     }
 })();

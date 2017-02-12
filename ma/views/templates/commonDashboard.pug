@@ -1,4 +1,4 @@
-md-content.teacher-dashboard-content(layout='row', layout-padding, md-scroll-y, flex, layout-wrap)
+md-content.common-dashboard-content(layout='row', layout-padding, md-scroll-y, flex, layout-wrap)
   md-card(ng-repeat='homework in vm.homeworks | homeworkClassFilter:selectedClass', flex='100', flex-sm='45', flex-gt-sm='30', layout='column')
     .card-heading(layout='row', layout-align='space-between')
       span.md-subhead 作业 {{$index + 1}}

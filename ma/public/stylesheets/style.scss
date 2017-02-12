@@ -17,58 +17,74 @@
 }
 
 // home
-md-toolbar {
-  background: #f6f6f6 !important;
-  color: #202020 !important;
-  min-height: 56px;
-  .md-toolbar-tools {
-    height: 56px;
-    max-height: 56px;
-    .select-heading {
-      padding-right: 10px;
-    }
-  }
-}
-
-md-sidenav {
-  width: 250px;
-  .nav-header {
-    background-color: #373c47;
-    color: #f6f6f6 !important;
-    .user-name {
-      font-size: 25px;
-      text-align: center;
-    }
-    .user-info {
-      text-align: center;
-      .user-class {
-        padding-right: 20px;
+.home-content {
+  .top-toolbar {
+    background: #f6f6f6 !important;
+    color: #202020 !important;
+    min-height: 56px;
+    .md-toolbar-tools {
+      height: 56px;
+      max-height: 56px;
+      .menu-icon {
+        fill: #666;
+      }
+      .select-heading {
+        padding-right: 10px;
       }
     }
   }
-  .nav-content {
-    background-color: #2d323e;
-    color: #f6f6f6 !important;
-    .ma-menu {
-      padding: 0;
-      .list-item .md-button {
-        width: 100%;
-        padding: 6px;
-        margin: 0;
-        ng-md-icon {
-          padding-right: 8px;
+
+  .left-sidenav {
+    width: 250px;
+    .nav-header {
+      background-color: #373c47;
+      color: #f6f6f6 !important;
+      .user-name {
+        font-size: 25px;
+        text-align: center;
+      }
+      .user-info {
+        text-align: center;
+        .user-class {
+          padding-right: 20px;
         }
       }
-      .sectionActive {
-        background-color: rgba(100, 100, 110, 0.8);
+    }
+    .nav-content {
+      background-color: #2d323e;
+      color: #f6f6f6 !important;
+      .ma-menu {
+        padding: 0;
+        .list-item .md-button {
+          width: 100%;
+          padding: 6px;
+          margin: 0;
+          ng-md-icon {
+            padding-right: 8px;
+            fill: #fff;
+          }
+        }
+        .sectionActive {
+          background-color: rgba(100, 100, 110, 0.8);
+        }
+      }
+    }
+  }
+
+  .publish-button-wrap {
+    .publish-button {
+      padding-top: 6px;
+      // background-color: rgba(170, 200, 200, 0.9);
+      .create-icon {
+        fill: #fff;
       }
     }
   }
 }
 
-// Teacher
+// Common
 // Dashboard
-.teacher-dashboard-content {
+.common-dashboard-content {
   align-content: flex-start;
   md-card {
     height: 250px;
@@ -82,7 +98,7 @@ md-sidenav {
       height: 30px;
       .md-subhead {
         padding-top: 7px;
-        padding-left: 10px;
+        padding-left: 18px;
       }
     }
     .card-content {

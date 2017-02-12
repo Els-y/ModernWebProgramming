@@ -5,8 +5,8 @@
     'ui.router',
     'ngMaterial',
     'app.core',
+    'app.home.admin',
     'app.home.student',
-    'app.home.ta',
-    'app.home.teacher'
+    'app.home.common'
   ]);
 })();

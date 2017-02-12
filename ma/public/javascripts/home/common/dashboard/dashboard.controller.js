@@ -2,18 +2,18 @@
   'use strict';
 
   angular.
-    module('app.home.teacher.dashboard').
-    controller('homeTeacherDashboardController', homeTeacherDashboardController);
+    module('app.home.common.dashboard').
+    controller('homeCommonDashboardController', homeCommonDashboardController);
 
-  homeTeacherDashboardController.$inject = ['info', '$state', '$scope'];
-  function homeTeacherDashboardController(info, $state, $scope) {
+  homeCommonDashboardController.$inject = ['info', '$state', '$scope'];
+  function homeCommonDashboardController(info, $state, $scope) {
     var vm = this;
     vm.homeworkMenu = info.homeworkMenu;
     vm.homeworks = [];
     vm.openMenu = openMenu;
     vm.deleteHomework = deleteHomework;
     vm.editHomework = editHomework;
-    
+
     activate();
 
     function openMenu($mdMenu, ev) {
@@ -28,7 +28,7 @@
       $scope.selectSection({
         title: '编辑作业'
       });
-      $state.go('home.teacherEdit', {
+      $state.go('home.adminEdit', {
         homework: homework
       });
     }

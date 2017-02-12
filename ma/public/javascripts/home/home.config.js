@@ -8,17 +8,28 @@
   appHomeStateConfig.$inject = ['$stateProvider'];
   function appHomeStateConfig($stateProvider) {
     $stateProvider.
-      // Student
-      state('home.studentDashboard', {
-        url: '/student/dashboard',
+      // Common
+      state('home.commonDashboard', {
+        url: '/common/dashboard',
         views: {
           'content': {
-            templateUrl: '/templates/studentDashboard',
-            controller: 'homeStudentDashboardController',
-            controllerAs: 'vm'
+            templateUrl: '/templates/commonDashboard',
+            controller: 'homeCommonDashboardController',
+            controllerAs: 'vm',
+            resolve: {
+              info: ['storage', 'infoService', 'homeworkService',
+              function(storage, infoService, homeworkService) {
+                var role = storage.get('user').role;
+                return {
+                  homeworkMenu: infoService.getHomeworkMenu(role),
+                  homeworkList: homeworkService.getAll()
+                };
+              }]
+            }
           }
         }
       }).
+      // Student
       state('home.studentDetail', {
         url: '/student/detail',
         views: {
@@ -29,66 +40,16 @@
           }
         }
       }).
-      // Ta
-      state('home.taDashboard', {
-        url: '/ta/dashboard',
-        views: {
-          'content': {
-            templateUrl: '/templates/taDashboard',
-            controller: 'homeTaDashboardController',
-            controllerAs: 'vm'
-          }
-        }
-      }).
-      state('home.taDetail', {
-        url: '/ta/detail',
-        views: {
-          'content': {
-            templateUrl: '/templates/taDetail',
-            controller: 'homeTaDetailController',
-            controllerAs: 'vm'
-          }
-        }
-      }).
-      // Teacher
-      state('home.teacherDashboard', {
-        url: '/teacher/dashboard',
-        views: {
-          'content': {
-            templateUrl: '/templates/teacherDashboard',
-            controller: 'homeTeacherDashboardController',
-            controllerAs: 'vm',
-            resolve: {
-              info: function(storage, infoService, homeworkService) {
-                var role = storage.get('user').role;
-                return {
-                  homeworkMenu: infoService.getHomeworkMenu(role),
-                  homeworkList: homeworkService.getAll()
-                };
-              }
-            }
-          }
-        }
-      }).
-      state('home.teacherDetail', {
-        url: '/teacher/detail',
-        views: {
-          'content': {
-            templateUrl: '/templates/teacherDetail',
-            controller: 'homeTeacherDetailController',
-            controllerAs: 'vm'
-          }
-        }
-      }).
-      state('home.teacherEdit', {
-        url: '/teacher/edit/',
+      // Admin
+      state('home.adminEdit', {
+        url: '/admin/edit/',
         params: {
           homework: null
         },
         views: {
           'content': {
-            templateUrl: '/templates/teacherEdit',
-            controller: 'homeTeacherEditController',
+            templateUrl: '/templates/adminEdit',
+            controller: 'homeAdminEditController',
             controllerAs: 'vm',
             resolve: {
               info: ['$stateParams', 'homeworkService', function($stateParams, homeworkService) {

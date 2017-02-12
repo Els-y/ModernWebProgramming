@@ -2,11 +2,11 @@
   'use strict';
 
   angular.
-    module('app.home.teacher.edit').
-    controller('homeTeacherEditController', homeTeacherEditController);
+    module('app.home.admin.common.edit').
+    controller('homeAdminEditController', homeAdminEditController);
 
-  homeTeacherEditController.$inject = ['info', 'homeworkService', '$state', '$scope', '$mdToast'];
-  function homeTeacherEditController(info, homeworkService, $state, $scope, $mdToast) {
+  homeAdminEditController.$inject = ['info', 'homeworkService', '$state', '$scope', '$mdToast'];
+  function homeAdminEditController(info, homeworkService, $state, $scope, $mdToast) {
     var vm = this;
     vm.form = {};
     vm.publish = publish;
@@ -101,9 +101,9 @@
           if (response.success) {
             $scope.selectSection({
               title: '作业概览',
-              sref: 'home.teacherDashboard'
+              sref: 'home.commonDashboard'
             });
-            $state.go('home.teacherDashboard');
+            $state.go('home.commonDashboard');
           } else {
             toast(response.data.err);
           }

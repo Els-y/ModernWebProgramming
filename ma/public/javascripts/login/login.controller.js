@@ -50,13 +50,7 @@
     function changeState(response) {
       storage.set('user', response.data.user);
       storage.set('classes', response.data.classes);
-      if (response.data.user.role === 0) {
-        $state.go('home.studentDashboard');
-      } else if (response.data.user.role === 1) {
-        $state.go('home.taDashboard');
-      } else {
-        $state.go('home.teacherDashboard');
-      }
+      $state.go('home.commonDashboard');
     }
   }
 })();
