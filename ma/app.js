@@ -11,6 +11,7 @@ var settings = require('./modules/settings');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var homework = require('./routes/homework');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use(session({
 app.use('/', index);
 app.use('/users', users);
 app.use('/homework', homework);
+app.use('/upload', upload);
 
 app.use(function(req, res, next) {
   res.redirect('/');

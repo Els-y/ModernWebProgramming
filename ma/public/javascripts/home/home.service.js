@@ -54,6 +54,10 @@
               title: '作业链接',
               type: 'link',
             },
+            {
+              title: '提交作业',
+              type: 'upload'
+            }
             // {
             //   title: '下载提交',
             //   type: 'download',
