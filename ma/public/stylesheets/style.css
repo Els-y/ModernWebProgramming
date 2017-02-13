@@ -97,4 +97,45 @@
   padding-top: 4px;
 }
 
+.upload-dialog {
+  width: 350px;
+}
+.upload-dialog .close-icon {
+  fill: white;
+}
+.upload-dialog .code-content .upload-code-wrap, .upload-dialog .code-content .upload-img-wrap {
+  height: 110px;
+}
+.upload-dialog .code-content .upload-code-wrap label, .upload-dialog .code-content .upload-img-wrap label {
+  color: #7098da;
+  border: 2px dashed #7098da;
+}
+.upload-dialog .code-content .upload-code-wrap label .title, .upload-dialog .code-content .upload-img-wrap label .title {
+  margin-top: -8px;
+}
+.upload-dialog .code-content .upload-code-wrap label ng-md-icon, .upload-dialog .code-content .upload-img-wrap label ng-md-icon {
+  fill: #7098da;
+}
+.upload-dialog .code-content .upload-queue-wrap {
+  margin-top: 8px;
+  padding-left: 8px;
+}
+.upload-dialog .code-content .upload-queue-wrap .code-queue, .upload-dialog .code-content .upload-queue-wrap .img-queue {
+  height: 50px;
+  width: 50px;
+  color: white;
+  background-color: #7098da;
+  margin-right: 8px;
+  border-radius: 5px;
+}
+.upload-dialog .code-content .upload-queue-wrap .code-queue ng-md-icon, .upload-dialog .code-content .upload-queue-wrap .img-queue ng-md-icon {
+  fill: white;
+}
+.upload-dialog .github-content {
+  height: 130px;
+}
+.upload-dialog .github-content .github-input-wrap {
+  width: 270px;
+}
+
 /*# sourceMappingURL=style.css.map */

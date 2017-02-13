@@ -57,11 +57,11 @@
             {
               title: '提交作业',
               type: 'upload'
-            }
-            // {
-            //   title: '下载提交',
-            //   type: 'download',
-            // },
+            },
+            {
+              title: '下载提交',
+              type: 'download',
+            },
             // {
             //   title: '作业成绩',
             //   type: 'score',

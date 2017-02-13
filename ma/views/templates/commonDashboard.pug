@@ -7,12 +7,15 @@ md-content.common-dashboard-content(layout='row', layout-padding, md-scroll-y, f
           ng-md-icon(md-menu-origin, icon="more_vert", size="24")
         md-menu-content(width='2')
           md-menu-item(ng-repeat='section in vm.homeworkMenu')
-            md-button(ng-if='section.type == "link"', href='{{homework.url}}')
+            md-button(ng-if='section.type == "link"', ng-href='{{homework.url}}')
               span {{section.title}}
             md-button(ng-if='section.type == "edit"', ng-click='vm.editHomework(homework)')
               span {{section.title}}
             md-button(ng-if='section.type == "upload"', ng-click='vm.showUploadDialog(homework)')
               span {{section.title}}
+            md-button(ng-if='section.type == "download"', ng-click='vm.downloadHomework(homework)')
+              span {{section.title}}
+
     .card-content(flex, layout, layout-align='center center')
       span.homework-title {{homework.title}}
     .card-footer(layout='row', layout-padding, layout-align='space-between')

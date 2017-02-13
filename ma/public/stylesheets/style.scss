@@ -117,6 +117,48 @@
   }
 }
 
+.upload-dialog {
+  width: 350px;
+  .close-icon {
+    fill: white
+  }
+  .code-content {
+    .upload-code-wrap, .upload-img-wrap {
+      height: 110px;
+      label {
+        color: #7098da;
+        border: 2px dashed #7098da;
+        .title {
+          margin-top: -8px;
+        }
+        ng-md-icon {
+          fill: #7098da;
+        }
+      }
+    }
+    .upload-queue-wrap {
+      margin-top: 8px;
+      padding-left: 8px;
+      .code-queue, .img-queue {
+        height: 50px;
+        width: 50px;
+        color: white;
+        background-color: #7098da;
+        margin-right: 8px;
+        border-radius: 5px;
+        ng-md-icon {
+          fill: white;
+        }
+      }
+    }
+  }
+  .github-content {
+    height: 130px;
+    .github-input-wrap {
+      width: 270px;
+    }
+  }
+}
 
 
 // /* ui-view-animation */
