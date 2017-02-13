@@ -1,25 +1,42 @@
-md-dialog(aria-label='Upload Homework', style='width:350px')
+md-dialog.upload-dialog(aria-label='Upload Homework')
   form(ng-cloak)
     md-toolbar
       .md-toolbar-tools
         h2 提交作业
         span(flex)
         md-button.md-icon-button(ng-click='dialog.cancel()', aria-label='Close dialog')
-          ng-md-icon(icon='close', style='fill: white', size='24')
+          ng-md-icon.close-icon(icon='close', size='24')
     md-dialog-content
       .md-dialog-content(layout='column', flex)
-        div(layout='row', layout-align='space-between', flex)
-          .upload-code(flex, style='height: 110px; background-color:lightblue', layout)
-            input(type='file', accept='.zip', nv-file-select, uploader='dialog.code', flex, layout='column', ng-click='dialog.clear()')
-              //- ng-md-icon(icon='folder', style='fill:blue', size='52')
-              //- span(style='margin-top: -6px') 代码
-          .upload-preview(flex, style='height: 110px; background-color:lightgreen', layout)
-            md-button(flex, layout='column')
-              ng-md-icon(icon='image', style='fill:blue', size='52')
-              span(style='margin-top: -6px') 预览图
-        div(layout='row', style='margin-top:8px')
-          div(style='height: 50px; width: 50px; background-color:lightgreen')
-          div(style='height: 50px; width: 50px; background-color:lightblue')
+        .code-content
+          div(layout='row', layout-align='space-between', flex, ng-if='dialog.type == "code"')
+            .upload-code-wrap(flex, layout)
+              input#code-file(type='file', nv-file-select, uploader='dialog.codeUploader', ng-hide='true', ng-click='dialog.codeClear()')
+
+              label.md-button(for='code-file', flex, layout='column')
+                ng-md-icon(icon='folder', size='52')
+                span.title 代码包(.zip)
+
+            .upload-img-wrap(flex, layout)
+              input#img-file(type='file', nv-file-select, uploader='dialog.imgUploader', accept='image/png', ng-hide='true', ng-click='dialog.imgClear()')
+
+              label.md-button(for='img-file', flex, layout='column')
+                ng-md-icon(icon='image', size='52')
+                span.title 预览图(.png)
+
+          .upload-queue-wrap(layout='row', ng-if='dialog.type == "code"')
+            .code-queue(ng-repeat='item in dialog.codeUploader.queue', layout='column', layout-align='center center')
+              ng-md-icon(icon='folder', size='24')
+              span code
+            .img-queue(ng-repeat='item in dialog.imgUploader.queue', layout='column', layout-align='center center')
+              ng-md-icon(icon='image', size='24')
+              span img
+        .github-content(layout='column', layout-align='center center', flex, ng-if='dialog.type == "github"')
+          ng-md-icon(icon='github-box', size='64')
+          md-input-container.github-input-wrap(flex)
+            label Github 地址
+            input(type='text', ng-model='dialog.github')
     md-dialog-actions(layout='row', layout-align='end')
-      md-button.md-primary.md-raised(ng-click="dialog.upload()") 上传
+      md-button(ng-click='dialog.shiftType()') {{dialog.shiftTitle}}
+      md-button.md-primary.md-raised(ng-click="dialog.submit()") 上传
       md-button.md-raised(ng-click="dialog.cancel()") 取消
