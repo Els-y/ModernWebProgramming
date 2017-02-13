@@ -32,6 +32,14 @@
       if (vm.codeStatus && vm.imgStatus) toast('上传成功');
     };
 
+    vm.codeUploader.onBeforeUploadItem = function(item) {
+      var format = item.file.name.split('.').pop();
+      if (format !== 'zip') {
+        toast('代码包格式必须为zip');
+        vm.codeUploader.cancelAll();
+      }
+    };
+
     vm.codeClear = function() {
       vm.codeStatus = false;
       vm.codeUploader.clearQueue();
@@ -51,10 +59,20 @@
     });
 
     vm.imgUploader.onSuccessItem = function() {
+      console.log('aa');
       angular.element(document.querySelector('#img-file')).val('');
       vm.imgStatus = true;
       if (vm.codeStatus && vm.imgStatus) toast('上传成功');
     };
+
+    vm.imgUploader.onBeforeUploadItem = function(item) {
+      var format = item.file.name.split('.').pop();
+      if (format !== 'png') {
+        toast('预览图格式必须为png');
+        vm.imgUploader.cancelAll();
+      }
+    };
+
 
     vm.imgClear = function() {
       vm.imgStatus = false;
@@ -118,7 +136,7 @@
         $mdToast.simple().
           position('top right').
           textContent(text).
-          hideDelay(1000)
+          hideDelay(2000)
       );
     }
   }

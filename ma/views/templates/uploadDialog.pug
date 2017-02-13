@@ -22,7 +22,7 @@ md-dialog.upload-dialog(aria-label='Upload Homework')
 
               label.md-button(for='img-file', flex, layout='column')
                 ng-md-icon(icon='image', size='52')
-                span.title 预览图
+                span.title 预览图(.png)
 
           .upload-queue-wrap(layout='row', ng-if='dialog.type == "code"')
             .code-queue(ng-repeat='item in dialog.codeUploader.queue', layout='column', layout-align='center center')

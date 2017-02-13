@@ -61,11 +61,6 @@
         controllerAs: 'dialog',
         templateUrl: '/templates/uploadDialog',
         clickOutsideToClose: false,
-      }).then(function(answer) {
-        console.log('You said the information was "' + answer + '".');
-      }, function() {
-        // 关闭窗口时触发
-        console.log('close dialog');
       });
     }
 
@@ -74,7 +69,7 @@
         $mdToast.simple().
           position('top right').
           textContent(text).
-          hideDelay(1000)
+          hideDelay(2000)
       );
     }
 
