@@ -47,10 +47,12 @@
       homeworkService.download({
         _id: homework._id,
       }).then(function(response) {
-        var data = new Blob([response]);
-        FileSaver.saveAs(data, fileName);
-      }).catch(function() {
-        toast('暂未提交作业');
+        if (response.headers()['content-length'] !== '0') {
+          var data = new Blob([response.data]);
+          FileSaver.saveAs(data, fileName);
+        } else {
+          toast('暂未提交作业');
+        }
       });
     }
 

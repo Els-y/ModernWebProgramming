@@ -34,10 +34,10 @@
       }
 
       function download(params) {
-        return basic('/upload/download', 'get', {
-           params: params,
-           responseType: 'arraybuffer'
-         });
+        return $http.get('/upload/download', {
+          params: params,
+          responseType: 'arraybuffer'
+        });
       }
 
       function uploadGithub(form) {
@@ -50,10 +50,6 @@
 
         function successCallback(response) {
           return response.data;
-        }
-
-        function errorCallback(response) {
-          console.log('error happened');
         }
       }
 

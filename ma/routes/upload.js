@@ -49,10 +49,8 @@ router.post('/code', upload.single('code'), function(req, res, next) {
       } else {  // 第一次提交
         return new Upload(uploadInfo).save();
       }
-    }).then(function(upload) {
+    }).finally(function() {
       res.end();
-    }).catch(function(err) {
-      res.status(500).end();
     });
 });
 
@@ -105,17 +103,19 @@ router.get('/download', function(req, res, next) {
     homework: req.query._id,
   }).exec().then(function(upload) {
     if (upload) {
-      var filepath = path.join(
-        settings.uploadsPath,
-        'class' + req.session.user.class,
-        upload.filename
-      );
-      res.download(filepath);
+      return Promise.resolve(upload);
     } else {
       return Promise.reject();
     }
+  }).then(function(upload) {
+    var filepath = path.join(
+      settings.uploadsPath,
+      'class' + req.session.user.class,
+      upload.filename
+    );
+    res.download(filepath);
   }).catch(function() {
-    res.status(404).end();
+    res.end();
   });
 });
 

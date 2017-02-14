@@ -26,7 +26,7 @@
         }]
     });
 
-    vm.codeUploader.onSuccessItem = function() {
+    vm.codeUploader.onSuccessItem = function(item, response, status, headers) {
       angular.element(document.querySelector('#code-file')).val('');
       vm.codeStatus = true;
       if (vm.codeStatus && vm.imgStatus) toast('上传成功');
@@ -38,6 +38,10 @@
         toast('代码包格式必须为zip');
         vm.codeUploader.cancelAll();
       }
+    };
+
+    vm.codeUploader.onErrorItem = function(item, response, status, headers) {
+      toast('代码包上传失败');
     };
 
     vm.codeClear = function() {
@@ -58,8 +62,7 @@
         }]
     });
 
-    vm.imgUploader.onSuccessItem = function() {
-      console.log('aa');
+    vm.imgUploader.onSuccessItem = function(item, response, status, headers) {
       angular.element(document.querySelector('#img-file')).val('');
       vm.imgStatus = true;
       if (vm.codeStatus && vm.imgStatus) toast('上传成功');
@@ -73,6 +76,9 @@
       }
     };
 
+    vm.imgUploader.onErrorItem = function(item, response, status, headers) {
+      toast('预览图上传失败');
+    };
 
     vm.imgClear = function() {
       vm.imgStatus = false;
