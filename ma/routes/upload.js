@@ -35,13 +35,20 @@ router.post('/code', upload.single('code'), function(req, res, next) {
     then(function(homework) {
       if (homework) {
         uploadInfo.homework = homework;
-        return Upload.findOne({
-          author: req.session.user._id,
-          homework: homework._id
-        }).exec();
+        if (checkSubmitted(homework, req.session.user)) {
+          return Promise.resolve(homework);
+        } else {
+          homework.submitted.push(req.session.user);
+          return homework.save();
+        }
       } else {
         return Promise.reject();
       }
+    }).then(function(homework) {
+      return Upload.findOne({
+        author: req.session.user._id,
+        homework: homework._id
+      }).exec();
     }).then(function(upload) {
       if (upload) {  // 已提交过
         upload.filename = req.file.filename;
@@ -73,13 +80,20 @@ router.post('/github', function(req, res, next) {
     then(function(homework) {
       if (homework) {
         uploadInfo.homework = homework;
-        return Upload.findOne({
-          author: req.session.user._id,
-          homework: homework._id
-        }).exec();
+        if (checkSubmitted(homework, req.session.user)) {
+          return Promise.resolve(homework);
+        } else {
+          homework.submitted.push(req.session.user);
+          return homework.save();
+        }
       } else {
         return Promise.reject();
       }
+    }).then(function(homework) {
+      return Upload.findOne({
+        author: req.session.user._id,
+        homework: homework._id
+      }).exec();
     }).then(function(upload) {
       if (upload) {  // 已提交过
         upload.github = req.body.github;
@@ -118,5 +132,11 @@ router.get('/download', function(req, res, next) {
     res.end();
   });
 });
+
+function checkSubmitted(homework, user) {
+  return homework.submitted.some(function (submit) {
+    return submit.equals(user._id);
+  });
+}
 
 module.exports = router;

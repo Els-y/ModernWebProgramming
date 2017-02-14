@@ -8,6 +8,7 @@
   homeCommonDashboardController.$inject = ['$state', '$scope', '$filter', '$mdDialog', '$mdToast', 'info', 'storage', 'homeworkService', 'FileSaver', 'Blob'];
   function homeCommonDashboardController($state, $scope, $filter, $mdDialog, $mdToast, info, storage, homeworkService, FileSaver, Blob) {
     var vm = this;
+    $scope.test = '123';
     vm.homeworkMenu = info.homeworkMenu;
     vm.homeworks = [];
     vm.openMenu = openMenu;
@@ -51,7 +52,7 @@
           var data = new Blob([response.data]);
           FileSaver.saveAs(data, fileName);
         } else {
-          toast('暂未提交作业');
+          toast('暂未提交代码包');
         }
       });
     }
@@ -63,6 +64,8 @@
         controllerAs: 'dialog',
         templateUrl: '/templates/uploadDialog',
         clickOutsideToClose: false,
+      }).then(function() {}, function() {
+        reloadHomeworks();
       });
     }
 
@@ -76,9 +79,30 @@
     }
 
     function activate() {
+      var user = storage.get('user');
       info.homeworkList.then(function(response) {
         vm.homeworks = response.data.list;
+        vm.homeworks.map(function(homework, index) {
+          homework.isSubmitted = checkSubmitted(homework, user);
+        });
         storage.set('homeworks', vm.homeworks);
+      });
+    }
+
+    function reloadHomeworks() {
+      var user = storage.get('user');
+      homeworkService.getAll().then(function(response) {
+        vm.homeworks = response.data.list;
+        vm.homeworks.map(function(homework, index) {
+          homework.isSubmitted = checkSubmitted(homework, user);
+        });
+        storage.set('homeworks', vm.homeworks);
+      });
+    }
+
+    function checkSubmitted(homework, user) {
+      return homework.submitted.some(function (submit) {
+        return submit === user._id;
       });
     }
   }
