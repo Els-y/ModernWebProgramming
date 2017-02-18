@@ -15,6 +15,8 @@ md-content.common-dashboard-content(layout='row', layout-padding, md-scroll-y, f
               span {{section.title}}
             md-button(ng-if='section.type == "download"', ng-click='vm.downloadHomework(homework)')
               span {{section.title}}
+            md-button(ng-if='section.type == "review"', ng-click='vm.reviewHomework(homework)')
+              span {{section.title}}
 
     .card-content(flex, layout, layout-align='center center')
       span.homework-title {{homework.title}}

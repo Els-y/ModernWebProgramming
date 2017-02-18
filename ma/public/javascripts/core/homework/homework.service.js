@@ -5,8 +5,8 @@
     module('app.core').
     factory('homeworkService', homeworkService);
 
-    homeworkService.$inject = ['$http', '$filter', 'storage'];
-    function homeworkService($http, $filter, storage) {
+    homeworkService.$inject = ['$http', '$filter', 'storage', 'FileSaver', 'Blob', '$mdToast'];
+    function homeworkService($http, $filter, storage, FileSaver, Blob, $mdToast) {
       return {
         getOneById: getOneById,
         getAll: getAll,
@@ -15,6 +15,9 @@
         download: download,
         uploadGithub: uploadGithub,
         getIndex: getIndex,
+        getToReview: getToReview,
+        getFromReview: getFromReview,
+        submitReview: submitReview
       };
 
       function getOneById(id) {
@@ -33,10 +36,27 @@
         return basic('/homework/single', 'put', form);
       }
 
-      function download(params) {
+      function download(author, homeworkId) {
+        var fileName = '' + author.class + '班-' + author.group + '组-' + author.name + '-' + new Date().getTime() + '.zip';
+
         return $http.get('/upload/download', {
-          params: params,
+          params: {
+            author: author._id,
+            homework: homeworkId
+          },
           responseType: 'arraybuffer'
+        }).then(function(response) {
+          if (response.headers()['content-length'] !== '0') {
+            var data = new Blob([response.data]);
+            FileSaver.saveAs(data, fileName);
+          } else {
+            $mdToast.show(
+              $mdToast.simple().
+                position('top right').
+                textContent('暂未提交代码包').
+                hideDelay(2000)
+            );
+          }
         });
       }
 
@@ -60,6 +80,26 @@
         return classHomeworks.findIndex(function(ele) {
           return ele._id === homework._id;
         }) + 1;
+      }
+
+      function getToReview(homework) {
+        return basic('/review/to', 'get', {
+          params: {
+            homework: homework._id
+          }
+        });
+      }
+
+      function getFromReview(homework) {
+        return basic('/review/from', 'get', {
+          params: {
+            homework: homework._id
+          }
+        });
+      }
+
+      function submitReview(form) {
+        return basic('/review/to', 'post', form);
       }
     }
 })();

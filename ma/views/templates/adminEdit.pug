@@ -18,7 +18,7 @@ md-content.edit-content(layout='row', layout-padding, flex, layout-align='center
           span 起始日期
         md-input-container(flex)
           label 日期
-          md-datepicker(ng-model="vm.form.begin.date")
+          md-datepicker(ng-model="vm.form.begin.date", md-open-on-focus)
         md-input-container(flex)
           label 时
           md-select(ng-model='vm.form.begin.hour', aria-label='Select Begin Hour')
@@ -32,7 +32,7 @@ md-content.edit-content(layout='row', layout-padding, flex, layout-align='center
           span 评审日期
         md-input-container(flex)
           label 日期
-          md-datepicker(ng-model="vm.form.review.date")
+          md-datepicker(ng-model="vm.form.review.date", md-open-on-focus)
         md-input-container(flex)
           label 时
           md-select(ng-model='vm.form.review.hour', aria-label='Select Begin Hour')
@@ -46,7 +46,7 @@ md-content.edit-content(layout='row', layout-padding, flex, layout-align='center
           span 结束日期
         md-input-container(flex)
           label 日期
-          md-datepicker(ng-model="vm.form.end.date")
+          md-datepicker(ng-model="vm.form.end.date", md-open-on-focus)
         md-input-container(flex)
           label 时
           md-select(ng-model='vm.form.end.hour', aria-label='Select Begin Hour')

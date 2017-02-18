@@ -5,16 +5,16 @@
     module('app.home.common.dashboard').
     controller('homeCommonDashboardController', homeCommonDashboardController);
 
-  homeCommonDashboardController.$inject = ['$state', '$scope', '$filter', '$mdDialog', '$mdToast', 'info', 'storage', 'homeworkService', 'FileSaver', 'Blob'];
-  function homeCommonDashboardController($state, $scope, $filter, $mdDialog, $mdToast, info, storage, homeworkService, FileSaver, Blob) {
+  homeCommonDashboardController.$inject = ['$state', '$scope', '$filter', '$mdDialog', 'info', 'storage', 'homeworkService'];
+  function homeCommonDashboardController($state, $scope, $filter, $mdDialog, info, storage, homeworkService) {
     var vm = this;
-    $scope.test = '123';
     vm.homeworkMenu = info.homeworkMenu;
     vm.homeworks = [];
     vm.openMenu = openMenu;
     vm.addHomework = addHomework;
     vm.editHomework = editHomework;
     vm.downloadHomework = downloadHomework;
+    vm.reviewHomework = reviewHomework;
     vm.showUploadDialog = showUploadDialog;
 
     activate();
@@ -41,19 +41,19 @@
     }
 
     function downloadHomework(homework) {
-      var target = homeworkService.getIndex(homework);
       var user = storage.get('user');
-      var fileName = '作业' + target + '-' + user.class + '班-' + user.group + '组-' + user.name + '-' + new Date().getTime() + '.zip';
+      homeworkService.download(user, homework._id);
+    }
 
-      homeworkService.download({
-        _id: homework._id,
-      }).then(function(response) {
-        if (response.headers()['content-length'] !== '0') {
-          var data = new Blob([response.data]);
-          FileSaver.saveAs(data, fileName);
-        } else {
-          toast('暂未提交代码包');
-        }
+    function reviewHomework(homework) {
+      var user = storage.get('user');
+      var nextState = user.role === 0 ? 'home.studentReview' : 'home.adminReview';
+
+      $scope.selectSection({
+        title: '评审作业'
+      });
+      $state.go(nextState, {
+        homework: homework
       });
     }
 
@@ -67,15 +67,6 @@
       }).then(function() {}, function() {
         reloadHomeworks();
       });
-    }
-
-    function toast(text) {
-      $mdToast.show(
-        $mdToast.simple().
-          position('top right').
-          textContent(text).
-          hideDelay(2000)
-      );
     }
 
     function activate() {

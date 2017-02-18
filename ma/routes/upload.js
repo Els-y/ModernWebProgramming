@@ -25,9 +25,12 @@ var upload = multer({
 });
 
 router.post('/code', upload.single('code'), function(req, res, next) {
+  if (!req.session.user) return res.end();
+
   var uploadInfo = {
     author: req.session.user,
     homework: null,
+    group: req.session.user.group,
     filename: req.file.filename,
     github: '',
   };
@@ -69,11 +72,14 @@ router.post('/github', function(req, res, next) {
   var resJson = {
     success: false
   };
+
+  if (!req.session.user) return res.json(resJson);
+
   var uploadInfo = {
     author: req.session.user,
     homework: null,
-    code: '',
-    img: '',
+    group: req.session.user.group,
+    filename: '',
     github: req.body.github
   };
   Homework.findById(req.body._id).exec().
@@ -112,9 +118,10 @@ router.post('/github', function(req, res, next) {
 
 router.get('/download', function(req, res, next) {
   if (!req.session.user) return res.status(404).end();
+
   Upload.findOne({
-    author: req.session.user._id,
-    homework: req.query._id,
+    author: req.query.author,
+    homework: req.query.homework,
   }).exec().then(function(upload) {
     if (upload) {
       return Promise.resolve(upload);

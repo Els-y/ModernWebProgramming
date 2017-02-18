@@ -2,6 +2,7 @@
   'use strict';
 
   angular.module('app.home.admin', [
-    'app.home.admin.common'
+    'app.home.admin.edit',
+    'app.home.admin.review'
   ]);
 })();

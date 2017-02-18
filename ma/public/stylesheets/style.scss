@@ -82,6 +82,62 @@
   }
 }
 
+// Review
+.student-review-content {
+  .review-to-wrap {
+    align-content: flex-start;
+    md-card {
+      height: 220px;
+      width: 100%;
+      .card-content {
+        .preview {
+          width: 227px;
+          height: 180px;
+          img {
+            width: 210px;
+            height: 150px;
+            border: 1px solid lightgray;
+          }
+        }
+        .content textarea {
+          overflow-y: auto;
+          height: 180px;
+          resize: none;
+        }
+        .score {
+          width: 150px;
+          md-input-container {
+            margin-bottom: 0;
+            input {
+              font-size: 24px;
+              font-weight: 300;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+  .review-from-wrap {
+    align-content: flex-start;
+    md-card {
+      height: 180px;
+      width: 100%;
+      .content {
+        margin: 0;
+        padding: 30px;
+        font-size: 18px;
+      }
+      .score {
+        margin: 0;
+        background-color: lightgreen;
+        width: 200px;
+        font-size: 36px;
+      }
+    }
+  }
+}
+
 // Common
 // Dashboard
 .common-dashboard-content {

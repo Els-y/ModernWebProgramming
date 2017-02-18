@@ -2,7 +2,7 @@
   'use strict';
 
   angular.
-    module('app.home.admin.common.edit').
+    module('app.home.admin.edit').
     controller('homeAdminEditController', homeAdminEditController);
 
   homeAdminEditController.$inject = ['info', 'storage', 'homeworkService', '$state', '$scope', '$mdToast'];

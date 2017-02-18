@@ -2,7 +2,7 @@
   'use strict';
 
   angular.
-    module('app.home.admin.common.edit', [
+    module('app.home.admin.edit', [
       'ngMaterial',
       'ui.router'
     ]);

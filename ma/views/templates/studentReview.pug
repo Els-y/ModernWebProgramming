@@ -1,0 +1,29 @@
+md-content.student-review-content(layout='column', layout-padding, md-scroll-y, flex, layout-wrap)
+  md-nav-bar(md-selected-nav-item='vm.currentNavItem', nav-bar-aria-label='navigation links')
+    md-nav-item(md-nav-click="goto('page1')", name='mine')
+      | 我的成绩
+    md-nav-item(md-nav-click="goto('page2')", name='others')
+      | 他人成绩
+
+  .review-to-wrap(ng-if='vm.currentNavItem == "others"', layout='row', flex, md-scroll-y, layout-wrap)
+    md-card(layout-margin, ng-repeat='upload in vm.uploads')
+      .card-content(layout='row', flex)
+        .preview(layout='column')
+          img(ng-src='{{upload.img}}')
+          .download-list(flex, layout='row')
+            md-button(ng-if='upload.filename', ng-click='vm.downloadUpload(upload)') 代码包
+            md-button(ng-if='upload.github', ng-href='{{upload.github}}') Github
+        .content(flex, layout='row')
+          textarea(flex, ng-model='upload.review.content')
+        .score(layout='column', layout-align='center', layout-padding)
+          md-input-container
+            label 分数
+            input(type='text', ng-model='upload.review.score')
+          md-button.md-raised.md-primary(ng-click='vm.submit(upload)') 提交
+
+  .review-from-wrap(ng-if='vm.currentNavItem == "mine"', layout='row', flex, md-scroll-y, layout-wrap)
+    md-card(layout='row', layout-margin, ng-repeat='review in vm.reviews')
+      .content(flex, layout='row', layout-align='center center')
+        span {{review.content}}
+      .score(layout='column', layout-align='center center', layout-padding)
+        span {{review.score}}
