@@ -6,7 +6,7 @@ md-content.student-review-content(layout='column', layout-padding, md-scroll-y, 
       | 他人成绩
 
   .review-to-wrap(ng-if='vm.currentNavItem == "others"', layout='row', flex, md-scroll-y, layout-wrap)
-    md-card(layout-margin, ng-repeat='upload in vm.uploads')
+    md-card.md-whiteframe-3dp(layout-margin, ng-repeat='upload in vm.uploads')
       .card-content(layout='row', flex)
         .preview(layout='column')
           img(ng-src='{{upload.img}}')
@@ -22,7 +22,7 @@ md-content.student-review-content(layout='column', layout-padding, md-scroll-y, 
           md-button.md-raised.md-primary(ng-click='vm.submit(upload)') 提交
 
   .review-from-wrap(ng-if='vm.currentNavItem == "mine"', layout='row', flex, md-scroll-y, layout-wrap)
-    md-card(layout='row', layout-margin, ng-repeat='review in vm.reviews')
+    md-card.md-whiteframe-3dp(layout='row', layout-margin, ng-repeat='review in vm.reviews')
       .content(flex, layout='row', layout-align='center center')
         span {{review.content}}
       .score(layout='column', layout-align='center center', layout-padding)

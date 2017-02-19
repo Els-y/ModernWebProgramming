@@ -27,7 +27,7 @@ div.home-content(layout='row', flex)
           span(flex)
           h2.md-toolbar-item.select-heading(ng-if='user.role != 0') 班级
           .md-toolbar-item(ng-if='user.role != 0')
-            md-select(ng-model='$parent.selectedClass', aria-label='Select Class')
+            md-select(ng-model='$parent.selectedClass', aria-label='Select Class', ng-disabled='vm.openedSection.title == "评审作业"')
               md-option(ng-repeat='class in classes', ng-value='class') {{class}}
 
     .ui-view-container(layout='column', flex)

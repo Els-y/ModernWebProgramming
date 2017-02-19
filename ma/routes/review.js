@@ -37,6 +37,7 @@ router.get('/to', function(req, res, next) {
     success: false,
     data: {
       maxScore: null,
+      status: null,
       uploads: []
     }
   };
@@ -48,21 +49,41 @@ router.get('/to', function(req, res, next) {
     then(function(homework) {
       if (homework) {
         resJson.data.maxScore = homework.maxScore;
+        resJson.data.status = homework.status;
         return Promise.resolve(homework);
       } else {
         return Promise.reject();
       }
     }).then(function(homework) {
-      return Promise.all([
-        Upload.find({
-          homework: homework._id,
-          group: homework.reviewGroup[req.session.user.group - 1]
-        }).populate({path: 'author', select: '-password'}).exec(),
-        Review.find({
-          homework: homework._id,
-          from: req.session.user._id,
-        }).exec()
-      ]);
+      var promiseArr;
+      if (req.session.user.role === 0) {
+        promiseArr = [
+          Upload.find({
+            homework: homework._id,
+            group: homework.reviewGroup[req.session.user.group - 1]
+          }).populate({path: 'author', select: '-password'}).exec(),
+          Review.find({
+            homework: homework._id,
+            from: req.session.user._id,
+          }).exec()
+        ];
+      } else {
+        promiseArr = [
+          Upload.find({
+            homework: homework._id,
+          }).populate({
+            path: 'author',
+            select: '-password'
+          }).sort({
+            'group': 'asc'
+          }).exec(),
+          Review.find({
+            homework: homework._id,
+            from: req.session.user._id,
+          }).exec()
+        ];
+      }
+      return Promise.all(promiseArr);
     }).spread(function(uploads, reviews) {
       var arr = [];
       uploads.map(function(upload) {
@@ -157,8 +178,50 @@ router.post('/to', function(req, res, next) {
     });
 });
 
+router.post('/confirm', function(req, res, next) {
+  var resJson = {
+    success: false
+  };
+  if (!req.session.user ||
+      !req.body.signature ||
+      !req.body.homework ||
+      req.session.user.name !== req.body.signature)
+    return res.json(resJson);
+
+  console.log('开始');
+
+  Homework.findById(req.body.homework).exec().
+    then(function(homework) {
+      if (homework) {
+        return Promise.resolve(homework);
+      } else {
+        return Promise.reject();
+      }
+    }).then(function(homework) {
+      console.log(homework);
+      if (req.session.user.role === 1 && homework.status === 0) {
+        homework.status = 1;
+        return homework.save();
+      } else if (req.session.user.role === 2 && homework.status === 1) {
+        homework.status = 2;
+        return homework.save();
+      } else {
+        return Promise.reject();
+      }
+    }).then(function(homework) {
+      console.log('aa');
+      resJson.success = true;
+    }).finally(function() {
+      res.json(resJson);
+    });
+});
+
 function checkScoreValid(homework, score) {
-  return score >= 0 && score <= homework.maxScore;
+  var value = Number(score);
+  return !isNaN(value) &&
+    value >= 0 &&
+    value <= homework.maxScore &&
+    value % 1 === 0;
 }
 
 module.exports = router;

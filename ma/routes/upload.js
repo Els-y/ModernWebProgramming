@@ -21,11 +21,26 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({
-  storage: storage
+  storage: storage,
+  fileFilter: fileFilter
 });
 
+function fileFilter(req, file, cb) {
+  Homework.findById(req.body._id).exec().
+    then(function(homework) {
+      var timenow = new Date();
+      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
+        console.log('接受');
+        cb(null, true);
+      } else {
+        console.log('拒绝');
+        cb(null, false);
+      }
+    });
+}
+
 router.post('/code', upload.single('code'), function(req, res, next) {
-  if (!req.session.user) return res.end();
+  if (!req.session.user) return res.status(500).end();
 
   var uploadInfo = {
     author: req.session.user,
@@ -34,9 +49,11 @@ router.post('/code', upload.single('code'), function(req, res, next) {
     filename: req.file.filename,
     github: '',
   };
+
   Homework.findById(req.body._id).exec().
     then(function(homework) {
-      if (homework) {
+      var timenow = new Date();
+      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
         uploadInfo.homework = homework;
         if (checkSubmitted(homework, req.session.user)) {
           return Promise.resolve(homework);
@@ -59,8 +76,10 @@ router.post('/code', upload.single('code'), function(req, res, next) {
       } else {  // 第一次提交
         return new Upload(uploadInfo).save();
       }
-    }).finally(function() {
+    }).then(function(upload) {
       res.end();
+    }).catch(function() {
+      res.status(500).end();
     });
 });
 
@@ -84,7 +103,8 @@ router.post('/github', function(req, res, next) {
   };
   Homework.findById(req.body._id).exec().
     then(function(homework) {
-      if (homework) {
+      var timenow = new Date();
+      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
         uploadInfo.homework = homework;
         if (checkSubmitted(homework, req.session.user)) {
           return Promise.resolve(homework);

@@ -2,5 +2,7 @@
   'use strict';
 
   angular.
-    module('app.home.admin.review', []);
+    module('app.home.admin.review', [
+      'app.core'
+    ]);
 })();

@@ -102,7 +102,7 @@
   align-content: flex-start;
 }
 .student-review-content .review-from-wrap md-card {
-  height: 180px;
+  min-height: 180px;
   width: 100%;
 }
 .student-review-content .review-from-wrap md-card .content {
@@ -115,6 +115,61 @@
   background-color: lightgreen;
   width: 200px;
   font-size: 36px;
+}
+
+.admin-review-content {
+  align-content: flex-start;
+}
+.admin-review-content .review-card {
+  width: 100%;
+  height: 210px;
+}
+.admin-review-content .review-card .card-content .info {
+  position: relative;
+  width: 220px;
+  padding: 3px;
+  top: 20px;
+  margin-right: 10px;
+}
+.admin-review-content .review-card .card-content .info md-input-container {
+  margin: 0;
+}
+.admin-review-content .review-card .card-content .info md-input-container label {
+  color: #3f51b5;
+}
+.admin-review-content .review-card .card-content .info md-input-container input {
+  text-align: center;
+  color: black;
+}
+.admin-review-content .review-card .card-content .info .download-list {
+  margin-top: -10px;
+}
+.admin-review-content .review-card .card-content .content textarea {
+  overflow-y: auto;
+  height: 180px;
+  resize: none;
+}
+.admin-review-content .review-card .card-content .score {
+  width: 150px;
+}
+.admin-review-content .review-card .card-content .score md-input-container {
+  margin-bottom: 0;
+}
+.admin-review-content .review-card .card-content .score md-input-container input {
+  font-size: 24px;
+  font-weight: 300;
+  text-align: center;
+}
+.admin-review-content .confirm-card {
+  width: 100%;
+}
+.admin-review-content .confirm-card md-input-container {
+  position: relative;
+  top: 20px;
+  margin: 0 20px;
+}
+.admin-review-content .confirm-card span {
+  color: #ff5722;
 }
 
 .common-dashboard-content {

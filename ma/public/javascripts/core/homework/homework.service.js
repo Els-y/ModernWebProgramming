@@ -17,7 +17,8 @@
         getIndex: getIndex,
         getToReview: getToReview,
         getFromReview: getFromReview,
-        submitReview: submitReview
+        submitReview: submitReview,
+        confirmReview: confirmReview
       };
 
       function getOneById(id) {
@@ -100,6 +101,10 @@
 
       function submitReview(form) {
         return basic('/review/to', 'post', form);
+      }
+
+      function confirmReview(form) {
+        return basic('/review/confirm', 'post', form);
       }
     }
 })();

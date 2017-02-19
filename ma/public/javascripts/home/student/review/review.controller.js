@@ -21,9 +21,13 @@
       if (!upload.review ||
           !upload.review.content ||
           !upload.review.score) {
-            toast('评论或分数未填写');
-            return;
-          }
+        toast('评论或分数未填写');
+        return;
+      } else if (!checkScore(upload.review.score)) {
+        toast('分数必须为0~100整数');
+        return;
+      }
+
       homeworkService.submitReview({
         homework: upload.homework,
         to: upload.author._id,
@@ -44,11 +48,17 @@
           vm.reviews = response.data.reviews;
       });
 
-      console.log(vm.reviews);
-
       info.uploads.then(function(response) {
         vm.uploads = response.data.uploads;
       });
+    }
+
+    function checkScore(score) {
+      var value = Number(score);
+      return !isNaN(value) &&
+        value >= 0 &&
+        value <= 100 &&
+        value % 1 === 0;
     }
 
     function toast(text) {
