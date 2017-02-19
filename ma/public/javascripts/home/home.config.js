@@ -40,6 +40,28 @@
           }
         }
       }).
+      state('home.studentReview', {
+        url: '/student/review',
+        params: {
+          homework: null
+        },
+        views: {
+          'content': {
+            templateUrl: '/templates/studentReview',
+            controller: 'homeStudentReviewController',
+            controllerAs: 'vm',
+            resolve: {
+              info: ['$stateParams', 'homeworkService', function($stateParams, homeworkService) {
+                var homework = $stateParams.homework;
+                return {
+                  uploads: homeworkService.getToReview(homework),
+                  reviews: homeworkService.getFromReview(homework)
+                };
+              }]
+            }
+          }
+        }
+      }).
       // Admin
       state('home.adminEdit', {
         url: '/admin/edit/',
@@ -60,6 +82,27 @@
                     object.homework = homeworkService.getOneById($stateParams.homework._id);
                 }
                 return object;
+              }]
+            }
+          }
+        }
+      }).
+      state('home.adminReview', {
+        url: '/admin/review',
+        params: {
+          homework: null
+        },
+        views: {
+          'content': {
+            templateUrl: '/templates/adminReview',
+            controller: 'homeAdminReviewController',
+            controllerAs: 'vm',
+            resolve: {
+              info: ['$stateParams', 'homeworkService', function($stateParams, homeworkService) {
+                var homework = $stateParams.homework;
+                return {
+                  uploads: homeworkService.getToReview(homework)
+                };
               }]
             }
           }

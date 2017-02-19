@@ -17,6 +17,7 @@ router.get('/haslogin', function(req, res, next) {
   if (req.session.user) {
     resJson.success = true;
     resJson.data.user = {
+      _id: req.session.user._id,
       stuid: req.session.user.stuid,
       name: req.session.user.name,
       class: req.session.user.class,
@@ -40,6 +41,7 @@ router.post('/login', function(req, res, next) {
     success: false,
     data: {
       user: {
+        _id: null,
         stuid: req.body.stuid,
         name: '',
         class: null,
@@ -60,6 +62,7 @@ router.post('/login', function(req, res, next) {
         req.session.user = user;
         status.success = true;
         status.data.user = {
+          _id: user._id,
           stuid: user.stuid,
           name: user.name,
           class: user.class,

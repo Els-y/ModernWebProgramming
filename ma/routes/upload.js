@@ -21,27 +21,54 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({
-  storage: storage
+  storage: storage,
+  fileFilter: fileFilter
 });
 
+function fileFilter(req, file, cb) {
+  Homework.findById(req.body._id).exec().
+    then(function(homework) {
+      var timenow = new Date();
+      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
+        console.log('接受');
+        cb(null, true);
+      } else {
+        console.log('拒绝');
+        cb(null, false);
+      }
+    });
+}
+
 router.post('/code', upload.single('code'), function(req, res, next) {
+  if (!req.session.user) return res.status(500).end();
+
   var uploadInfo = {
     author: req.session.user,
     homework: null,
+    group: req.session.user.group,
     filename: req.file.filename,
     github: '',
   };
+
   Homework.findById(req.body._id).exec().
     then(function(homework) {
-      if (homework) {
+      var timenow = new Date();
+      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
         uploadInfo.homework = homework;
-        return Upload.findOne({
-          author: req.session.user._id,
-          homework: homework._id
-        }).exec();
+        if (checkSubmitted(homework, req.session.user)) {
+          return Promise.resolve(homework);
+        } else {
+          homework.submitted.push(req.session.user);
+          return homework.save();
+        }
       } else {
         return Promise.reject();
       }
+    }).then(function(homework) {
+      return Upload.findOne({
+        author: req.session.user._id,
+        homework: homework._id
+      }).exec();
     }).then(function(upload) {
       if (upload) {  // 已提交过
         upload.filename = req.file.filename;
@@ -51,7 +78,7 @@ router.post('/code', upload.single('code'), function(req, res, next) {
       }
     }).then(function(upload) {
       res.end();
-    }).catch(function(err) {
+    }).catch(function() {
       res.status(500).end();
     });
 });
@@ -64,24 +91,35 @@ router.post('/github', function(req, res, next) {
   var resJson = {
     success: false
   };
+
+  if (!req.session.user) return res.json(resJson);
+
   var uploadInfo = {
     author: req.session.user,
     homework: null,
-    code: '',
-    img: '',
+    group: req.session.user.group,
+    filename: '',
     github: req.body.github
   };
   Homework.findById(req.body._id).exec().
     then(function(homework) {
-      if (homework) {
+      var timenow = new Date();
+      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
         uploadInfo.homework = homework;
-        return Upload.findOne({
-          author: req.session.user._id,
-          homework: homework._id
-        }).exec();
+        if (checkSubmitted(homework, req.session.user)) {
+          return Promise.resolve(homework);
+        } else {
+          homework.submitted.push(req.session.user);
+          return homework.save();
+        }
       } else {
         return Promise.reject();
       }
+    }).then(function(homework) {
+      return Upload.findOne({
+        author: req.session.user._id,
+        homework: homework._id
+      }).exec();
     }).then(function(upload) {
       if (upload) {  // 已提交过
         upload.github = req.body.github;
@@ -100,23 +138,32 @@ router.post('/github', function(req, res, next) {
 
 router.get('/download', function(req, res, next) {
   if (!req.session.user) return res.status(404).end();
+
   Upload.findOne({
-    author: req.session.user._id,
-    homework: req.query._id,
+    author: req.query.author,
+    homework: req.query.homework,
   }).exec().then(function(upload) {
     if (upload) {
-      var filepath = path.join(
-        settings.uploadsPath,
-        'class' + req.session.user.class,
-        upload.filename
-      );
-      res.download(filepath);
+      return Promise.resolve(upload);
     } else {
       return Promise.reject();
     }
+  }).then(function(upload) {
+    var filepath = path.join(
+      settings.uploadsPath,
+      'class' + req.session.user.class,
+      upload.filename
+    );
+    res.download(filepath);
   }).catch(function() {
-    res.status(404).end();
+    res.end();
   });
 });
+
+function checkSubmitted(homework, user) {
+  return homework.submitted.some(function (submit) {
+    return submit.equals(user._id);
+  });
+}
 
 module.exports = router;

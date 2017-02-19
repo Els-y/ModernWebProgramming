@@ -8,6 +8,9 @@ var homeworkScheMa = new Schema({
   beginTime: Date,
   reviewTime: Date,
   endTime: Date,
+  maxScore: Number,
+  submitted: [{type: Schema.Types.ObjectId, ref: 'users'}],
+  reviewGroup: [Number],
   status: Number
 });
 

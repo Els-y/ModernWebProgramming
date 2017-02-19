@@ -1,0 +1,32 @@
+md-content.admin-review-content(layout='row', layout-padding, md-scroll-y, flex, layout-wrap)
+  md-card.md-whiteframe-3dp.review-card(layout-margin, ng-repeat='upload in vm.uploads')
+    .card-content(layout='row', flex)
+      .info(layout='column')
+        div(layout='row')
+          md-input-container(flex)
+            label 姓名
+            input(ng-model='upload.author.name', disabled)
+        div(layout='row')
+          md-input-container(flex)
+            label 学号
+            input(ng-model='upload.author.stuid', disabled)
+          md-input-container(flex)
+            label 组号
+            input(ng-model='upload.author.group', disabled)
+        .download-list(layout='row')
+          md-button(ng-if='upload.filename', ng-click='vm.downloadUpload(upload)') 代码包
+          md-button(ng-if='upload.github', ng-href='{{upload.github}}') Github
+      .content(flex, layout='row')
+        textarea(flex, ng-model='upload.review.content')
+      .score(layout='column', layout-align='center', layout-padding)
+        md-input-container
+          label 分数
+          input(type='tel', ng-model='upload.review.score')
+        md-button.md-raised.md-primary(ng-click='vm.submit(upload)') 提交
+  md-card.md-whiteframe-3dp.confirm-card(layout='row', layout-align='start center', ng-if='(user.role == 1 && vm.status == 0) || (user.role == 2 && vm.status == 1)')
+    span 注: 确保全都评审完成后，再来签名确认，只能确认一次！
+    span(flex)
+    md-input-container
+      label 签名
+      input(type='text', ng-model='vm.signature')
+    md-button.md-raised.md-warn(ng-click='vm.confirm()') 确认

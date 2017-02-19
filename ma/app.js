@@ -12,6 +12,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var homework = require('./routes/homework');
 var upload = require('./routes/upload');
+var review = require('./routes/review');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(session({
   resave: true,
   saveUninitialized: true,
@@ -34,17 +36,11 @@ app.use(session({
   cookie: settings.session.cookie
 }));
 
-// app.use(function(req, res, next) {
-//   req.session.user = {
-//     name: 'aa'
-//   };
-//   next();
-// });
-
 app.use('/', index);
 app.use('/users', users);
 app.use('/homework', homework);
 app.use('/upload', upload);
+app.use('/review', review);
 
 app.use(function(req, res, next) {
   res.redirect('/');

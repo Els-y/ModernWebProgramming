@@ -5,15 +5,15 @@
     module('app.home.common.dashboard').
     controller('homeCommonDashboardController', homeCommonDashboardController);
 
-  homeCommonDashboardController.$inject = ['$state', '$scope', '$filter', '$mdDialog', '$mdToast', 'info', 'storage', 'homeworkService', 'FileSaver', 'Blob'];
-  function homeCommonDashboardController($state, $scope, $filter, $mdDialog, $mdToast, info, storage, homeworkService, FileSaver, Blob) {
+  homeCommonDashboardController.$inject = ['$state', '$scope', '$filter', '$mdDialog', 'info', 'storage', 'homeworkService'];
+  function homeCommonDashboardController($state, $scope, $filter, $mdDialog, info, storage, homeworkService) {
     var vm = this;
-    vm.homeworkMenu = info.homeworkMenu;
     vm.homeworks = [];
     vm.openMenu = openMenu;
     vm.addHomework = addHomework;
     vm.editHomework = editHomework;
     vm.downloadHomework = downloadHomework;
+    vm.reviewHomework = reviewHomework;
     vm.showUploadDialog = showUploadDialog;
 
     activate();
@@ -40,17 +40,19 @@
     }
 
     function downloadHomework(homework) {
-      var target = homeworkService.getIndex(homework);
       var user = storage.get('user');
-      var fileName = '作业' + target + '-' + user.class + '班-' + user.group + '组-' + user.name + '-' + new Date().getTime() + '.zip';
+      homeworkService.download(user, homework._id);
+    }
 
-      homeworkService.download({
-        _id: homework._id,
-      }).then(function(response) {
-        var data = new Blob([response]);
-        FileSaver.saveAs(data, fileName);
-      }).catch(function() {
-        toast('暂未提交作业');
+    function reviewHomework(homework) {
+      var user = storage.get('user');
+      var nextState = user.role === 0 ? 'home.studentReview' : 'home.adminReview';
+
+      $scope.selectSection({
+        title: '评审作业'
+      });
+      $state.go(nextState, {
+        homework: homework
       });
     }
 
@@ -61,22 +63,98 @@
         controllerAs: 'dialog',
         templateUrl: '/templates/uploadDialog',
         clickOutsideToClose: false,
+      }).then(function() {}, function() {
+        reloadHomeworks();
       });
     }
 
-    function toast(text) {
-      $mdToast.show(
-        $mdToast.simple().
-          position('top right').
-          textContent(text).
-          hideDelay(2000)
-      );
-    }
-
     function activate() {
+      var user = storage.get('user');
+
       info.homeworkList.then(function(response) {
         vm.homeworks = response.data.list;
+        addHomeworkStatus(vm.homeworks, user);
         storage.set('homeworks', vm.homeworks);
+      });
+    }
+
+    function reloadHomeworks() {
+      var user = storage.get('user');
+      homeworkService.getAll().then(function(response) {
+        vm.homeworks = response.data.list;
+        addHomeworkStatus(vm.homeworks, user);
+        storage.set('homeworks', vm.homeworks);
+      });
+    }
+
+    function checkSubmitted(homework, user) {
+      return homework.submitted.some(function (submit) {
+        return submit === user._id;
+      });
+    }
+
+    function addHomeworkStatus(homeworks, user) {
+      var timenow = new Date();
+      var beginTime, reviewTime, endTime;
+
+      homeworks.map(function(homework, index) {
+        homework.isSubmitted = checkSubmitted(homework, user);
+        homework.menu = info.homeworkMenu.slice();
+        homework.showdate = true;
+
+        beginTime = new Date(homework.beginTime);
+        reviewTime = new Date(homework.reviewTime);
+        endTime = new Date(homework.endTime);
+
+        if (user.role === 0) {
+          if (timenow < beginTime) {
+            homework.statusbar = '未开始';
+          } else if (timenow >= beginTime && timenow <= endTime) {
+            homework.statusbar = '开始提交';
+          } else if (timenow > endTime) {
+            homework.statusbar = '已结束';
+            homework.showdate = false;
+          }
+
+          if (timenow >= beginTime && timenow <= endTime) {
+            homework.menu.push({
+              title: '提交作业',
+              type: 'upload'
+            });
+          }
+          if (timenow >= reviewTime) {
+            homework.menu.push({
+              title: '评审作业',
+              type: 'review'
+            });
+          }
+        } else if (user.role === 1) {
+          if (timenow < beginTime) {
+            homework.statusbar = '未开始';
+          } else if (timenow >= beginTime && timenow <= endTime) {
+            homework.statusbar = '等待提交及互评';
+          } else if (timenow > endTime && homework.status === 0) {
+            homework.statusbar = '未评审';
+          } else if (homework.status === 1) {
+            homework.statusbar = '等待教师评审';
+          } else {
+            homework.statusbar = '已结束';
+            homework.showdate = false;
+          }
+        } else {
+          if (timenow < beginTime) {
+            homework.statusbar = '未开始';
+          } else if (timenow >= beginTime && timenow <= endTime) {
+            homework.statusbar = '等待提交及互评';
+          } else if (timenow > endTime && homework.status === 0) {
+            homework.statusbar = '等待TA评审';
+          } else if (homework.status === 1) {
+            homework.statusbar = '未评审';
+          } else {
+            homework.statusbar = '已结束';
+            homework.showdate = false;
+          }
+        }
       });
     }
   }

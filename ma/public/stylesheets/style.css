@@ -66,6 +66,113 @@
   fill: #fff;
 }
 
+.student-review-content .review-to-wrap {
+  align-content: flex-start;
+}
+.student-review-content .review-to-wrap md-card {
+  height: 220px;
+  width: 100%;
+}
+.student-review-content .review-to-wrap md-card .card-content .preview {
+  width: 227px;
+  height: 180px;
+}
+.student-review-content .review-to-wrap md-card .card-content .preview img {
+  width: 210px;
+  height: 150px;
+  border: 1px solid lightgray;
+}
+.student-review-content .review-to-wrap md-card .card-content .content textarea {
+  overflow-y: auto;
+  height: 180px;
+  resize: none;
+}
+.student-review-content .review-to-wrap md-card .card-content .score {
+  width: 150px;
+}
+.student-review-content .review-to-wrap md-card .card-content .score md-input-container {
+  margin-bottom: 0;
+}
+.student-review-content .review-to-wrap md-card .card-content .score md-input-container input {
+  font-size: 24px;
+  font-weight: 300;
+  text-align: center;
+}
+.student-review-content .review-from-wrap {
+  align-content: flex-start;
+}
+.student-review-content .review-from-wrap md-card {
+  min-height: 180px;
+  width: 100%;
+}
+.student-review-content .review-from-wrap md-card .content {
+  margin: 0;
+  padding: 30px;
+  font-size: 18px;
+}
+.student-review-content .review-from-wrap md-card .score {
+  color: white;
+  margin: 0;
+  background-color: lightblue;
+  width: 200px;
+  font-size: 36px;
+}
+
+.admin-review-content {
+  align-content: flex-start;
+}
+.admin-review-content .review-card {
+  width: 100%;
+  height: 210px;
+}
+.admin-review-content .review-card .card-content .info {
+  position: relative;
+  width: 220px;
+  padding: 3px;
+  top: 20px;
+  margin-right: 10px;
+}
+.admin-review-content .review-card .card-content .info md-input-container {
+  margin: 0;
+}
+.admin-review-content .review-card .card-content .info md-input-container label {
+  color: #3f51b5;
+}
+.admin-review-content .review-card .card-content .info md-input-container input {
+  text-align: center;
+  color: black;
+}
+.admin-review-content .review-card .card-content .info .download-list {
+  margin-top: -10px;
+}
+.admin-review-content .review-card .card-content .content textarea {
+  overflow-y: auto;
+  height: 180px;
+  resize: none;
+}
+.admin-review-content .review-card .card-content .score {
+  width: 150px;
+}
+.admin-review-content .review-card .card-content .score md-input-container {
+  margin-bottom: 0;
+}
+.admin-review-content .review-card .card-content .score md-input-container input {
+  font-size: 24px;
+  font-weight: 300;
+  text-align: center;
+}
+.admin-review-content .confirm-card {
+  width: 100%;
+}
+.admin-review-content .confirm-card md-input-container {
+  position: relative;
+  top: 20px;
+  margin: 0 20px;
+}
+.admin-review-content .confirm-card span {
+  color: #ff5722;
+}
+
 .common-dashboard-content {
   align-content: flex-start;
 }
@@ -85,6 +192,9 @@
   padding-top: 7px;
   padding-left: 18px;
 }
+.common-dashboard-content md-card .card-content {
+  color: gray;
+}
 .common-dashboard-content md-card .card-content .homework-title {
   font-size: 36px;
 }
@@ -94,7 +204,7 @@
   height: 45px;
 }
 .common-dashboard-content md-card .card-footer .homework-status, .common-dashboard-content md-card .card-footer .upload-status {
-  padding-top: 4px;
+  padding-top: 2px;
 }
 
 .upload-dialog {
@@ -137,5 +247,7 @@
 .upload-dialog .github-content .github-input-wrap {
   width: 270px;
 }
+
+/* ui-view-animation */
 
 /*# sourceMappingURL=style.css.map */

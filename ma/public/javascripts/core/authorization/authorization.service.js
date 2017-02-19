@@ -27,14 +27,10 @@
 
       function basic(url, methods, data) {
         return $http[methods](url, data).
-                 then(successCallback, errorCallback);
+                 then(successCallback);
 
         function successCallback(response) {
           return response.data;
-        }
-
-        function errorCallback(response) {
-          console.log('error happened');
         }
       }
     }

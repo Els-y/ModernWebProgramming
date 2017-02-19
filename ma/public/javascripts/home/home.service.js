@@ -55,10 +55,6 @@
               type: 'link',
             },
             {
-              title: '提交作业',
-              type: 'upload'
-            },
-            {
               title: '下载提交',
               type: 'download',
             },
@@ -66,26 +62,14 @@
             //   title: '作业成绩',
             //   type: 'score',
             // },
-            // {
-            //   title: '查看评审',
-            //   type: 'state',
-            //   state: {
-            //     title: '查看评审',
-            //     sref: 'home.studentReview'
-            //   }
-            // }
+
           ];
         } else if (role === 1) {
           menu = [
             {
               title: '编辑作业',
-              type: 'edit',
-              state: {
-                title: '编辑作业',
-                sref: 'home.adminEdit'
-              }
-            }
-            // ,
+              type: 'edit'
+            },
             // {
             //   title: '作业成绩',
             //   type: 'state',
@@ -94,26 +78,17 @@
             //     sref: 'home.adminScore'
             //   },
             // },
-            // {
-            //   title: '评审作业',
-            //   type: 'state',
-            //   state: {
-            //     title: '评审作业',
-            //     sref: 'home.taReview'
-            //   }
-            // }
+            {
+              title: '评审作业',
+              type: 'review'
+            }
           ];
         } else {
           menu = [
             {
               title: '编辑作业',
-              type: 'edit',
-              state: {
-                title: '编辑作业',
-                sref: 'home.adminEdit'
-              }
-            }
-            // ,
+              type: 'edit'
+            },
             // {
             //   title: '作业成绩',
             //   type: 'state',
@@ -122,14 +97,10 @@
             //     sref: 'home.adminScore'
             //   },
             // },
-            // {
-            //   title: '评审作业',
-            //   type: 'state',
-            //   state: {
-            //     title: '评审作业',
-            //     sref: 'home.teacherReview'
-            //   }
-            // }
+            {
+              title: '评审作业',
+              type: 'review'
+            }
           ];
         }
         return menu;

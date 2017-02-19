@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var Promise = require('bluebird');
+var _ = require('lodash');
 var Homework = require('../models/homework');
+var settings = require('../modules/settings');
 
 router.get('/getOneById/:id', function(req, res, next) {
   var resJson = {
@@ -71,6 +73,8 @@ router.post('/single', function(req, res, next) {
       !req.body.review ||
       !req.body.end) return res.json(resJson);
 
+  var reviewGroup = getReviewGroup(settings.classes[req.body.class - 1].group);
+
   var homework = new Homework({
     class: req.body.class,
     title: req.body.title,
@@ -78,6 +82,8 @@ router.post('/single', function(req, res, next) {
     beginTime: req.body.begin,
     reviewTime: req.body.review,
     endTime: req.body.end,
+    maxScore: 100,
+    reviewGroup: reviewGroup,
     status: 0
   });
 
@@ -131,5 +137,22 @@ router.put('/single', function(req, res, next) {
       res.json(resJson);
     });
 });
+
+function getReviewGroup(value) {
+  if (value === 1) return [1];
+
+  var arr = Array.from(new Array(value), function(v, i) {
+    return i + 1;
+  });
+  while (check(arr)) {
+		arr = _.shuffle(arr);
+	}
+  function check(t) {
+    return t.some(function(v, i) {
+      return v === i + 1;
+    });
+  }
+  return arr;
+}
 
 module.exports = router;

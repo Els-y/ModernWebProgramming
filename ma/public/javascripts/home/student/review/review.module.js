@@ -2,8 +2,8 @@
   'use strict';
 
   angular.
-    module('app.home.admin.common.edit', [
+    module('app.home.student.review', [
       'ngMaterial',
-      'ui.router'
+      'app.core'
     ]);
 })();

@@ -6,7 +6,7 @@ md-content.common-dashboard-content(layout='row', layout-padding, md-scroll-y, f
         md-button.md-icon-button(aria-label='Open phone interactions menu', ng-click='vm.openMenu($mdMenu, $event)')
           ng-md-icon(md-menu-origin, icon="more_vert", size="24")
         md-menu-content(width='2')
-          md-menu-item(ng-repeat='section in vm.homeworkMenu')
+          md-menu-item(ng-repeat='section in homework.menu')
             md-button(ng-if='section.type == "link"', ng-href='{{homework.url}}')
               span {{section.title}}
             md-button(ng-if='section.type == "edit"', ng-click='vm.editHomework(homework)')
@@ -15,13 +15,19 @@ md-content.common-dashboard-content(layout='row', layout-padding, md-scroll-y, f
               span {{section.title}}
             md-button(ng-if='section.type == "download"', ng-click='vm.downloadHomework(homework)')
               span {{section.title}}
+            md-button(ng-if='section.type == "review"', ng-click='vm.reviewHomework(homework)')
+              span {{section.title}}
 
-    .card-content(flex, layout, layout-align='center center')
+    .card-content(flex, layout='column', layout-align='center center')
       span.homework-title {{homework.title}}
+      div.homework-time(layout='column', ng-show='homework.showdate')
+        span 开始时间: {{homework.beginTime | date: 'yyyy-MM-dd hh:mm'}}
+        span 互评时间: {{homework.reviewTime | date: 'yyyy-MM-dd hh:mm'}}
+        span 结束时间: {{homework.endTime | date: 'yyyy-MM-dd hh:mm'}}
     .card-footer(layout='row', layout-padding, layout-align='space-between')
-      span.homework-status Action 1
-      span.upload-status Action 2
-  div.publish-button-wrap
+      span.homework-status {{homework.statusbar}}
+      span.upload-status(ng-if='user.role == 0') {{homework.isSubmitted ? '已提交' : '未提交'}}
+  div.publish-button-wrap(ng-if='user.role != 0')
     md-button.md-fab.md-fab-bottom-right.md-primary.publish-button(type='button', aria-label='Publish Homework', ng-click='vm.addHomework()')
       md-tooltip(md-direction='top') 发布新作业
       ng-md-icon.create-icon(icon="create", size="24")
