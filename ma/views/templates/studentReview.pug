@@ -1,8 +1,8 @@
 md-content.student-review-content(layout='column', layout-padding, md-scroll-y, flex, layout-wrap)
   md-nav-bar(md-selected-nav-item='vm.currentNavItem', nav-bar-aria-label='navigation links')
-    md-nav-item(md-nav-click="goto('page1')", name='mine')
+    md-nav-item(md-nav-click="goto('mine')", name='mine')
       | 我的成绩
-    md-nav-item(md-nav-click="goto('page2')", name='others')
+    md-nav-item(md-nav-click="goto('others')", name='others', ng-show='vm.otherReview')
       | 他人成绩
 
   .review-to-wrap(ng-if='vm.currentNavItem == "others"', layout='row', flex, md-scroll-y, layout-wrap)

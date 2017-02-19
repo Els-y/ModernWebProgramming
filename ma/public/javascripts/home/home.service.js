@@ -55,10 +55,6 @@
               type: 'link',
             },
             {
-              title: '提交作业',
-              type: 'upload'
-            },
-            {
               title: '下载提交',
               type: 'download',
             },
@@ -66,10 +62,7 @@
             //   title: '作业成绩',
             //   type: 'score',
             // },
-            {
-              title: '评审作业',
-              type: 'review',
-            }
+
           ];
         } else if (role === 1) {
           menu = [

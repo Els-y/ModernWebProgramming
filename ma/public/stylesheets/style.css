@@ -111,8 +111,9 @@
   font-size: 18px;
 }
 .student-review-content .review-from-wrap md-card .score {
+  color: white;
   margin: 0;
-  background-color: lightgreen;
+  background-color: lightblue;
   width: 200px;
   font-size: 36px;
 }
@@ -191,6 +192,9 @@
   padding-top: 7px;
   padding-left: 18px;
 }
+.common-dashboard-content md-card .card-content {
+  color: gray;
+}
 .common-dashboard-content md-card .card-content .homework-title {
   font-size: 36px;
 }
@@ -200,7 +204,7 @@
   height: 45px;
 }
 .common-dashboard-content md-card .card-footer .homework-status, .common-dashboard-content md-card .card-footer .upload-status {
-  padding-top: 4px;
+  padding-top: 2px;
 }
 
 .upload-dialog {

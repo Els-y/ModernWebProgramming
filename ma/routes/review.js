@@ -153,7 +153,7 @@ router.post('/to', function(req, res, next) {
 
   Homework.findById(req.body.homework).exec().
     then(function(homework) {
-      if (homework) {
+      if (homework && checkReviewValid(homework, req.session.user)) {
         if (checkScoreValid(homework, req.body.score)) {
           reviewInfo.homework = homework;
           return User.findById(req.body.to).exec();
@@ -173,6 +173,8 @@ router.post('/to', function(req, res, next) {
     }).then(function(review) {
       resJson.success = true;
       resJson.data.review = review;
+    }).catch(function() {
+      resJson.success = false;
     }).finally(function() {
       res.json(resJson);
     });
@@ -188,8 +190,6 @@ router.post('/confirm', function(req, res, next) {
       req.session.user.name !== req.body.signature)
     return res.json(resJson);
 
-  console.log('开始');
-
   Homework.findById(req.body.homework).exec().
     then(function(homework) {
       if (homework) {
@@ -198,7 +198,6 @@ router.post('/confirm', function(req, res, next) {
         return Promise.reject();
       }
     }).then(function(homework) {
-      console.log(homework);
       if (req.session.user.role === 1 && homework.status === 0) {
         homework.status = 1;
         return homework.save();
@@ -209,7 +208,6 @@ router.post('/confirm', function(req, res, next) {
         return Promise.reject();
       }
     }).then(function(homework) {
-      console.log('aa');
       resJson.success = true;
     }).finally(function() {
       res.json(resJson);
@@ -222,6 +220,20 @@ function checkScoreValid(homework, score) {
     value >= 0 &&
     value <= homework.maxScore &&
     value % 1 === 0;
+}
+
+function checkReviewValid(homework, user) {
+  var timenow = new Date();
+
+  if (user.role === 0 && timenow >= homework.reviewTime && timenow <= homework.endTime) {
+    return true;
+  } else if (user.role === 1 && timenow >= homework.endTime && homework.status === 0) {
+    return true;
+  } else if (user.role === 2 && homework.status === 1) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 module.exports = router;

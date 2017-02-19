@@ -5,8 +5,8 @@
     module('app.home.student.review').
     controller('homeStudentReviewController', homeStudentReviewController);
 
-  homeStudentReviewController.$inject = ['info', 'homeworkService', 'FileSaver', 'Blob', '$mdToast'];
-  function homeStudentReviewController(info, homeworkService, FileSaver, Blob, $mdToast) {
+  homeStudentReviewController.$inject = ['info', 'homeworkService', 'FileSaver', 'Blob', '$mdToast', '$stateParams'];
+  function homeStudentReviewController(info, homeworkService, FileSaver, Blob, $mdToast, $stateParams) {
     var vm = this;
     vm.currentNavItem = 'mine';
     vm.uploads = [];
@@ -44,13 +44,22 @@
 
     activate();
     function activate() {
+      var timenow = new Date();
+      var endTime = new Date($stateParams.homework.endTime);
+
       info.reviews.then(function(response) {
-          vm.reviews = response.data.reviews;
+        vm.reviews = response.data.reviews;
       });
 
       info.uploads.then(function(response) {
         vm.uploads = response.data.uploads;
       });
+
+      if (timenow <= endTime) {
+        vm.otherReview = true;
+      } else {
+        vm.otherReview = false;
+      }
     }
 
     function checkScore(score) {

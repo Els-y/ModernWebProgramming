@@ -129,8 +129,9 @@
         font-size: 18px;
       }
       .score {
+        color: white;
         margin: 0;
-        background-color: lightgreen;
+        background-color: lightblue;
         width: 200px;
         font-size: 36px;
       }
@@ -215,6 +216,7 @@
       }
     }
     .card-content {
+      color: gray;
       .homework-title {
         font-size: 36px;
       }
@@ -224,7 +226,7 @@
       background-color: #f4f4f4;
       height: 45px;
       .homework-status, .upload-status {
-        padding-top: 4px;
+        padding-top: 2px;
       }
     }
   }
