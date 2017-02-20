@@ -260,6 +260,22 @@
   width: 270px;
 }
 
+.student-detail-content .rank-card {
+  overflow: auto;
+}
+.student-detail-content .rank-card md-list md-list-item {
+  border-bottom: 1px solid lightgray;
+  text-align: center;
+}
+.student-detail-content .rank-card .rank-title-wrap .rank-title {
+  font-size: 17px;
+  margin-top: -8px;
+  padding: 10px;
+}
+.student-detail-content .rank-card .rank-title-wrap .class-select {
+  margin: 10px 0 16px;
+}
+
 /* ui-view-animation */
 
 /*# sourceMappingURL=style.css.map */

@@ -9,6 +9,29 @@ var Homework = require('../models/homework');
 var Upload = require('../models/upload');
 var Review = require('../models/review');
 
+router.get('/rank', function(req, res, next) {
+  var resJson = {
+    success: false,
+    data: {
+      reviews: null
+    }
+  };
+
+  if (!req.session.user ||
+      !req.query.homework) return res.json(resJson);
+
+  Review.find({
+    homework: req.query.homework,
+    type: 2
+  }).populate({path: 'to', select: 'name group'}).sort({'score': 'desc'}).exec().
+    then(function(reviews) {
+      resJson.success = true;
+      resJson.data.reviews = reviews;
+    }).finally(function() {
+      res.json(resJson);
+    });
+});
+
 router.get('/from', function(req, res, next) {
   var resJson = {
     success: false,
@@ -152,7 +175,8 @@ router.post('/to', function(req, res, next) {
     type: req.session.user.role
   };
 
-  Homework.findById(req.body.homework).exec().
+  if (req.session.user.role === 0) {
+    Homework.findById(req.body.homework).exec().
     then(function(homework) {
       if (homework && checkReviewValid(homework, req.session.user)) {
         if (checkScoreValid(homework, req.body.score)) {
@@ -179,6 +203,46 @@ router.post('/to', function(req, res, next) {
     }).finally(function() {
       res.json(resJson);
     });
+  } else {
+    Homework.findById(req.body.homework).exec().
+    then(function(homework) {
+      if (homework && checkReviewValid(homework, req.session.user)) {
+        if (checkScoreValid(homework, req.body.score)) {
+          reviewInfo.homework = homework;
+          return Promise.all([
+            Review.findOne({
+              homework: req.body.homework,
+              from: req.session.user._id,
+              to: req.body.to
+            }).exec(),
+            User.findById(req.body.to).exec()
+          ]);
+        } else {
+          return Promise.reject();
+        }
+      } else {
+        return Promise.reject();
+      }
+    }).spread(function(review, user) {
+      if (user && review) {
+        review.content = req.body.content;
+        review.score = req.body.score;
+        return review.save();
+      } else if (user && !review) {
+        reviewInfo.to = user;
+        return new Review(reviewInfo).save();
+      } else {
+        return Promise.reject();
+      }
+    }).then(function(review) {
+      resJson.success = true;
+      resJson.data.review = review;
+    }).catch(function() {
+      resJson.success = false;
+    }).finally(function() {
+      res.json(resJson);
+    });
+  }
 });
 
 router.post('/confirm', function(req, res, next) {

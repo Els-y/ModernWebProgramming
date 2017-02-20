@@ -36,7 +36,15 @@
           'content': {
             templateUrl: '/templates/studentDetail',
             controller: 'homeStudentDetailController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+              info: ['homeworkService',
+              function(homeworkService) {
+                return {
+                  homeworkList: homeworkService.getAll()
+                };
+              }]
+            }
           }
         }
       }).

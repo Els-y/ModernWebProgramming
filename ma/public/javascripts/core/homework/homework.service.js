@@ -18,7 +18,8 @@
         getToReview: getToReview,
         getFromReview: getFromReview,
         submitReview: submitReview,
-        confirmReview: confirmReview
+        confirmReview: confirmReview,
+        getRank: getRank
       };
 
       function getOneById(id) {
@@ -105,6 +106,14 @@
 
       function confirmReview(form) {
         return basic('/review/confirm', 'post', form);
+      }
+
+      function getRank(homework) {
+        return basic('/review/rank', 'get', {
+          params: {
+            homework: homework._id
+          }
+        });
       }
     }
 })();

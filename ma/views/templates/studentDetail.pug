@@ -1,1 +1,28 @@
-h1 student home-detail
+md-content.student-detail-content(layout='row', layout-padding, layout-fill)
+  md-card.md-whiteframe-2dp.rank-card(flex='50')
+    md-list
+      md-list-item.rank-title-wrap(layout='row')
+        .rank-title
+          span 作业排名
+        span(flex)
+        md-select.md-no-underline.class-select(ng-model="vm.homework", placeholder="作业1")
+          md-option(ng-repeat='homework in vm.homeworks', value="作业{{$index + 1}}", ng-click='vm.selectHomework(homework)') 作业{{$index + 1}}
+      md-list-item
+        div(flex='20')
+          span 排名
+        div(flex='30')
+          span 姓名
+        div(flex='25')
+          span 组号
+        div(flex='25')
+          span 分数
+      md-list-item(ng-repeat='rank in vm.ranks')
+        div(flex='20')
+          span {{rank.pos}}
+        div(flex='30')
+          span {{rank.to.name}}
+        div(flex='25')
+          span {{rank.to.group}}
+        div(flex='25')
+          span {{rank.score}}
+  //- md-card.md-whiteframe-2dp(flex='50', style='background-color: lightblue')

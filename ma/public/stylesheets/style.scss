@@ -287,6 +287,27 @@
   }
 }
 
+// Student Detail
+.student-detail-content {
+  .rank-card {
+    overflow: auto;
+    md-list md-list-item {
+      border-bottom: 1px solid lightgray;
+      text-align: center;
+    }
+    .rank-title-wrap {
+      .rank-title {
+        font-size: 17px;
+        margin-top: -8px;
+        padding: 10px;
+      }
+      .class-select {
+        margin: 10px 0 16px;
+      }
+    }
+  }
+}
+
 
 /* ui-view-animation */
 // .ui-view-container {
