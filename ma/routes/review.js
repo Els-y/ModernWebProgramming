@@ -23,7 +23,7 @@ router.get('/from', function(req, res, next) {
   Review.find({
     homework: req.query.homework,
     to: req.session.user._id
-  }).exec().
+  }).sort({'type': 'desc'}).exec().
     then(function(reviews) {
       resJson.success = true;
       resJson.data.reviews = reviews;
@@ -149,6 +149,7 @@ router.post('/to', function(req, res, next) {
     homework: null,
     content: req.body.content,
     score: req.body.score,
+    type: req.session.user.role
   };
 
   Homework.findById(req.body.homework).exec().

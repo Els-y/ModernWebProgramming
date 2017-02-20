@@ -127,6 +127,9 @@
         margin: 0;
         padding: 30px;
         font-size: 18px;
+        span {
+          word-break: break-all;
+        }
       }
       .score {
         color: white;
@@ -135,6 +138,12 @@
         width: 200px;
         font-size: 36px;
       }
+      .ta-review {
+        background-color: lightsalmon;
+      }
+    }
+    .occupation-card {
+      opacity: 0;
     }
   }
 }
@@ -193,6 +202,9 @@
     span {
       color: rgb(255,87,34);
     }
+  }
+  .occupation-card {
+    opacity: 0;
   }
 }
 

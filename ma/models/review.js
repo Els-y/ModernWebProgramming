@@ -6,7 +6,8 @@ var reviewScheMa = new Schema({
   to: {type: Schema.Types.ObjectId, ref: 'users'},
   homework: {type: Schema.Types.ObjectId, ref: 'homeworks'},
   score: Number,
-  content: String
+  content: String,
+  type: Number
 });
 
 module.exports = mongoose.model('reviews', reviewScheMa);

@@ -54,10 +54,6 @@
               title: '作业链接',
               type: 'link',
             },
-            {
-              title: '下载提交',
-              type: 'download',
-            },
             // {
             //   title: '作业成绩',
             //   type: 'score',
@@ -78,10 +74,7 @@
             //     sref: 'home.adminScore'
             //   },
             // },
-            {
-              title: '评审作业',
-              type: 'review'
-            }
+
           ];
         } else {
           menu = [
@@ -97,10 +90,7 @@
             //     sref: 'home.adminScore'
             //   },
             // },
-            {
-              title: '评审作业',
-              type: 'review'
-            }
+
           ];
         }
         return menu;

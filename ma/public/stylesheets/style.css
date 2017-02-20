@@ -110,12 +110,21 @@
   padding: 30px;
   font-size: 18px;
 }
+.student-review-content .review-from-wrap md-card .content span {
+  word-break: break-all;
+}
 .student-review-content .review-from-wrap md-card .score {
   color: white;
   margin: 0;
   background-color: lightblue;
   width: 200px;
   font-size: 36px;
+}
+.student-review-content .review-from-wrap md-card .ta-review {
+  background-color: lightsalmon;
+}
+.student-review-content .review-from-wrap .occupation-card {
+  opacity: 0;
 }
 
 .admin-review-content {
@@ -171,6 +180,9 @@
 }
 .admin-review-content .confirm-card span {
   color: #ff5722;
+}
+.admin-review-content .occupation-card {
+  opacity: 0;
 }
 
 .common-dashboard-content {
