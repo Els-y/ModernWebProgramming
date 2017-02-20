@@ -128,6 +128,12 @@
               type: 'review'
             });
           }
+          if (homework.isSubmitted) {
+            homework.menu.push({
+              title: '下载提交',
+              type: 'download',
+            });
+          }
         } else if (user.role === 1) {
           if (timenow < beginTime) {
             homework.statusbar = '未开始';
@@ -141,6 +147,13 @@
             homework.statusbar = '已结束';
             homework.showdate = false;
           }
+
+          if (timenow > endTime) {
+            homework.menu.push({
+              title: '评审作业',
+              type: 'review'
+            });
+          }
         } else {
           if (timenow < beginTime) {
             homework.statusbar = '未开始';
@@ -153,6 +166,13 @@
           } else {
             homework.statusbar = '已结束';
             homework.showdate = false;
+          }
+
+          if (homework.status === 1 || homework.status === 2) {
+            homework.menu.push({
+              title: '评审作业',
+              type: 'review'
+            });
           }
         }
       });

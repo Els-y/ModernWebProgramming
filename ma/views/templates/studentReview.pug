@@ -22,8 +22,9 @@ md-content.student-review-content(layout='column', layout-padding, md-scroll-y, 
           md-button.md-raised.md-primary(ng-click='vm.submit(upload)') 提交
 
   .review-from-wrap(ng-if='vm.currentNavItem == "mine"', layout='row', flex, md-scroll-y, layout-wrap)
-    md-card.md-whiteframe-3dp(layout='row', layout-margin, ng-repeat='review in vm.reviews')
+    md-card.md-whiteframe-3dp(layout='row', layout-margin, ng-repeat='review in vm.reviews', ng-hide='review.type == 2')
       .content(flex, layout='row', layout-align='center center')
         span {{review.content}}
-      .score(layout='column', layout-align='center center', layout-padding)
+      .score(layout='column', layout-align='center center', layout-padding, ng-class='{"ta-review": review.type == 1}')
         span {{review.score}}
+    md-card.occupation-card

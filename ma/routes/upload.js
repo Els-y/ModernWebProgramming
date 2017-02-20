@@ -30,10 +30,8 @@ function fileFilter(req, file, cb) {
     then(function(homework) {
       var timenow = new Date();
       if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
-        console.log('接受');
         cb(null, true);
       } else {
-        console.log('拒绝');
         cb(null, false);
       }
     });
@@ -45,6 +43,7 @@ router.post('/code', upload.single('code'), function(req, res, next) {
   var uploadInfo = {
     author: req.session.user,
     homework: null,
+    class: req.session.user.class,
     group: req.session.user.group,
     filename: req.file.filename,
     github: '',
@@ -97,6 +96,7 @@ router.post('/github', function(req, res, next) {
   var uploadInfo = {
     author: req.session.user,
     homework: null,
+    class: req.session.user.class,
     group: req.session.user.group,
     filename: '',
     github: req.body.github
@@ -143,7 +143,7 @@ router.get('/download', function(req, res, next) {
     author: req.query.author,
     homework: req.query.homework,
   }).exec().then(function(upload) {
-    if (upload) {
+    if (upload && upload.filename) {
       return Promise.resolve(upload);
     } else {
       return Promise.reject();
@@ -151,7 +151,7 @@ router.get('/download', function(req, res, next) {
   }).then(function(upload) {
     var filepath = path.join(
       settings.uploadsPath,
-      'class' + req.session.user.class,
+      'class' + upload.class,
       upload.filename
     );
     res.download(filepath);
