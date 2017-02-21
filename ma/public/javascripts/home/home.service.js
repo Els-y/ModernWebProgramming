@@ -21,17 +21,9 @@
               icon: 'list'
             },
             {
-              title: '作业详情',
+              title: '成绩排名',
               sref: 'home.studentDetail',
               icon: 'edit'
-            }
-          ];
-        } else if (role === 1) {
-          menu = [
-            {
-              title: '作业概览',
-              sref: 'home.commonDashboard',
-              icon: 'list'
             }
           ];
         } else {
@@ -40,6 +32,11 @@
               title: '作业概览',
               sref: 'home.commonDashboard',
               icon: 'list'
+            },
+            {
+              title: '成绩排名',
+              sref: 'home.adminDetail',
+              icon: 'edit'
             }
           ];
         }

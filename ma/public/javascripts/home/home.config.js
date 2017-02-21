@@ -115,6 +115,24 @@
             }
           }
         }
+      }).
+      state('home.adminDetail', {
+        url: '/admin/detail',
+        views: {
+          'content': {
+            templateUrl: '/templates/adminDetail',
+            controller: 'homeAdminDetailController',
+            controllerAs: 'vm',
+            resolve: {
+              info: ['homeworkService',
+              function(homeworkService) {
+                return {
+                  homeworkList: homeworkService.getAll()
+                };
+              }]
+            }
+          }
+        }
       });
     }
 })();
