@@ -295,6 +295,9 @@
       border-bottom: 1px solid lightgray;
       text-align: center;
     }
+    .rank-list-item {
+      cursor: pointer;
+    }
     .rank-title-wrap {
       .rank-title {
         font-size: 17px;
@@ -303,6 +306,26 @@
       }
       .class-select {
         margin: 10px 0 16px;
+      }
+    }
+    .self-rank {
+      background-color: rgba(180, 180, 180, 0.25);
+    }
+  }
+  .graph-card {
+    .graph-container {
+      border-bottom: 1px solid lightgray;
+    }
+    .score-distribution {
+      .row-wrap {
+        border-bottom: 1px solid lightgray;
+        height: 80px;
+        .count {
+          font-size: 25px;
+        }
+        .title {
+          font-size: 15px;
+        }
       }
     }
   }

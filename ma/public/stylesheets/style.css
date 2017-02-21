@@ -267,6 +267,9 @@
   border-bottom: 1px solid lightgray;
   text-align: center;
 }
+.student-detail-content .rank-card .rank-list-item {
+  cursor: pointer;
+}
 .student-detail-content .rank-card .rank-title-wrap .rank-title {
   font-size: 17px;
   margin-top: -8px;
@@ -274,6 +277,22 @@
 }
 .student-detail-content .rank-card .rank-title-wrap .class-select {
   margin: 10px 0 16px;
+}
+.student-detail-content .rank-card .self-rank {
+  background-color: rgba(180, 180, 180, 0.25);
+}
+.student-detail-content .graph-card .graph-container {
+  border-bottom: 1px solid lightgray;
+}
+.student-detail-content .graph-card .score-distribution .row-wrap {
+  border-bottom: 1px solid lightgray;
+  height: 80px;
+}
+.student-detail-content .graph-card .score-distribution .row-wrap .count {
+  font-size: 25px;
+}
+.student-detail-content .graph-card .score-distribution .row-wrap .title {
+  font-size: 15px;
 }
 
 /* ui-view-animation */

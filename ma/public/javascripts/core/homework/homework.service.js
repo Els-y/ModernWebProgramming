@@ -19,7 +19,8 @@
         getFromReview: getFromReview,
         submitReview: submitReview,
         confirmReview: confirmReview,
-        getRank: getRank
+        getRank: getRank,
+        drawPieGraph: drawPieGraph
       };
 
       function getOneById(id) {
@@ -114,6 +115,60 @@
             homework: homework._id
           }
         });
+      }
+
+      function drawPieGraph(reviews) {
+        var scoreDistribution = [0, 0, 0, 0, 0];
+
+        reviews.forEach(function(review) {
+          if (review.score < 60) {
+            scoreDistribution[0]++;
+          } else if (review.score >= 60 && review.score < 70) {
+            scoreDistribution[1]++;
+          } else if (review.score >= 70 && review.score < 80) {
+            scoreDistribution[2]++;
+          } else if (review.score >= 80 && review.score < 90) {
+            scoreDistribution[3]++;
+          } else {
+            scoreDistribution[4]++;
+          }
+        });
+
+        $('.graph-container').highcharts({
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false
+          },
+          title: {
+              text: '分数分布'
+          },
+          tooltip: {
+              pointFormat: '<b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                      enabled: false
+                  },
+                  showInLegend: true
+              }
+          },
+          series: [{
+              type: 'pie',
+              name: '',
+              data: [
+                  ['0~60', scoreDistribution[0] / reviews.length],
+                  ['60~70', scoreDistribution[1] / reviews.length],
+                  ['70~80', scoreDistribution[2] / reviews.length],
+                  ['80~90', scoreDistribution[3] / reviews.length],
+                  ['90~100', scoreDistribution[4] / reviews.length],
+              ]
+          }]
+        });
+        return scoreDistribution;
       }
     }
 })();
