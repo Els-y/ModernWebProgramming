@@ -29,6 +29,16 @@
           }
         }
       }).
+      state('home.commonPassword', {
+        url: '/common/password',
+        views: {
+          'content': {
+            templateUrl: '/templates/commonPassword',
+            controller: 'homeCommonPasswordController',
+            controllerAs: 'vm'
+          }
+        }
+      }).
       // Student
       state('home.studentDetail', {
         url: '/student/detail',

@@ -82,4 +82,46 @@ router.post('/login', function(req, res, next) {
   });
 });
 
+router.post('/password', function(req, res, next) {
+  var status = {
+    success: false,
+    data: {
+      err: null
+    }
+  };
+
+  if (!req.session.user ||
+      !checkPasswordValid(req.body)) {
+    return res.json(status);
+  }
+
+  User.findOne({
+    stuid: req.session.user.stuid
+  }).exec().then(function(user) {
+    if (user.comparePassword(req.body.old)) {
+      user.password = req.body.new;
+      user.encryptPassword();
+      return user.save();
+    } else {
+      status.data.err = "密码错误";
+      return Promise.reject('wrong');
+    }
+  }).then(function(user) {
+    status.success = true;
+  }).catch(function(reason) {
+    if (reason !== 'wrong') status.data.err = "数据库出错";
+  }).finally(function() {
+    res.json(status);
+  });
+});
+
+function checkPasswordValid(form) {
+  if (!form.old ||
+      !form.new ||
+      !form.confirm) return false;
+
+  if (form.new !== form.confirm) return false;
+  else return true;
+}
+
 module.exports = router;

@@ -13,6 +13,10 @@ div.home-content(layout='row', flex)
             | {{section.title}}
       div(flex)
       ul.ma-menu.user-menu(layout='column')
+        li.list-item(ng-class='{"sectionActive": vm.isSectionSelected({sref: "home.commonPassword"})}', ng-click='vm.changePassword()')
+          md-button
+            ng-md-icon(icon="person", size="14")
+            | 修改密码
         li.list-item
           md-button(ng-click='vm.logout()')
             ng-md-icon(icon="logout", size="14")

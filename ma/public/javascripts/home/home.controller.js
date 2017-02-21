@@ -17,6 +17,7 @@
       vm.logout = logout;
       vm.toggleSideNav = toggleSideNav;
       vm.isSectionSelected = isSectionSelected;
+      vm.changePassword = changePassword;
 
       function logout() {
         authorization.logout().then(function(response) {
@@ -37,6 +38,14 @@
 
       function isSectionSelected(section) {
         return vm.openedSection.sref === section.sref;
+      }
+
+      function changePassword() {
+        selectSection({
+          title: '修改密码',
+          sref: 'home.commonPassword'
+        });
+        $state.go('home.commonPassword');
       }
     }
 })();

@@ -8,6 +8,16 @@
   margin-top: 0;
 }
 
+.password-form-wrap {
+  padding: 32px;
+}
+.password-form-wrap .password-form-header {
+  text-align: center;
+}
+.password-form-wrap .password-new-container, .password-form-wrap .password-confirm-container {
+  margin-top: 0;
+}
+
 .home-content .top-toolbar {
   background: #f6f6f6 !important;
   color: #202020 !important;

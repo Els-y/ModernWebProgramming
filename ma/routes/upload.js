@@ -26,15 +26,19 @@ var upload = multer({
 });
 
 function fileFilter(req, file, cb) {
-  Homework.findById(req.body._id).exec().
-    then(function(homework) {
-      var timenow = new Date();
-      if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
-        cb(null, true);
-      } else {
-        cb(null, false);
-      }
-    });
+  if (!req.session.user) {
+    cb(null, false);
+  } else {
+    Homework.findById(req.body._id).exec().
+      then(function(homework) {
+        var timenow = new Date();
+        if (homework && timenow >= homework.beginTime && timenow <= homework.endTime) {
+          cb(null, true);
+        } else {
+          cb(null, false);
+        }
+      });
+  }
 }
 
 router.post('/code', upload.single('code'), function(req, res, next) {
