@@ -21,4 +21,14 @@ userScheMa.methods.comparePassword = function(pwd) {
   return bcrypt.compareSync(pwd, this.password);
 };
 
+// cookie
+userScheMa.methods.getUsernameToken = function() {
+  var salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(this.name, salt);
+};
+
+userScheMa.methods.compareUsernameToken = function(token) {
+  return bcrypt.compareSync(this.name, token);
+};
+
 module.exports = mongoose.model('users', userScheMa);

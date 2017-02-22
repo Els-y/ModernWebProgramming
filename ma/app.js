@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var session = require('express-session');
 var settings = require('./modules/settings');
+var User = require('./models/user');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -29,12 +30,29 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(express.static(path.join(__dirname, 'uploads')));
+
 app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: settings.session.secret,
-  cookie: settings.session.cookie
 }));
+
+app.use(function(req, res, next) {
+  if (!req.session.user && req.cookies.rememberMe) {
+    var remember = req.cookies.rememberMe;
+    User.findById(remember.uid).exec().
+      then(function(user) {
+        if (user && user.compareUsernameToken(remember.token)) {
+          req.session.user = user;
+        }
+        next();
+      }).catch(function() {
+        next();
+      });
+  } else {
+    next();
+  }
+});
 
 app.use('/', index);
 app.use('/users', users);

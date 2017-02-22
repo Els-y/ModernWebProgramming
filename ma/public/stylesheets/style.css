@@ -4,8 +4,8 @@
 .login-form-wrap .login-form-header {
   text-align: center;
 }
-.login-form-wrap .login-password-container {
-  margin-top: 0;
+.login-form-wrap .login-password-container, .login-form-wrap .login-remember-container {
+  margin: 0;
 }
 
 .password-form-wrap {
@@ -304,7 +304,5 @@
 .student-detail-content .graph-card .score-distribution .row-wrap .title {
   font-size: 15px;
 }
-
-/* ui-view-animation */
 
 /*# sourceMappingURL=style.css.map */

@@ -31,6 +31,7 @@ router.get('/haslogin', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
   req.session.user = null;
+  res.clearCookie('rememberMe');
   res.json({
     success: true
   });
@@ -59,6 +60,15 @@ router.post('/login', function(req, res, next) {
   User.findOne({stuid: req.body.stuid}).exec().then(function(user) {
     if (user) {
       if (user.comparePassword(req.body.password)) {
+        if (req.body.remember) {
+          console.log('set cookie');
+          res.cookie('rememberMe', {
+            uid: user._id,
+            token: user.getUsernameToken(),
+            keep_login: true
+          }, settings.cookie);
+        }
+
         req.session.user = user;
         status.success = true;
         status.data.user = {

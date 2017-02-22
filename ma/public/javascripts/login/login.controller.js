@@ -10,7 +10,8 @@
     var vm = this;
     vm.form = {
       stuid: '',
-      password: ''
+      password: '',
+      remember: false
     };
     vm.login = login;
     activate();

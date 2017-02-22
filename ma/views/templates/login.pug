@@ -8,4 +8,6 @@ div(layout='column', layout-align='center center', flex)
       md-input-container.login-password-container
         label 密码
         input(type='password', ng-model='vm.form.password')
+      md-input-container.login-remember-container
+        md-checkbox.md-primary(ng-model='vm.form.remember', required) 保持登录
       md-button.md-raised.md-primary(type='submit', ng-click='vm.login()') 登录
