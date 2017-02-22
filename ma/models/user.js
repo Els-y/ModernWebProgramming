@@ -4,18 +4,13 @@ var Promise = require('bluebird');
 
 var Schema = mongoose.Schema;
 var userScheMa = new Schema({
-  stuid: String,
+  stuid: String,  // 用户名学号
   password: String,
   name: String,
-  class: Number,
-  group: Number,
-  role: Number  // 0: student, 1: ta, 2: teacher
+  class: Number,  // 所在班级
+  group: Number,  // 所在小组
+  role: Number  // 权限 0: 学生, 1: TA, 2: 教师
 });
-
-// userScheMa.pre('save', function(next) {
-//   this.encryptPassword();
-//   next();
-// });
 
 userScheMa.methods.encryptPassword = function() {
   var salt = bcrypt.genSaltSync(10);
@@ -24,6 +19,16 @@ userScheMa.methods.encryptPassword = function() {
 
 userScheMa.methods.comparePassword = function(pwd) {
   return bcrypt.compareSync(pwd, this.password);
+};
+
+// cookie
+userScheMa.methods.getUsernameToken = function() {
+  var salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(this.name, salt);
+};
+
+userScheMa.methods.compareUsernameToken = function(token) {
+  return bcrypt.compareSync(this.name, token);
 };
 
 module.exports = mongoose.model('users', userScheMa);

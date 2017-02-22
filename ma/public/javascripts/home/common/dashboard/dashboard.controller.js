@@ -5,8 +5,8 @@
     module('app.home.common.dashboard').
     controller('homeCommonDashboardController', homeCommonDashboardController);
 
-  homeCommonDashboardController.$inject = ['$state', '$scope', '$filter', '$mdDialog', 'info', 'storage', 'homeworkService'];
-  function homeCommonDashboardController($state, $scope, $filter, $mdDialog, info, storage, homeworkService) {
+  homeCommonDashboardController.$inject = ['$state', '$scope', '$mdDialog', 'info', 'storage', 'homeworkService'];
+  function homeCommonDashboardController($state, $scope, $mdDialog, info, storage, homeworkService) {
     var vm = this;
     vm.homeworks = [];
     vm.openMenu = openMenu;

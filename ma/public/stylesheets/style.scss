@@ -11,7 +11,18 @@
   .login-form-header {
     text-align: center;
   }
-  .login-password-container {
+  .login-password-container, .login-remember-container {
+    margin: 0;
+  }
+}
+
+// Password
+.password-form-wrap {
+  padding: 32px;
+  .password-form-header {
+    text-align: center;
+  }
+  .password-new-container, .password-confirm-container {
     margin-top: 0;
   }
 }
@@ -287,29 +298,46 @@
   }
 }
 
-
-/* ui-view-animation */
-// .ui-view-container {
-//   position: relative;
-// }
-// [ui-view].ng-enter, [ui-view].ng-leave {
-//   position: absolute;
-//   // left: 0;
-//   // right: 0;
-// }
-// [ui-view].ng-enter {
-//   animation: 0.5s fade-in;
-//   z-index: 100;
-// }
-// [ui-view].ng-leave {
-//   animation: 0.5s fade-out;
-//   z-index: 99;
-// }
-// @keyframes fade-in {
-//   from { opacity: 0; }
-//   to   { opacity: 1; }
-// }
-// @keyframes fade-out {
-//   from { opacity: 1; }
-//   to   { opacity: 0; }
-// }
+// Student Detail
+.student-detail-content {
+  .rank-card {
+    overflow: auto;
+    md-list md-list-item {
+      border-bottom: 1px solid lightgray;
+      text-align: center;
+    }
+    .rank-list-item {
+      cursor: pointer;
+    }
+    .rank-title-wrap {
+      .rank-title {
+        font-size: 17px;
+        margin-top: -8px;
+        padding: 10px;
+      }
+      .class-select {
+        margin: 10px 0 16px;
+      }
+    }
+    .self-rank {
+      background-color: rgba(180, 180, 180, 0.25);
+    }
+  }
+  .graph-card {
+    .graph-container {
+      border-bottom: 1px solid lightgray;
+    }
+    .score-distribution {
+      .row-wrap {
+        border-bottom: 1px solid lightgray;
+        height: 80px;
+        .count {
+          font-size: 25px;
+        }
+        .title {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

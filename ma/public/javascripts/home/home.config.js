@@ -29,6 +29,16 @@
           }
         }
       }).
+      state('home.commonPassword', {
+        url: '/common/password',
+        views: {
+          'content': {
+            templateUrl: '/templates/commonPassword',
+            controller: 'homeCommonPasswordController',
+            controllerAs: 'vm'
+          }
+        }
+      }).
       // Student
       state('home.studentDetail', {
         url: '/student/detail',
@@ -36,7 +46,15 @@
           'content': {
             templateUrl: '/templates/studentDetail',
             controller: 'homeStudentDetailController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+              info: ['homeworkService',
+              function(homeworkService) {
+                return {
+                  homeworkList: homeworkService.getAll()
+                };
+              }]
+            }
           }
         }
       }).
@@ -102,6 +120,24 @@
                 var homework = $stateParams.homework;
                 return {
                   uploads: homeworkService.getToReview(homework)
+                };
+              }]
+            }
+          }
+        }
+      }).
+      state('home.adminDetail', {
+        url: '/admin/detail',
+        views: {
+          'content': {
+            templateUrl: '/templates/adminDetail',
+            controller: 'homeAdminDetailController',
+            controllerAs: 'vm',
+            resolve: {
+              info: ['homeworkService',
+              function(homeworkService) {
+                return {
+                  homeworkList: homeworkService.getAll()
                 };
               }]
             }

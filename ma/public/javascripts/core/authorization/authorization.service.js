@@ -10,7 +10,8 @@
       return {
         haslogin: haslogin,
         login: login,
-        logout: logout
+        logout: logout,
+        changePassword: changePassword
       };
 
       function haslogin() {
@@ -32,6 +33,10 @@
         function successCallback(response) {
           return response.data;
         }
+      }
+
+      function changePassword(form) {
+        return basic('/users/password', 'post', form);
       }
     }
 })();

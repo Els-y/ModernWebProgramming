@@ -3,8 +3,8 @@ div.home-content(layout='row', flex)
     header.nav-header
       h1.user-name {{user.name}}
       p.user-info
-        span.user-class 班级: {{user.class == 0 ? '-' : user.class}}
-        span.user-group 小组: {{user.group == 0 ? '-' : user.group}}
+        span.user-class 班级: {{user.role == 0 ? user.class : '-'}}
+        span.user-group 小组: {{user.role == 0 ? user.group : '-'}}
     md-content.nav-content(flex, role='navigation', layout='column')
       ul.ma-menu(layout='column')
         li.list-item(ng-repeat='section in vm.menu', ng-class='{"sectionActive": vm.isSectionSelected(section)}', ng-click='selectSection(section)')
@@ -13,6 +13,10 @@ div.home-content(layout='row', flex)
             | {{section.title}}
       div(flex)
       ul.ma-menu.user-menu(layout='column')
+        li.list-item(ng-class='{"sectionActive": vm.isSectionSelected({sref: "home.commonPassword"})}', ng-click='vm.changePassword()')
+          md-button
+            ng-md-icon(icon="person", size="14")
+            | 修改密码
         li.list-item
           md-button(ng-click='vm.logout()')
             ng-md-icon(icon="logout", size="14")

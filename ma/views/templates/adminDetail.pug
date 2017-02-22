@@ -6,7 +6,7 @@ md-content.student-detail-content(layout='row', layout-xs='column', layout-paddi
           span 作业排名
         span(flex)
         md-select.md-no-underline.class-select(ng-model="vm.homework", placeholder="作业1")
-          md-option(ng-repeat='homework in vm.homeworks', value="作业{{$index + 1}}", ng-click='vm.selectHomework(homework)') 作业{{$index + 1}}
+          md-option(ng-repeat='homework in vm.homeworks | homeworkClassFilter:selectedClass', value="作业{{$index + 1}}", ng-click='vm.selectHomework(homework)') 作业{{$index + 1}}
       md-list-item
         div(flex='20')
           span 排名
