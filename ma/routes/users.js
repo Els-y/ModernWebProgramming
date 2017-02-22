@@ -61,7 +61,6 @@ router.post('/login', function(req, res, next) {
     if (user) {
       if (user.comparePassword(req.body.password)) {
         if (req.body.remember) {
-          console.log('set cookie');
           res.cookie('rememberMe', {
             uid: user._id,
             token: user.getUsernameToken(),
