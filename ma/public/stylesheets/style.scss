@@ -341,30 +341,3 @@
     }
   }
 }
-
-
-/* ui-view-animation */
-// .ui-view-container {
-//   position: relative;
-// }
-// [ui-view].ng-enter, [ui-view].ng-leave {
-//   position: absolute;
-//   // left: 0;
-//   // right: 0;
-// }
-// [ui-view].ng-enter {
-//   animation: 0.5s fade-in;
-//   z-index: 100;
-// }
-// [ui-view].ng-leave {
-//   animation: 0.5s fade-out;
-//   z-index: 99;
-// }
-// @keyframes fade-in {
-//   from { opacity: 0; }
-//   to   { opacity: 1; }
-// }
-// @keyframes fade-out {
-//   from { opacity: 1; }
-//   to   { opacity: 0; }
-// }
