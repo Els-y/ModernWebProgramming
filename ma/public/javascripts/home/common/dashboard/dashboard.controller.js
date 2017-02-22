@@ -5,9 +5,10 @@
     module('app.home.common.dashboard').
     controller('homeCommonDashboardController', homeCommonDashboardController);
 
-  homeCommonDashboardController.$inject = ['$state', '$scope', '$mdDialog', 'info', 'storage', 'homeworkService'];
-  function homeCommonDashboardController($state, $scope, $mdDialog, info, storage, homeworkService) {
+  homeCommonDashboardController.$inject = ['$state', '$scope', '$interval', '$mdDialog', 'info', 'storage', 'homeworkService'];
+  function homeCommonDashboardController($state, $scope, $interval, $mdDialog, info, storage, homeworkService) {
     var vm = this;
+    var timer;
     vm.homeworks = [];
     vm.openMenu = openMenu;
     vm.addHomework = addHomework;
@@ -75,6 +76,11 @@
         vm.homeworks = response.data.list;
         addHomeworkStatus(vm.homeworks, user);
         storage.set('homeworks', vm.homeworks);
+      });
+
+      timer = $interval(reloadHomeworks, 4000);
+      $scope.$on('$destroy', function(){
+        $interval.cancel(timer);
       });
     }
 
